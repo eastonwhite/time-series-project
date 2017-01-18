@@ -1,0 +1,55 @@
+---
+title: "Your time series is (probably) too short"
+author: "Easton R. White"
+date: "January 18, 2017"
+output: pdf_document
+---
+
+```{r,echo=F,include=F,eval=F}
+# General manuscript notes here
+```
+
+
+# Outline
+
+
+## Titles: "Your time series is (probably) too short" "Minimum time series calculations for population inferences"
+## Length: about 150 words for the abstract, 2500 words, not including a short abstract, not more than 20 references, and a total of 3 figures, tables, and/or panels
+
+
+## Outline
+
+## Abstract (150 words)
+
+## Introduction to problem (600 words)
+
+- ~~Have longer data sets now, Short funding cycles~~
+- Little work has empirically investigated how long time series need to be
+- Power series
+- Empirically answer this question
+- What determines minimum time series
+    - Deterministic skeleton (dynamics), stochasticity, question being asked, biology of organism, management and conservation practices, power and alpha
+- Past work that has looked at this question
+- Population dynamics database
+- What we plan to do
+
+## Methods (750 words)
+- How to subsample
+- Theoretical results (maybe in the appendix mostly)
+- Min time series calculation for each question
+- Database I will be using
+
+## Results (500 words)
+- Simulated data with cycles and other types of attractors where we know what time series length you need to sample
+- 1 good case study example (maybe this is in methods?) 
+   - Isle Royale
+- Results from X number of species
+
+## Discussion and generality (800 words)
+
+## Conclusions
+
+## Figures/tables
+
+http://www.frontiersinecology.org/fron/instructions-to-authors/research-communications/
+

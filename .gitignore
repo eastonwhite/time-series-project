@@ -7,4 +7,7 @@ analysis-outputs/*
 data/*
 long-term-literature/*
 scripts/*
-writing/*
+*.docx
+writing/?*.docx
+writing/?*.pdf
+writing/?*.html

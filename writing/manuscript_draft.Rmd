@@ -1,0 +1,94 @@
+---
+title: "Your time series is (probably) too short"
+author: "Easton R. White"
+date: "January 18, 2017"
+output: html_document
+---
+
+## Abstract
+Longterm census data is necessary to better understand population dynamics, assess threat statuses, and make future predictions for numerous populations. However, there has been very little work done to assess how long a time series needs to be to answer a particular question. Several databases have emerged to compile long term time series. Here we empirically evaluate the minimum time series length required to answer several questions of biological interest. We address this question using time series data on XX populations of XX species including We find that most time series In the future, we advise
+
+## Introduction 
+Observational studies, and censusing populations, has become a cornerstone of modern ecology and conservation biology. Longterm data is necessary to understand population dynamics and to assess extinction risk of species. Even many time series may now be considered "longterm", most are still short (i.e. less than X years). I could have statistic on how long is considered "longterm" in papers. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time. There are of course notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others.  
+
+(lack of statistical tools to evaluate power of time series) - can simulate or subsample data. In order to properly estimate mimumn time seris you need to know     IUt will also depend on your question
+
+In determining the number of samples required for a particular experiment X quantities are intricately linked: statistical power, effect size, alpha, sample size,  Formally, statistical power is the one minus the probability of a type II error, or false negative. In other words, it is a measure of how well you could detect a trend given it is statistically significant. Prior to an experiment, one could set appropriate levels of power, alpha, and the effect size to estimate the sample size required for the experiment. This approach, however, is not as simple for a time series as the data points are clearly non-independent. Therefore, two approaches can be used to estimate the number of time points required to detect a trend. The first approach is a simulation approach. The second approach
+
+Little work has actually gone into evaluating how long a time series needs to be to address questions of interest. The minimum length of a time series is similar to the question of the minimal number of samples required for any experiment. However, samples in a time series cannot be considered independent (citation). The mimumum length of a time series will depend on a number of factors. First, the question will obviously drive a lot of the length reuirments. If you are interested in how a population responds to El Nino, this will need a much longer time series compared to if you wanted to know Second, properties of the species of interest, and their population will affect the minimum time series required, including the presence of internally driven cycles, variance in population size, generation time, 
+The IUCN provides minumim time series criteria to assess species threat status. They require a 10 year, or 3 genration, whichever is shorter To determine status. 
+
+How sensitivity are our findings to changes in the length of our time series?
+
+Recently, several databases (e.g.) of animal population censuses have emerged that facilate the comparison of many populations.
+
+In this paper, we evaluate the minimal time series length required to answer X questions. 1) How sensitivive are IUCN asssessments to time series lengths? 2) What minimum time series length is required to measure the entire time series trend? 3) How long does a time series need to be to measure the variance in population size (rare event questions)? We demonstrate our approach with X case studies and then show results for X species from the Blah Blah Database. 
+
+## Methods
+
+### Data source
+We use a series of XXXX time series compiled in @Keith2015. The database includes information on X vertebrate species with a focus on mammals, birds, and fish. We filtered out short time series (less than XX) and were left with XX time series with an average length of XX. The database also includes information on generation length, census type,
+
+For a subset of populations in the database, we were able to connect a database on biological characteristic
+Analyses
+Our objective is to determine the miniuum time series length (T_min) required to answer various questions. As we describe below, the minimum time series length calculation is particular to each question. We assume that the time series in our database are long enough to include all necessary information (e.g. variability) about the population. In other words, they are a representive sample. We then take random contiguous subsamples of each time series and compare each subset to the measurements on the entire time series. For example, for Isla Royale wolves there are XX years of data available. We can then take contiguous subsets of those XX years. This results in XX subsets of length 2 years, XX subsets of length 3 years, and so forth until one subset of length XX years. We then examine how various measurements on the population change as we increase the subset length. 
+
+Question 1: What length of time series is needed to detect a significant trend in abundance?
+Here we subsample each time series to determine the T_min required to calculate the overall time series trend. We first take all possible contiguous subsamples of the overall time series. For example, a time series of 40 years would have 39 possible contiguous subsamples of length 2, 38 possible contiguous subsamples of length 3, and so forth. For each subsample we run linear regression to determine the slope parameter and if the slope parameter estimated is significant. Then we can determine the total number of contiguous subsamples of a certain length that detect a significant trend given it is present---this is an estimate of statistical power. 
+
+Figure 1 - maybe make one figure for questions 1,2, and 3
+
+We define the minimum time required as the point when the curve begins to saturate above some threshold. For instance, in figure 1 if we want power of at least 0.8, then it would take XX years to be sure that power will be above that threshold. We then define T_min as that specific number of year. 
+
+Question 2: How sensitive are IUCN assessments to time series trends?
+The IUCN sets threat statuses for a variety of species. Importaly, they have a threshold of 10 years or 3 generation. Therefore, we subsampled all possible 10-year, or greater, time series for each population. For example, species X has been sampled for 40 years. This would lead to XX possible 10-year time series. We then determined what percentage of these 10 year, or greater, time series would lead to the wrong conculsions compared to the full time series.
+
+Question 3: How long does a population need to be sampled to capture the variability in population size?
+
+Populations vary from year-to-year for several reasons including
+
+## Results
+
+```{r,echo=F,eval=F,include=F}
+# Pull in analysis of average min time needed **theoretical models** (save analysis as Rdata file or something)
+
+```
+
+
+```{r,echo=F,eval=F,include=F}
+# Pull in analysis of average min time needed for **empirical species** (save analysis as Rdata file or something)
+
+```
+
+- Intro paragraph on what we generally found (average T_min and range), many species needed the full time series
+
+Across all the populations we examined, we found an average minimum time series length required ($T_{min}$) of `r 2+3 #calculation here`. 
+
+- What does a theoretically model predict (does min time scale with trend, power, variability, autocorrelation, something else) - definitely depends on what you set for alpha and beta
+- Case studie(s)
+- For all species
+    - Average min time needed
+    - Correlates well with trend, variability, and autocorrelation
+    - Surprisingly does not correlate well with generation time or any other biological variables (need to do proper regression though)
+    
+```{r,echo=F,eval=F,include=F}
+# Create plots from min time needed analyses
+```
+    
+
+## Potential figures
+- Examples of how determining minimum time series works (probably in methods)
+- What min time should scale with theoretically (trend, power, variability, etc) - another multi panel figure
+- Mean min time by class or system
+- Separate results for species, body size, location, biology. - multi panel figure
+
+## Discussion
+- Findings
+- Extensions to other systems. Useful to use similar species
+- Other questions to ask
+- Comparisons to past work
+- Future recommendations to others
+
+
+
+
