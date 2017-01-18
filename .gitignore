@@ -1,0 +1,10 @@
+
+
+.DS_Store
+.Rhistory
+Literature/*
+analysis-outputs/*
+data/*
+long-term-literature/*
+scripts/*
+writing/*
