@@ -6,8 +6,12 @@ Literature/*
 analysis-outputs/*
 data/*
 long-term-literature/*
-scripts/*
 *.docx
 writing/?*.docx
 writing/?*.pdf
 writing/?*.html
+figures/
+scripts/old-scripts/*
+scripts/plots.Rmd
+scripts/plot-time-series-and-avg-slopes.R
+scripts/sample-data-frequency.R
