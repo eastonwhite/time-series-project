@@ -16,6 +16,9 @@ calculate_power = function(r,phi,sigma,trials,max.time){
   
   y=replicate(n=trials,simulate_pop(r,phi,sigma,max.time)) # simulate a number of populations with same parameter values
   
-  power=sum(apply(y,2,calculate_p_value)<0.05)/trials # evaluates slope coefficients compared to 0.05 (this can be modified)
+  power=sum((apply(y,2,calculate_p_value)<0.05) & sign(apply(y,2,calculate_slope))==sign(r))/trials # evaluates slope coefficients compared to 0.05 (this can be modified)
+  # Alternative definition of power which does not require linear regression to have same sign of "true" trend
+  # power=sum((apply(y,2,calculate_p_value)<0.05))/trials 
+  
   return(power)
 }
