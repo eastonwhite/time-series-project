@@ -8,8 +8,8 @@
 require(plyr)
 
 #pull in neccessary functions
-source('calculate_slope.R')
-source('create_subsamples.R')
+source('scripts/calculate_slope.R')
+source('scripts/create_subsamples.R')
 
 calculate_average_slopes = function(pop){
   subset_times=create_subsamples(pop)
@@ -37,17 +37,17 @@ min_time_needed = function(pop, threshold){
   }
 }
 
-
-
-##########
-# run a loop to find the min time series length rrequrired for each population
-mimimum_time_required = matrix(0,nrow=nrow(pop_info),ncol=1)
-###run loop to make plot
-for (j in names(table(long_dat$ID))){
-  
-  pop=subset(long_dat,long_dat$ID==j)$popvalue[1:40]/max(subset(long_dat,long_dat$ID==j)$popvalue[1:40])
-
-  mimimum_time_required[which(j==pop_info$ID),1] = min_time_needed(pop,0.05)
-
-  print(paste(which(j==pop_info$ID),j,":",mimimum_time_required[which(j==pop_info$ID),1]))
-}
+# 
+# 
+# ##########
+# # run a loop to find the min time series length rrequrired for each population
+# mimimum_time_required = matrix(0,nrow=nrow(pop_info),ncol=1)
+# ###run loop to make plot
+# for (j in names(table(long_dat$ID))){
+#   
+#   pop=subset(long_dat,long_dat$ID==j)$popvalue[1:40]/max(subset(long_dat,long_dat$ID==j)$popvalue[1:40])
+# 
+#   mimimum_time_required[which(j==pop_info$ID),1] = min_time_needed(pop,0.05)
+# 
+#   print(paste(which(j==pop_info$ID),j,":",mimimum_time_required[which(j==pop_info$ID),1]))
+# }

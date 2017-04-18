@@ -12,14 +12,32 @@ require(plyr)
 source('scripts/calculate_slope.R')
 source('scripts/create_subsamples.R')
 
+
+#This is a two-sided test (should use 1 tailed test)
+# calculate_power_for_subsamples = function(pop,alpha){
+#   subset_times=create_subsamples(pop)
+#   power=matrix(0,nrow=(length(pop)-1),1)
+#   for (n in 1:(length(pop)-1)){
+#     power[n,1]=sum(apply(na.omit(subset_times[[n]]),1,calculate_p_value)<alpha)/(length(pop) - n)
+#   }
+#   return(power)
+# }  
+
+
+######## Implement one-tailed test
 calculate_power_for_subsamples = function(pop,alpha){
   subset_times=create_subsamples(pop)
   power=matrix(0,nrow=(length(pop)-1),1)
   for (n in 1:(length(pop)-1)){
-    power[n,1]=sum(apply(na.omit(subset_times[[n]]),1,calculate_p_value)<alpha)/(length(pop) - n)
+    power[n,1]=sum(apply(na.omit(subset_times[[n]]),1,calculate_p_value)<alpha  & sign(apply(na.omit(subset_times[[n]]),1,calculate_slope))==sign(calculate_slope(pop))  )/(length(pop) - n)
   }
   return(power)
 }  
+
+
+
+#######
+
 
 
 

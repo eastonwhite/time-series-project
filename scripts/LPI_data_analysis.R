@@ -19,11 +19,11 @@ LPI_long$year=as.numeric(sub('X','',LPI_long$year))
 
 newdata=arrange(LPI_long,ID,year)
 
-testing=newdata[,c(1,2,3,19,20)]
-testing$pop_value[testing$pop_value=='NULL']=as.numeric(NA)
+testing=newdata[,c(1,2,3,10,11,19,20)]
+testing[testing=='NULL']=NA
 #removed=na.omit(testing)
 
-long_term_series_names=names(sort(table(removed$ID),decreasing=T)[sort(table(removed$ID),decreasing=T)>40])
+long_term_series_names=names(sort(table(removed$ID),decreasing=T)[sort(table(removed$ID),decreasing=T)>35])
 
 y=subset(removed,removed$ID %in% long_term_series_names)
 
@@ -33,4 +33,15 @@ for (species_code in long_term_series_names[1]){
   
   
 }
+
+
+
+# Plots to make
+load('example_min_time_LPI_data.Rdata')
+par(mfrow=c(1,1))
+plot(jitter(pop_info$Latitude,amount=2),pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),xlim=c(0,80),las=1,ylab='',xlab='',cex.axis=1.2)
+mtext(text = 'minimum time required',side = 2,line = 3,cex = 1.4)
+mtext(text = 'latitude',side = 1,line = 3,cex = 1.4)
+
+plot(jitter(pop_info$Longitude,amount=2),pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5))
 
