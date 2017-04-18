@@ -15,3 +15,8 @@ scripts/old-scripts/*
 scripts/plots.Rmd
 scripts/plot-time-series-and-avg-slopes.R
 scripts/sample-data-frequency.R
+presentations/*
+writing/ER_White_ESA_abstract_2017.Rmd
+scripts/detrend_time_series.R
+scripts/estimate_model_params_and_simulate.R
+writing/supp_mat_draft.Rmd
