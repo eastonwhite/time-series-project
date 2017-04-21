@@ -1,0 +1,53 @@
+---
+title: 'Supp mat: time series paper'
+author: "Easton R. White"
+date: "February 1, 2017"
+output: html_document
+---
+
+This is where I will build a supplementary material file
+
+
+
+## Example of subsamling and power calculations
+
+Here, we illustrate in detail how we performed the subsampling and power calculations for a specific population. As an example, we examine a 35-year time series of (). Simple linear regression indicates a significant decline for this population with a blank and blank. We assume that this significant decline over 35 years is in fact the ``true trend". In statistical jargon, the 35-year trend is an effect that is actually present. We can then use this as a benchmark to see if subsamples of the time series show a similar result.
+
+We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample. We can call each set of subsamples, of the same length, a set. For each subsample, we conduct linear regression and extract model coefficients and p-values. Then, the fraction of subsamples within a set that show significant trends (signfiiant slope coefficient) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series.
+
+We can then plot statistical power as a function of time series length. As expected, we can see that power increases with the more years that are sampled. 
+
+Then, we determine an appropriate level of statistical power that we find acceptable. Traditionally, this has been at 0.8, however, this is purely historical. Statisical power of 0.8 implies...
+
+With statistical power of 0.8, we then determine the minimum time series length ($t_min$) required to achieve that level of statistical power. Here, $t_min$ is the first point as which all points to the right are above 0.8. 
+
+
+```{r, echo=F}
+# show an example
+```
+
+
+## Results from other questions of interest
+
+# Supplementary material
+
+```{r,echo=F}
+# Example of using population growth rate instead of power
+setwd("~/Desktop/Research/time-series-project")
+source("scripts/calculate_geometric_growth.R")
+
+par(mfrow=c(1,2))
+pop = subset(long_dat,long_dat$ID=='10696') #13192 for Harp seals
+plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,ylim=c(0,2000),las=1)
+abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+mtext(text = 'year',1,line=3,cex=1.4)
+mtext(text = 'population size',2,line=3.5,cex=1.4)
+
+
+aaa=calculate_average_geometric_growth(pop$popvalue)
+plot(rowMeans(aaa,na.rm=T),cex.axis=1.2,pch=16,ylab='',xlab='',las=1)
+mtext(text = 'years sampled',1,line=3,cex=1.4)
+mtext(text = 'population growth rate',2,line=3.7,cex=1.4)
+```
+
+
