@@ -8,7 +8,7 @@
 # For presentation, I could leave out autocorrelation results
 
 simulate_pop = function(r,phi,sigma,max.time){
-  set.seed(12345)
+  #set.seed(12345)
   pop = matrix(1000,nrow=1,ncol=max.time)
     for (t in 1:(max.time-1)){
       #pop[t + 1] = pop[t] + rnorm(n = 1,mean=r*phi,sd = sigma)
