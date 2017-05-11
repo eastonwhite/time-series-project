@@ -5,7 +5,7 @@ output:
     keep_tex: yes
     number_sections: true
     citation_package: natbib
-fontsize: 11pt
+fontsize: 12pt
 geometry: margin=0.75in
 bibliography: White_bib.bib
 header-includes: 
@@ -37,20 +37,14 @@ This supplementary material includes:
 
 1. Mathematical description of our model
 2. Inverse pattern-orientated estimation procedure
-3. Effects of spatial structure and patch heterogeneity
-4. Mainland-Island effect
-5. Invasion from southern area of study site
-6. Parameter sensitivity
-7. Effect of unsampled patches
-8. Long term dynamics
-9. Individual patch dynamics over time
+
 
 Code for all the figures and tables can be found on [Github](https://github.com/erwhite1).
 
 \vspace{2cm}
 
 
-## Example of subsamling and power calculations
+## Detailed example of subsampling and power calculations
 
 Here, we illustrate in detail how we performed the subsampling and power calculations for a specific population. As an example, we examine a 35-year time series of (). Simple linear regression indicates a significant decline for this population with a blank and blank. We assume that this significant decline over 35 years is in fact the ``true trend". In statistical jargon, the 35-year trend is an effect that is actually present. We can then use this as a benchmark to see if subsamples of the time series show a similar result.
 
@@ -64,31 +58,50 @@ With statistical power of 0.8, we then determine the minimum time series length 
 
 
 ```{r, echo=F}
-# show an example
+# show an example of subsampling and power calculation routines
 ```
 
 
 ## Results from other questions of interest
 
-# Supplementary material \ref{fig:growth_rate}
 
-```{r,echo=F,fig.cap='duh\\label{fig:growth_rate}'}
-# Example of using population growth rate instead of power
-#setwd("~/Desktop/Research/time-series-project")
-#source("scripts/calculate_geometric_growth.R")
+### Growth rate calculations
+
+```{r, echo=F, fig.cap='duh\\label{fig:growth_rate}'}
+#Example of using population growth rate instead of power
+setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
+source("scripts/calculate_geometric_growth.R")
+load('cleaned-data/pop_info_example_goodNAs.Rdata')
 
 par(mfrow=c(1,2))
-#pop = subset(long_dat,long_dat$ID=='10696') #13192 for Harp seals
-#plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,ylim=c(0,2000),las=1)
-#abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
-#mtext(text = 'year',1,line=3,cex=1.4)
-#mtext(text = 'population size',2,line=3.5,cex=1.4)
-plot(1,1)
+  pop = subset(long_dat,long_dat$ID=='10696') #13192 for Harp seals
+  plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,ylim=c(0,2000),las=1)
+    abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+    mtext(text = 'year',1,line=3,cex=1.4)
+    mtext(text = 'population size',2,line=3.5,cex=1.4)
 
-#aaa=calculate_average_geometric_growth(pop$popvalue)
-#plot(rowMeans(aaa,na.rm=T),cex.axis=1.2,pch=16,ylab='',xlab='',las=1)
-#mtext(text = 'years sampled',1,line=3,cex=1.4)
-#mtext(text = 'population growth rate',2,line=3.7,cex=1.4)
+  source('scripts/create_subsamples.R')
+  aaa=calculate_average_geometric_growth(pop$popvalue)
+  plot(rowMeans(aaa,na.rm=T),cex.axis=1.2,pch=16,ylab='',xlab='',las=1)
+    mtext(text = 'years sampled',1,line=3,cex=1.4)
+    mtext(text = 'population growth rate',2,line=3.7,cex=1.4)
 ```
 
 
+
+
+### Using Generalized additive model to identify significant trends
+
+TEXT HERE ON IDEA
+
+
+```{r,echo=F,fig.cap='results here from GAM.\\label{fig:gam_example}'}
+# show gam example side-by-side plot
+```
+
+```{r,echo=F,fig.cap='results here from GAM.\\label{fig:gam_result}'}
+# show gam results for minimium time required
+```
+
+
+### References

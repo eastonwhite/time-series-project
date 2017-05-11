@@ -1,4 +1,4 @@
-\documentclass[11pt,]{article}
+\documentclass[12pt,]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -93,10 +93,10 @@
 \begin{center}
  \textbf{Supplementary Material: Article title here}
  
-Authors: Easton R. White$^{1*}$ , John D. Nagy$^{2,3}$, and Andrew T. Smith$^4$ 
+Authors: Easton R. White$^{1*}$
 \vspace{3 mm}
 
-Address: \\ \emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA; \\ $^2$ Department of Life Science, Scottsdale Community College, Scottsdale, Arizona 85253 USA; \\ $^3$ School of Mathematical and Statistical Sciences, Arizona State University, Tempe, Arizona 85287 USA; \\ $^4$ School of Life Sciences, Arizona State University, Tempe, Arizona 85287 USA}
+Address: \\ \emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
 
 *Corresponding author: eawhite@ucdavis.edu
 
@@ -114,20 +114,6 @@ This supplementary material includes:
   Mathematical description of our model
 \item
   Inverse pattern-orientated estimation procedure
-\item
-  Effects of spatial structure and patch heterogeneity
-\item
-  Mainland-Island effect
-\item
-  Invasion from southern area of study site
-\item
-  Parameter sensitivity
-\item
-  Effect of unsampled patches
-\item
-  Long term dynamics
-\item
-  Individual patch dynamics over time
 \end{enumerate}
 
 Code for all the figures and tables can be found on
@@ -135,8 +121,8 @@ Code for all the figures and tables can be found on
 
 \vspace{2cm}
 
-\subsection{Example of subsamling and power
-calculations}\label{example-of-subsamling-and-power-calculations}
+\subsection{Detailed example of subsampling and power
+calculations}\label{detailed-example-of-subsampling-and-power-calculations}
 
 Here, we illustrate in detail how we performed the subsampling and power
 calculations for a specific population. As an example, we examine a
@@ -173,14 +159,24 @@ above 0.8.
 \subsection{Results from other questions of
 interest}\label{results-from-other-questions-of-interest}
 
-\section{\texorpdfstring{Supplementary material
-\ref{fig:growth_rate}}{Supplementary material }}\label{supplementary-material}
+\subsubsection{Growth rate calculations}\label{growth-rate-calculations}
+
+\begin{verbatim}
+## Loading required package: plyr
+\end{verbatim}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-2-1.pdf}
 \caption{duh\label{fig:growth_rate}}
 \end{figure}
+
+\subsubsection{Using Generalized additive model to identify significant
+trends}\label{using-generalized-additive-model-to-identify-significant-trends}
+
+TEXT HERE ON IDEA
+
+\subsubsection{References}\label{references}
 
 \bibliography{White_bib.bib}
 
