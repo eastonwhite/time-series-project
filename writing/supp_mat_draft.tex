@@ -1,0 +1,188 @@
+\documentclass[11pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{float} \renewcommand{\thepage}{S\arabic{page}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{document}
+
+\vspace{2cm}
+
+\begin{center}
+ \textbf{Supplementary Material: Article title here}
+ 
+Authors: Easton R. White$^{1*}$ , John D. Nagy$^{2,3}$, and Andrew T. Smith$^4$ 
+\vspace{3 mm}
+
+Address: \\ \emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA; \\ $^2$ Department of Life Science, Scottsdale Community College, Scottsdale, Arizona 85253 USA; \\ $^3$ School of Mathematical and Statistical Sciences, Arizona State University, Tempe, Arizona 85287 USA; \\ $^4$ School of Life Sciences, Arizona State University, Tempe, Arizona 85287 USA}
+
+*Corresponding author: eawhite@ucdavis.edu
+
+Dec XX, 2016
+ \end{center}
+
+\vspace{2cm}
+
+This supplementary material includes:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mathematical description of our model
+\item
+  Inverse pattern-orientated estimation procedure
+\item
+  Effects of spatial structure and patch heterogeneity
+\item
+  Mainland-Island effect
+\item
+  Invasion from southern area of study site
+\item
+  Parameter sensitivity
+\item
+  Effect of unsampled patches
+\item
+  Long term dynamics
+\item
+  Individual patch dynamics over time
+\end{enumerate}
+
+Code for all the figures and tables can be found on
+\href{https://github.com/erwhite1}{Github}.
+
+\vspace{2cm}
+
+\subsection{Example of subsamling and power
+calculations}\label{example-of-subsamling-and-power-calculations}
+
+Here, we illustrate in detail how we performed the subsampling and power
+calculations for a specific population. As an example, we examine a
+35-year time series of (). Simple linear regression indicates a
+significant decline for this population with a blank and blank. We
+assume that this significant decline over 35 years is in fact the ``true
+trend``. In statistical jargon, the 35-year trend is an effect that is
+actually present. We can then use this as a benchmark to see if
+subsamples of the time series show a similar result.
+
+We first extract all contiguous subsamples of the time series. This
+leads to 34 two-year subsamples, 33 two-year subsamples, and so forth
+until a single 35-year subsample. We can call each set of subsamples, of
+the same length, a set. For each subsample, we conduct linear regression
+and extract model coefficients and p-values. Then, the fraction of
+subsamples within a set that show significant trends (signfiiant slope
+coefficient) is the statistical power. It is important to note that we
+only consider subsamples to be significant if they are significant in
+the same direction as the complete 35-year time series.
+
+We can then plot statistical power as a function of time series length.
+As expected, we can see that power increases with the more years that
+are sampled.
+
+Then, we determine an appropriate level of statistical power that we
+find acceptable. Traditionally, this has been at 0.8, however, this is
+purely historical. Statisical power of 0.8 implies\ldots{}
+
+With statistical power of 0.8, we then determine the minimum time series
+length (\(t_min\)) required to achieve that level of statistical power.
+Here, \(t_min\) is the first point as which all points to the right are
+above 0.8.
+
+\subsection{Results from other questions of
+interest}\label{results-from-other-questions-of-interest}
+
+\section{\texorpdfstring{Supplementary material
+\ref{fig:growth_rate}}{Supplementary material }}\label{supplementary-material}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-2-1.pdf}
+\caption{duh\label{fig:growth_rate}}
+\end{figure}
+
+\bibliography{White_bib.bib}
+
+
+\end{document}
