@@ -299,6 +299,8 @@ par(mfrow=c(1,1))
 -->
 
 ## Discussion
+
+<!-- 
 - Findings and how they relate to past work
 - Extensions to other systems. Useful to use similar species
 - Biological variables not good predictors, but we also used all long-lived vertebrate species
@@ -308,7 +310,24 @@ par(mfrow=c(1,1))
 - conclusion paragraph
 
 The IUCN has an 10 year/3 generation rule... If we apply this rule to the species in our database we see that approximately `r 100*sum(pop_info$min_time_for_power>pop_info$IUCN)/nrow(pop_info)`% of populations need a longer minimum time series than that required by IUCN.
+-->
 
+We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. We focus on a empirical approach to estimate the minimum time series length requried. 
+
+The first question we asked was, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression. We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary. In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation.
+
+There have been previous attempts to address how long a time series should be to assess trends in abundance. For example,...
+
+
+### Limitations
+
+Our work has obvious limitations in determining the minimum time series length required. First, $t_{min}$ depends strongly on the question being asked and the availability of long-term census data. For our empirical approach, the subsampling of the full time series allows for estimates of power, but the individual subsamples are clearly not independent of one another. (sentence about alpha and power limititations here) The perfect scenario would be to have a population model built and parameterized for each population of interest. Then, model simulations could be used to estimate the minimum time series reuqired to address a specific question of interest. Clearly, this is not always practical, especially if running analyses for a wide array of species as we do here. In addition, our statistical models suggest that $t_{min}$ does not correlate with any biological variables of interest, at least for the question of linear regression. Therefore, it is not possible to use these results to predict $t_{min}$ for another population, even if the population is of a species with a similar life-history to one in our database. 
+
+### Conclusions
+
+- what we found, implications, future work
+
+We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required. In line with theoretical predictions, we also show that $t_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation. Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $t_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may have been a poor use of scare funds. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
 
 ### Time series length recommendations from other papers
 
