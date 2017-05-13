@@ -305,6 +305,8 @@ par(mfrow=c(1,1))
 - Extensions to other systems. Useful to use similar species
 - Biological variables not good predictors, but we also used all long-lived vertebrate species
 - Other questions to ask and results in appendix
+
+
 - Future recommendations to others and future work
 - implications
 - conclusion paragraph
@@ -316,8 +318,17 @@ We show two different approaches to estimate the minimum time series length requ
 
 The first question we asked was, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression. We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary. In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation.
 
+We also found that $t_{min}$ did not correlate with any biological variables of interest (cite figure or supp mat). We initially hypothesized that species with longer lifespans or generation times may require more years to sample. (Our result could have been the effect of two reasons) First, the database we used may not include a diverse enough set of species with different life history traits. Second, the question we poised, whether a population is increasing or decreases, is only worried about population surveys. Therefore, biological variables may be more important if the question itself was different...
+
+### Other questions addressed
+
+In the appendix we asked two additional questions to make estimates of $t_{min}$. First, we asked how many years of sampling are neccessary to estimate a geometric growth rate? 
+
+
+### Past work on this issue
 There have been previous attempts to address how long a time series should be to assess trends in abundance. For example,...
 
+An important related question, is the optimal allocation of sampling effort in space versus time (citations). In a theoretical investigation of this question, @Rhodes2011 found that the optimal allocation of sampling depended strongly on temporal and spatial autocorrelation. If spatial population dynamics were highly correlated, then it was better to sample more temporally, and vice versa. Our work supports this idea as populations with strong temporal autocorrelation needed less years of sampling (cite figure here). @Morrison2008 also studied the optimal allocation of sampling effort in space versus time, but used emprical data from a longterm census of the collared pika (\emph{Ochotona collaris}) found in the Yukon. They estimated longterm growth rates among three subpopulations over a 10-year period. They found that censuses less than 5 years may be misleading and that extrapolating from one population to another, even when nearby, may be difficult. Therefore, they argued more sampling should be conducted spatially than temporally [@Morrison2008].
 
 ### Limitations
 
