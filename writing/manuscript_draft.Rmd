@@ -58,15 +58,16 @@ Long-term census data is necessary to better understand ecological processes and
 
 ## Introduction 
 
+<!--
 - intro long time series
 - my general question
 - primer on power
 - more general power interpretation
 - 2+ approaches
 - what we do in this paper
+-->
 
-
-Observational studies, and censusing populations, has become a cornerstone of modern ecology and conservation biology [@Magurran2010]. Longterm data is necessary to understand population dynamics and to assess extinction risk of species. Even though many time series may now be considered "longterm", most are still short (i.e. less than X years). *I could have statistic on how long is considered "longterm" in papers*. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time. There are of course notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others.  
+Observational studies and population censuses have become a cornerstone of modern ecology and conservation biology [@Magurran2010]. Longterm data is necessary to understand population dynamics and to assess extinction risk of species. Even though many time series may now be considered "longterm", most are still short (i.e. less than X years). *I could have statistic on how long is considered "longterm" in papers*. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time. There are of course notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others.  
 
 Naturally, one might ask, how long of a time series is actually necessary? This question has important scientific and management implications. Scientifically, we need to know how long a time series is required to address a specific question. Too short of a time series may lead to wrong conclusions given large natural year-to-year variability. From a management perspective, it is important to understand when a trend in abundance over time is actually meaningful or not. For instance the International Union for the Conservation of Nature (IUCN) suggest...In addition, because sampling is typically expensive, we do not want to over sample [@Gerber1999].
 
@@ -75,6 +76,7 @@ In determining the number of samples required for a particular experiment four q
 For time series data, two general approaches can be used. First, as can be done with experimental data, we can relax the definition of statistical power (cite Bolker). Instead of using classic statistical tests (e.g. t-test), and corresponding power calculations, simulation approaches can be used [@Gerrodette1987]. Simple population models can be simulated with parameter values corresponding to a population of interest. Out of a large number of simulations, power can be calculated as the fraction of simulations that meet some criteria. The specific criteria depend on the question at hand. Then one can run simulations for time series of different lengths to determine the minimum time series length required to be confident that you will be able to answer your question. In addition to using simulated data, empirical time series can also be used. We usually do not have multiple replicates of similar populations, but we can subsample an empirical time series. Subsamples of different lengths can then be evaluated to see which fraction of subsamples meet some criteria, again a measure of statistical power...
 
 Past work has investigated these questions with either theoretical approaches not using data or by examining a single population. As an example of the former, [@Rhodes2011] examined..
+- need to expand this paragraph in line with what I wrote in the discussion...
 
 In this paper, we use both simulations and a database of empirical time series to determine the minimum number of years required to address various questions. To demonstrate these techniques, we address three specific questions: (1) what is the minimum time series length required to identify significant changes over time using linear regression, (2)
 <!-- In this paper, we evaluate the minimal time series length required to answer X questions. 1) How sensitivive are IUCN asssessments to time series lengths? 2) What minimum time series length is required to measure the entire time series trend? 3) How long does a time series need to be to measure the variance in population size (rare event questions)? We demonstrate our approach with X case studies and then show results for X species from the Blah Blah Database.  -->
@@ -314,9 +316,9 @@ par(mfrow=c(1,1))
 The IUCN has an 10 year/3 generation rule... If we apply this rule to the species in our database we see that approximately `r 100*sum(pop_info$min_time_for_power>pop_info$IUCN)/nrow(pop_info)`% of populations need a longer minimum time series than that required by IUCN.
 -->
 
-We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. We focus on a empirical approach to estimate the minimum time series length requried. 
+We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. Here, we focus on a empirical approach to estimate the minimum time series length requried to address a given question. 
 
-The first question we asked was, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression. We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary. In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation.
+First we asked, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression? We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary (Fig. \ref{fig:fig:min_time_dist}). In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation (cite figure).
 
 We also found that $t_{min}$ did not correlate with any biological variables of interest (cite figure or supp mat). We initially hypothesized that species with longer lifespans or generation times may require more years to sample. (Our result could have been the effect of two reasons) First, the database we used may not include a diverse enough set of species with different life history traits. Second, the question we poised, whether a population is increasing or decreases, is only worried about population surveys. Therefore, biological variables may be more important if the question itself was different...
 
@@ -327,6 +329,12 @@ In the appendix we asked two additional questions to make estimates of $t_{min}$
 
 ### Past work on this issue
 There have been previous attempts to address how long a time series should be to assess trends in abundance. For example,...
+
+@Rueda-Cediel2015 found that 10-15 years was adequate to characterize population trends in a short lived animal. They used a matrix model of a particular species...
+
+@Gerber1999 investigated the minimum time series required to estimate population growth of an endagered, but recovering, species. They used a longterm census to retroactively determine the minimum time series required to assess threat status. They found that only XX years were needed, XX years before the delisting decision was actually made. This highlights the importance of estimating the minimunm time series required as an earlier decision would have saved time and money [@Gerber1999].
+
+There has also been interest in determining the minimum time series length in the bird community (citations). (Bart 2004, Hatch 2003) [@Seavy2007] Hatch 2003 used seabird monitoring data to estimate the minimum time needed to achieve appropriate levels of power. He found that the minimum time required ranged between 11 and 69 years depending on species, trend strength, and study design (cite Hatch). Similarly, Bart et al 2004 recommended a standard of 80% power to detect a 50% decline over 20 years in landbird populations. They found that only about 42% of populations in the Breeding Bird Survey met their criteria. @Seavy2007 asked whether statistical power was even a useful framework for assessing longterm population trends. They used 24 years of census data on Red-tailed Tropicbirds (\emph{Phaethon rubricauda}) in Hawaii and showed that to detect a 50% decline over 10 years almost always resulting in high statistical power (above 0.8). Therefore, they cautionsioned against only using power analyses to design monitoring schemes and instead argued for precision based metrics ..
 
 An important related question, is the optimal allocation of sampling effort in space versus time (citations). In a theoretical investigation of this question, @Rhodes2011 found that the optimal allocation of sampling depended strongly on temporal and spatial autocorrelation. If spatial population dynamics were highly correlated, then it was better to sample more temporally, and vice versa. Our work supports this idea as populations with strong temporal autocorrelation needed less years of sampling (cite figure here). @Morrison2008 also studied the optimal allocation of sampling effort in space versus time, but used emprical data from a longterm census of the collared pika (\emph{Ochotona collaris}) found in the Yukon. They estimated longterm growth rates among three subpopulations over a 10-year period. They found that censuses less than 5 years may be misleading and that extrapolating from one population to another, even when nearby, may be difficult. Therefore, they argued more sampling should be conducted spatially than temporally [@Morrison2008].
 
@@ -347,6 +355,15 @@ We use a database of `r nrow(pop_info)` populations to determine the minimum tim
 - general advice (variability, correlations) [@Rhodes2011]
 - more than 10 years [@Gerber1999]
 - specific recommendations depend on amount of power and strength of trend (Bart 2004, Hatch 2003) [@Seavy2007]
+- paper on syncrony from James
+
+## Supporting Information
+
+- list each bit of supporting information. Github reference
+
+## Acknowledgements
+
+ERW was partially supported by a National Science Foundation Graduate Fellowship. We would like to thank members of the Ecological Theory group at the University of California, Davis for their insight. We would also like to thank X anonymous reviewers for their helpful comments. 
 
 ## References
 
