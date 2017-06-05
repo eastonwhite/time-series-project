@@ -130,11 +130,11 @@ source("scripts/theoretical-models/simulate_pop.R")
   load('data/Keith_et_al_2015_data.Rdata')
 
 #Load our cleaned data (see other code for cleaning steps)
-  load('cleaned-data/pop_info_example_goodNAs.Rdata')
+  load('cleaned-data/pop_info_example_goodNAs.Rdata') #Do i need to filter out non-significant populations as well (where no trend was present)
 ```
 
 ### Data source
-We use a database of `r length(table(dat$ID))` population time series compiled in [@Keith2015]. The data is originally from the Global Population Dynamics Database [@GPDD2010]. We filtered out short time series (less than `r pop_info$series_length[1]`) and were left with `r nrow(pop_info)` time. The database includes information on `r length(table(pop_info$Binomial))` vertebrate species with a focus on mammals, birds, and fish. The database also includes information on generation length and census specifications. For each time series, we also calculated variables of interest like variance in population size, longterm trend in abundance (slope coefficient from simple linear regression), and temporal autocorrelation. Lastly, we also calculated the minimum number of years required (10 years or 3 generations) under IUCN Red List Criterian A2 to classify a species as vulnerable [@IUCN2012].
+We use a database of `r length(table(dat$ID))` population time series compiled in [@Keith2015]. The data is originally from the Global Population Dynamics Database [@GPDD2010]. We filtered out short time series (less than `r pop_info$series_length[1]`), and those with missing data, and were left with `r nrow(pop_info)` time series. The database includes information on `r length(table(pop_info$Binomial))` vertebrate species with a focus on mammals, birds, and fish. The database also includes information on generation length and census specifications. For each time series, we also calculated variables of interest like variance in population size, longterm trend in abundance (slope coefficient from simple linear regression), and temporal autocorrelation. Lastly, we also calculated the minimum number of years required (10 years or 3 generations) under IUCN Red List Criterian A2 to classify a species as vulnerable [@IUCN2012].
 
 For a subset of populations in the database (X = XX), we were able to connect a database on biological characteristics like body size and generation length. We used 
 
@@ -188,7 +188,7 @@ Populations vary from year-to-year for several reasons including-->
   - walk through one empirical example (maybe in appendix)
 --> 
 
-We evaluated the question of what minimum time series is required to answer a question of interest. More specifically we ask, what is the minimum time series length required to determine, via linear regression, the longterm trend in population abundance? The minimum time series length required is that which had high enough statistical power. We investigated this question through two approaches: simulation-based and empirical analyses. In both cases, we found the minimum time series length required depended strongly on the trend strength, population variability, and autocorrelation.
+We evaluated the question of what minimum time series is required to answer a question of interest. More specifically we asked, what is the minimum time series length required to determine, via linear regression, the longterm trend in population abundance? The minimum time series length required is that which had high enough statistical power. We investigated this question through two approaches: simulation-based and empirical analyses. In both cases, we found the minimum time series length required depended strongly on the trend strength, population variability, and autocorrelation.
 
 
 ### Simulation approach
@@ -297,6 +297,10 @@ par(mfrow=c(1,1))
 
 -->
 
+### Questions in the appendix
+
+Describe some of the results that we include in the appendix
+
 ## Discussion
 
 <!-- 
@@ -313,7 +317,10 @@ par(mfrow=c(1,1))
 The IUCN has an 10 year/3 generation rule... If we apply this rule to the species in our database we see that approximately `r 100*sum(pop_info$min_time_for_power>pop_info$IUCN)/nrow(pop_info)`% of populations need a longer minimum time series than that required by IUCN.
 -->
 
-We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. Here, we focus on a empirical approach to estimate the minimum time series length requried to address a given question. 
+We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. These simulations support past work...
+
+
+Here, we focus on a empirical approach to estimate the minimum time series length requried to address a given question. 
 
 First we asked, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression? We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary (Fig. \ref{fig:fig:min_time_dist}). In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation (cite figure).
 
@@ -324,7 +331,7 @@ We also found that $t_{min}$ did not correlate with any biological variables of 
 In the appendix we asked two additional questions to make estimates of $t_{min}$. First, we asked how many years of sampling are neccessary to estimate a geometric growth rate? 
 
 
-### Past work on this issue
+### Past work on this issue - can I integrate this better into the rest of the section. How much should go in introduction?
 There have been previous attempts to address how long a time series should be to assess trends in abundance. For example,...
 
 @Rueda-Cediel2015 found that 10-15 years was adequate to characterize population trends in a short lived animal. They used a matrix model of a particular species...
@@ -343,8 +350,9 @@ Our work has obvious limitations in determining the minimum time series length r
 
 - what we found, implications, future work
 
-We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required. In line with theoretical predictions, we also show that $t_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation. Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $t_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may have been a poor use of scare funds. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
+We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required (Fig. \ref{fig:min_time_dist}. In line with theoretical predictions, we also show that $t_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation (Fig. \ref{fig:correlates}). Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $t_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
 
+<!--
 ### Time series length recommendations from other papers
 
 - greater than 5 years [@Morrison2008]
@@ -353,6 +361,7 @@ We use a database of `r nrow(pop_info)` populations to determine the minimum tim
 - more than 10 years [@Gerber1999]
 - specific recommendations depend on amount of power and strength of trend (Bart 2004, Hatch 2003) [@Seavy2007]
 - paper on syncrony from James
+-->
 
 ## Supporting Information
 

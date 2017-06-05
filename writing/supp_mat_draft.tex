@@ -21,7 +21,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=0.75in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdfborder={0 0 0},
@@ -100,7 +100,7 @@ Address: \\ \emph{$^1$ Center for Population Biology, University of California-D
 
 *Corresponding author: eawhite@ucdavis.edu
 
-Dec XX, 2016
+June 22, 2017
  \end{center}
 
 \vspace{2cm}
@@ -111,13 +111,17 @@ This supplementary material includes:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Mathematical description of our model
+  Detailed example of subsampling and power calculations
 \item
-  Inverse pattern-orientated estimation procedure
+  Figures and results from other questions of interest
+\item
+  Additional figures?
+\item
+  Additional references
 \end{enumerate}
 
-Code for all the figures and tables can be found on
-\href{https://github.com/erwhite1}{Github}.
+Code for all the figures and tables can be found at
+\href{https://github.com/erwhite1}{}.
 
 \vspace{2cm}
 
@@ -161,6 +165,21 @@ interest}\label{results-from-other-questions-of-interest}
 
 \subsubsection{Growth rate calculations}\label{growth-rate-calculations}
 
+Instead of detecting a trend over time with linear regression, we could
+also calculate the geometric growth rate of the population. In figure
+\ref{fig:growth_rate}, we show how to calculate growth rates for
+subsamples of a time series. First, we created subsamples of each
+possible length from the full 35 year time series, as we did in the main
+next. Next, we calculated the mean and standard deviation of growth
+rates for each possible time series length (Fig.
+\ref{fig:growth_rate}b). Lastly, we calculated the percent error
+\(\mbox{percent error} = 100 \times \left| \frac{\mbox{observed} - \mbox{theoretical}}{\mbox{theoretical}} \right|\)
+between the mean of each time series length (observed) and the overall
+population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c),
+we show the percent error as a function of time series length. Here we
+define the minimum time required as the minimum number of years to
+achieve less than 20\% error.
+
 \begin{verbatim}
 ## Loading required package: plyr
 \end{verbatim}
@@ -168,13 +187,69 @@ interest}\label{results-from-other-questions-of-interest}
 \begin{figure}[htbp]
 \centering
 \includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-2-1.pdf}
-\caption{duh\label{fig:growth_rate}}
+\caption{Example of calculating minimum time required for growth rate
+estimation. (a) abundance over time, (b) mean and standard deviation of
+growth rate for subsamples of entire time series, and (c) the percent
+error between mean estimated growth rate and the true longterm growth
+rate. The vertical bar denotes the minimum time required to estimate
+growth rate within 10\% error.\label{fig:growth_rate}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-3-1.pdf}
+\caption{Histogram of the minimum time required in order to estimate the
+longterm growth rate within 20\% error.\label{fig:min_time_dist}}
 \end{figure}
 
 \subsubsection{Using Generalized additive model to identify significant
 trends}\label{using-generalized-additive-model-to-identify-significant-trends}
 
-TEXT HERE ON IDEA
+In the main text, we examined the minimum time required to identify a
+trend in abundance via linear regression. This approach allowed us to
+identify increases or decreases, but a linear model may not always be a
+good fit. Generalized additive models (GAMs) are more general than
+general linear models and allow more flexible. GAMs are models where a
+response variable depends on unknown smooth functions of explanatory
+variables. GAMs, therefore, can identify relationships between response
+variables and explantory variables that are non-linear and perhaps more
+complicated. The downsite of GAMs\ldots{}
+
+Here, we conduct the same analyses in the main text, but instead
+calculate the minimum time series required to detect trends over time
+according to a GAM model. We hypothesize that GAMs should require less
+time to detect a trend as they are more flexible than linear regression.
+We provide an example that shows statistical power increases with more
+time sampled (Fig. \ref{fig:gam_example}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-4-1.pdf}
+\caption{results here from GAM.\label{fig:gam_example}}
+\end{figure}
+
+We then fit GAM models for XX populations. We found\ldots{} (Fig.
+\ref{fig:gam_result}). This is shorter/longer than the main text
+question.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
+\caption{results here from GAM.\label{fig:gam_result}}
+\end{figure}
+
+\subsubsection{Minimum time to detect density-dependence in time
+series}\label{minimum-time-to-detect-density-dependence-in-time-series}
+
+For decades, the importance of density-dependence in natural populations
+has been an important question in ecology (citations). To address this
+question, \citet{Knape2012} used data from the Global Population
+Dynamics Database \citep{GPDD2010}. They fitted 627 time series with a
+Gompertz population model and found evidence for density-dependence in
+45\% of the time series. Each time series in their database contained at
+least 15 datapoints, and ranged from 15 to 157. A follow up question to
+their work would be, what time series length is required to confidently
+estimate density-dependence.
 
 \subsubsection{References}\label{references}
 
