@@ -9,7 +9,7 @@ geometry: margin=1in
 bibliography: White_bib.bib
 header-includes: 
     \usepackage{float}
-    \usepackage{setspace}             
+    \usepackage{setspace}\doublespacing           
     \usepackage{lineno}
     \usepackage[round]{natbib}
     \bibpunct[; ]{(}{)}{,}{a}{}{;}
@@ -17,8 +17,6 @@ header-includes:
 ---
 
 
-\begin{spacing}{1.5} %use 2
-	\begin{flushleft}
 Running head: 
 \vspace{3 mm}
 
@@ -44,17 +42,14 @@ Keywords:
 
 \vspace{3 mm}
 
-\end{flushleft}
-\end{spacing}
+
 
 
 \linenumbers
 
-\clearpage
  
-
 ## Abstract
-Long-term census data is necessary to better understand ecological processes and make management decisions. In addition, census data is often expensive, requiring a lot of people-hours or equipment. However, little work has actually addressed the length of time series required. In other words, when is a time series of census data long enough to address a question of interest? Here, I explore two approaches to address this question: one simulation-based and an empirical approach. I specifically determine the minimum time series length required to estimate significant increases or decreases in population abundance. Importantly, I examine the ability to detect a trend with a set level of statistical power, which is often neglected in ecological time series analyses. Using simple simulations, I demonstrate how the minimum time series length required increases with weaker trends in abundance and with higher variability in population size. In addition, I examine 868 populations of vertebrate species to determine the minimum time required to detect changes in their abundance. Here I show 10-15 years of continuous monitoring are required in order to achieve a high level of statistical power. Similar to simulation-approaches, the minimum time required for field census data strongly depends on trend strength, population variability, and temporal autocorrelation. Perhaps surprisingly, the minimum time required did not correlate well with biological explanatory variables, like body size or generation length. These results point to the importance of sampling populations over long periods of time. Here, I stress the need for verifying a study has enough statistical power to accurately determine long-term changes in population abundance. Most studies, especially those less than 10-15 years, are probably underpowered and potentially misleading.
+Long-term census data is necessary to better understand ecological processes and make management decisions. However, census data is often expensive, requiring a lot of people-hours and equipment. Little work has addressed the question, when is a time series of census data long enough to address a question of interest? Here, I explore two approaches to address this question: one simulation-based and an empirical approach. I specifically determine the minimum time series length required to estimate significant increases or decreases in population abundance. <!--Importantly, I examine the ability to detect a trend with a set level of statistical power, which is often neglected in ecological time series analyses.--> Using a simulation approach, I demonstrate how the minimum time series length required increases with weaker trends in abundance and with higher variability in population size. In addition, I examine 868 populations of vertebrate species to determine the minimum time required to detect changes in their abundance. I show that 10-15 years of continuous monitoring are required in order to achieve a high level of statistical power. Similar to simulation-approaches, the minimum time required for field census data strongly depends on trend strength, population variability, and temporal autocorrelation. <!--Perhaps surprisingly, the minimum time required did not correlate well with biological explanatory variables, like body size or generation length.--> These results point to the importance of sampling populations over long periods of time. <!--Here, I stress the need for verifying a study has enough statistical power to accurately determine long-term changes in population abundance.--> Most studies, especially those less than 10-15 years, are probably underpowered and potentially misleading.
 
 ## Introduction - need to clean up and reduce text
 
@@ -351,6 +346,7 @@ Our work has obvious limitations in determining the minimum time series length r
 - what we found, implications, future work
 
 We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required (Fig. \ref{fig:min_time_dist}. In line with theoretical predictions, we also show that $t_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation (Fig. \ref{fig:correlates}). Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $t_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
+
 
 <!--
 ### Time series length recommendations from other papers
