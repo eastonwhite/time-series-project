@@ -1,19 +1,15 @@
 ---
+bibliography: White_bib.bib
+fontsize: 12pt
+geometry: margin=1in
+header-includes: \usepackage{float} \usepackage{setspace}\doublespacing \usepackage{lineno}
+  \usepackage[round]{natbib} \bibpunct[; ]{(}{)}{,}{a}{}{;} \linenumbers
 output:
   pdf_document:
     fig_caption: yes
     keep_tex: yes
-    number_sections: true
-fontsize: 12pt
-geometry: margin=1in
-bibliography: White_bib.bib
-header-includes: 
-    \usepackage{float}
-    \usepackage{setspace}\doublespacing           
-    \usepackage{lineno}
-    \usepackage[round]{natbib}
-    \bibpunct[; ]{(}{)}{,}{a}{}{;}
-    \linenumbers
+    number_sections: yes
+  word_document: default
 ---
 
 
@@ -26,7 +22,7 @@ Title: Your time series is (probably) too short
 Author(s): \textsc{Easton R. White$^{1,2}$} 
 \vspace{3 mm}
 
-Addresses: \\ \emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
+Addresses:\emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
 \vspace{3 mm}
 
 $^2$Corresponding author: eawhite@ucdavis.edu
@@ -62,17 +58,17 @@ Long-term census data is necessary to better understand ecological processes and
 - what we do in this paper
 -->
 
-Observational studies and population censuses have become a cornerstone of modern ecology and conservation biology [@Magurran2010]. Longterm data is necessary to understand population dynamics and to assess extinction risk of species. Even though many time series may now be considered "longterm", most are still short (i.e. less than X years). *I could have statistic on how long is considered "longterm" in papers*. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time. However, there are of course notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others.  
+Observational studies and population censuses have become a cornerstone of modern ecological research and conservation biology [@Magurran2010]. Longterm data is necessary to both understand population dynamics and to assess extinction risk of species. Even though many time series may now be considered "longterm", most are still short (i.e. less than X years). *I could have statistic on how long is considered "longterm" in papers*. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time (citations). However, there are of course notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others.  
 
-Naturally, one might ask, how long of a time series is actually necessary? This question has important scientific and management implications. Scientifically, we need to know how long a time series is required to address a specific question. Too short of a time series may lead to wrong conclusions given large natural year-to-year variability (citations). From a management perspective, it is important to understand when a trend in abundance over time is actually meaningful or not. For example, the IUCN Red List Categories and Criteria suggest under Criterian A2, a species qualifies as vulnerable if it has experienced a 30% decline over 10 years, or 3 generations [@IUCN2012]. In addition, because sampling is typically expensive, we do not want to sample for longer than is neccessary [@Gerber1999].
+Naturally, one might ask, how long of a time series is actually necessary? This question has important scientific and management implications. Scientifically, we need to know how long a time series is required to address a specific question. Too short of a time series may lead to wrong conclusions given large natural year-to-year variability (citations). From a management perspective, it is important to understand when a trend in abundance over time is actually meaningful or not. For example, the IUCN Red List Categories and Criteria suggest under Criterian A2, a species qualifies as vulnerable if it has experienced a 30% decline over 10 years, or 3 generations [@IUCN2012]. For both scientific and management questions, because sampling is typically expensive, we do not want to sample for longer than is neccessary [@Gerber1999].
 
 In determining the number of samples required for a particular experiment four quantities are intricately linked: statistical power, effect size, alpha, sample size [@Legg2006]. The exact relationship between these quantities depends on the specific statistical test. Formally, statistical power ($1-\beta$) is one minus the probability of a type II error ($\beta$), or false negative. In other words, it is a measure of how well you could detect a trend given it is actually significant. Prior to an experiment, one could set appropriate levels of power, significance threshold ($\alpha$), and the effect size to estimate the sample size required for the experiment. This approach, however, is not straight-forward for a time series, as data points are clearly non-independent. 
 
-For time series data, two general approaches can be used. First, as can be done with experimental data, we can relax the definition of statistical power (cite Bolker). Instead of using classic statistical tests (e.g. t-test), and corresponding formulas for determinig sample size, simulation approaches can be used [@Gerrodette1987]. Simple population models can be simulated with parameter values corresponding to a population of interest. Out of a large number of simulations, power can be calculated as the fraction of simulations that meet some criteria. The specific criteria depend on the question at hand. Then time series simulations of different lengths are run to determine the minimum time series length required to be confident that you will be able to answer your question (cite Bolker). In addition to using simulated data, empirical time series can also be used. We usually do not have multiple replicates of similar populations, but we can subsample an empirical time series (cite). Subsamples of different lengths can then be evaluated to see which fraction of subsamples meet some criteria, again a measure of statistical power. Similar to the simulation approach, we can use these measures of power to determine the minimum time series required for a particular question of interest. 
+<!--For time series data, two general approaches can be used. First, as can be done with experimental data, we can relax the definition of statistical power (cite Bolker). Instead of using classic statistical tests (e.g. t-test), and corresponding formulas for determinig sample size, simulation approaches can be used [@Gerrodette1987]. Simple population models can be simulated with parameter values corresponding to a population of interest. Out of a large number of simulations, power can be calculated as the fraction of simulations that meet some criteria. The specific criteria depend on the question at hand. Then time series simulations of different lengths are run to determine the minimum time series length required to be confident that you will be able to answer your question (cite Bolker). In addition to using simulated data, empirical time series can also be used. We usually do not have multiple replicates of similar populations, but we can subsample an empirical time series (cite). Subsamples of different lengths can then be evaluated to see which fraction of subsamples meet some criteria, again a measure of statistical power. Similar to the simulation approach, we can use these measures of power to determine the minimum time series required for a particular question of interest.-->
 
-Past work has investigated questions related to the minimum time series required to estimate trends in population size over time. However, most work has either focused on theoretical approaches or by examined a single population. As an example of the former, @Rhodes2011 examined the optimal allocation of effort between spatial and temporal replicates. Using simple populations models, they found that the allocation of effort depends on environmental variation, spatial and temporal autocorrelation, and observer error. @Rueda-Cediel2015 also used a modeling approach, but parameterized it for a threatened snail, \emph{Tasmaphena lamproides}. They found that for this short-lived organims, that 15 years was adequate to assess longterm trends in abundance. However, these studies, and other past work (citation), have focused either on theoretical aspects of monitoring design or focused on single species.
+Past work has investigated questions related to the minimum time series required to estimate trends in population size over time [@Giron-Nava2017]. @Rhodes2011 examined the optimal allocation of effort between spatial and temporal replicates. Using simple populations models, they found that the allocation of effort depends on environmental variation, spatial and temporal autocorrelation, and observer error. @Rueda-Cediel2015 also used a modeling approach, but parameterized it for a threatened snail, \emph{Tasmaphena lamproides}. They found that for this short-lived organims, that 15 years was adequate to assess longterm trends in abundance. However, these studies, and other past work (citation), have focused either on theoretical aspects of monitoring design or focused on single species.
 
-In this paper, we use both simulations and a database of empirical time series to determine the minimum number of years required to address various questions. To demonstrate these techniques, we address three specific questions: (1) what is the minimum time series length required to identify significant changes over time using linear regression, (2)
+In this paper, we use both simulations and a database of empirical time series to determine the minimum number of years required to address various questions. In the main manuscript, we determine the minimum time series length to determine if a population is incresing or decreasing according to a significant slope coefficient in simple linear regression. 
 <!-- In this paper, we evaluate the minimal time series length required to answer X questions. 1) How sensitivive are IUCN asssessments to time series lengths? 2) What minimum time series length is required to measure the entire time series trend? 3) How long does a time series need to be to measure the variance in population size (rare event questions)? We demonstrate our approach with X case studies and then show results for X species from the Blah Blah Database.  -->
 
 ## Methods
@@ -81,13 +77,13 @@ In this paper, we use both simulations and a database of empirical time series t
 
 One approach to determining the minimum time series length needed is through repetitive simulations of a population model [@Gerrodette1987]. This is the same approach one might use in sample size calculations for any experimental design too complicated for simple power analyses [@Johnson2015] (and cite Bolker). We only briefly discuss this approach as it has been desribed elsewhere (citations). Essentially, we take a stochastic population model and simulate it for a number of years repetitively. We can then determine the minimum time series required to achieve designed levels of significance and power for a particular question. This approach requires us to determine values for our model parameters (e.g. growth rate). As an example, we can take the following population model for population size $N$ at time $t$:
 $$
-N(t + 1) = N(t) + r(t) \mbox{ with } r(t) \sim N(\phi \mu, \sigma)
+N(t + 1) = N(t) + r(t) \mbox{ with } r(t) \sim N(\mu, \sigma)
 $$
-where $\epsilon$ is a normally-distributed random noise term with mean $\mu$ and standard deviation $\sigma$. The rate of growth $r$ is also the trend strength of increase or decrease. <!--Lastly, $\phi$ represents an autocorrelation term where $\phi=0$ indicates no autocorrelation, $\phi>0$ is positively autocorrelated. This model represents linear growth with autocorrelation and noise. However, it is certainly possible to use any other population model.-->
+where $\epsilon$ is a normally-distributed random noise term with mean $\mu$ and standard deviation $\sigma$. The rate of growth $r$ is also the trend strength of increase or decrease. 
 
 By simulating this model repetitively for different lengths of time, we can determine the minimum time series required. Here statistical power is simply the fraction of simulations with significant trends in abundance from simple linear regression. Then, the minimum time required is the minimum time required to obtain statistical power above some pre-determined threshold (historically at 0.8).
 
-In figure \ref{fig:theoretical_approach}a, a number of simulated time series are shown for a set number of time periods (t=40). It is clear that statistical power increases quickly with increases in $t$ (Fig. \ref{fig:theoretical_approach}b). Once power is greater than XX (the dotted line), that is the minimum time required ($t_{min}$
+In Figure \ref{fig:theoretical_approach}a, a number of simulated time series are shown for a set number of time periods ($t=40$). It is clear that statistical power increases quickly with increases in length of time sampled (Fig. \ref{fig:theoretical_approach}b). Once power is greater than 0.8 (the dotted line), that is the minimum time required ($T_{min}$). 
 
 
 ```{r,echo=F,fig.cap='(a) example of simulated time series for 40 time periods and (b) statistical power versus the simulated time series length. The horizontal, dashed line is our desired statistical power of 0.8. The vertical, dashed line is the minimum time required to achieve our desired statistical power.\\label{fig:theoretical_approach}'}
@@ -103,7 +99,7 @@ source("scripts/theoretical-models/simulate_pop.R")
   min_time_needed = years_to_sample[tail(which(power<0.8),1)] + 1
 
   # Plotting commands
-  par(mfrow=c(1,2),oma=c(1,2,0,0.5),mar=c(4,5,0.5,0.5))
+  par(mfrow=c(2,2),oma=c(1,2,0,0.5),mar=c(4,5,0.5,0.5))
     matplot(simulations,type='l',col=rgb(0.5,0.5,0.5,0.5),lty=1,ylab='',xlab='',las=1,cex.axis=1.2)
       mtext(text = 'time' ,side = 1,cex = 1.2,line=3)
       mtext(text = 'population size' ,side = 2,cex = 1.2,line=4)
@@ -113,8 +109,57 @@ source("scripts/theoretical-models/simulate_pop.R")
       abline(h=0.8,lty=2,lwd=2,col='red')
       mtext(text = 'time sampled' ,side = 1,cex = 1.2,line=3)
       mtext(text = 'statistical power' ,side = 2,cex = 1.2,line=3.5)
+      
+      
+    # Plot versus trend strength
+      r_values = seq(1,3,by=0.2)
+      sigma_values=seq(1,7,by=0.2)
 
+      parameter_combinations = expand.grid(r_values,5)
+      parameter_combinations$min_time_required = NA
+      names(parameter_combinations)= c('r','sigma','min_time_required')
+      
+      for (i in 1:nrow(parameter_combinations)){
+        years_to_sample=seq(2,50,by=1)
+        y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=parameter_combinations$r[i],sigma = parameter_combinations$sigma[i],trials=100)
+        if (length(tail(which(y<0.8),1))>0){
+        parameter_combinations$min_time_required[i] = years_to_sample[tail(which(y<0.8),1)] + 1
+        }
+        #print(i)
+      }
+      
+      plot(parameter_combinations$r,parameter_combinations$min_time_required,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2)
+      mtext(text = 'trend strength (slope coefficient)' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'minimum time required' ,side = 2,cex = 1.2,line=3.5)
+      
+      
+      
+      
+      
+      # Plot versus sigma values
+      parameter_combinations = expand.grid(1.5,sigma_values)
+      parameter_combinations$min_time_required = NA
+      names(parameter_combinations)= c('r','sigma','min_time_required')
+      
+      for (i in 1:nrow(parameter_combinations)){
+        years_to_sample=seq(2,50,by=1)
+        y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=parameter_combinations$r[i],sigma = parameter_combinations$sigma[i],trials=100)
+        if (length(tail(which(y<0.8),1))>0){
+        parameter_combinations$min_time_required[i] = years_to_sample[tail(which(y<0.8),1)] + 1
+        }
+        #print(i)
+      }
+      
+      plot(parameter_combinations$sigma,parameter_combinations$min_time_required,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2)
+      mtext(text = 'population variability' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'minimum time required' ,side = 2,cex = 1.2,line=3.5)
 ```
+
+
+
+
+
+
 
 
 ```{r, echo=F}
@@ -126,40 +171,53 @@ source("scripts/theoretical-models/simulate_pop.R")
 
 #Load our cleaned data (see other code for cleaning steps)
   load('cleaned-data/pop_info_example_goodNAs.Rdata') #Do i need to filter out non-significant populations as well (where no trend was present)
+  pop_info=pop_info[pop_info$trend_p_value<0.05,]
+  long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
+  long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
 ```
 
 ### Data source
 We use a database of `r length(table(dat$ID))` population time series compiled in [@Keith2015]. The data is originally from the Global Population Dynamics Database [@GPDD2010]. We filtered out short time series (less than `r pop_info$series_length[1]`), and those with missing data, and were left with `r nrow(pop_info)` time series. The database includes information on `r length(table(pop_info$Binomial))` vertebrate species with a focus on mammals, birds, and fish. The database also includes information on generation length and census specifications. For each time series, we also calculated variables of interest like variance in population size, longterm trend in abundance (slope coefficient from simple linear regression), and temporal autocorrelation. Lastly, we also calculated the minimum number of years required (10 years or 3 generations) under IUCN Red List Criterian A2 to classify a species as vulnerable [@IUCN2012].
 
+
+
+```{r,echo=F}
+# Pull in results of biological characteristics comparison to min time series length required
+```
 For a subset of populations in the database (X = XX), we were able to connect a database on biological characteristics like body size and generation length. We used 
 
 
 
 ### Empirical approach
 
-Our objective is to determine the minimum time series length ($T_{min}$) required to answer a specific question of interest. As we describe below, the minimum time series length calculation is particular to each question. Intuitively, we might expect a longer minimum time series length ($T_{min}$) required given more complicated questions (citations).
+<!--Our objective is to determine the minimum time series length ($T_{min}$) required to answer a specific question of interest. As we describe below, the minimum time series length calculation is particular to each question. Intuitively, we might expect a longer minimum time series length ($T_{min}$) required given more complicated questions (citations).-->
 
-We assume that each time series in our database is long enough to include all necessary information (e.g. variability) about the population. In other words, they are a representative sample. We first take all possible contiguous subsamples of each time series. For example, a time series of 40 years would have 39 possible contiguous subsamples of length 2, 38 possible contiguous subsamples of length 3, and continueing until 1 possible contiguous subsample of length 40. In this paper, we will try to ask a simple, specific question. We seek to determine the $T_{min}$ required to be confident in an estimate of the slope coefficient from linear regression. Therefore, we run a linear regression for each subsampled time series. Then, we determine the fraction of subsamples of a particular length that have estimated slope coefficients which are statistically different from zero given the longterm, or ``true", time series also has a significant slope. This is a measure of statistical power (often denoted as $1- \beta$, where $\beta$ is the probability of a type II error). Lastly, we determine which subsample length is required to guarantee we have above a certain threshold of statistical power, which we will assume is 0.8 by convention (citation). A power of 0.8 would imply that given a trend exists, there is a 0.8 probability of detecting the trend. Complementary, there would be a 0.2 probability of a false negative. 
+We assume that each time series in our database is long enough to include all necessary information (e.g. variability) about the population. In other words, they are a representative sample. We first take all possible contiguous subsamples of each time series. For example, a time series of 40 years would have 39 possible contiguous subsamples of length 2, 38 possible contiguous subsamples of length 3, and continuing until 1 possible contiguous subsample of length 40 [@Gerber1999, @Giron-Nava2017]. Then we determined the $T_{min}$ required to be confident (i.e. have high enough statistical power) in an estimate of the slope coefficient from linear regression. Therefore, we run a linear regression for each subsampled time series. Then, we determine the fraction of subsamples of a particular length that have estimated slope coefficients which are statistically different from zero given the longterm, or ``true", time series also has a significant slope. This is a measure of statistical power (often denoted as $1- \beta$, where $\beta$ is the probability of a type II error). Lastly, we determine which subsample length is required to guarantee we have above a certain threshold of statistical power, which we will assume is 0.8 by convention (citation). A power of 0.8 would imply that given a trend exists, there is a 0.8 probability of detecting the trend. Complementary, there would be a 0.2 probability of a false negative. 
 
-We also examine how minimum time series calculations changed depending on the question of interest. In the supplementary material, we show how to make similar calculations to determine the minimum time series required to estimate overall population growth rate, the variability in population size, and future extinction risk. Again, we took subsamples of time series data to determine $T_{min}$ for each of these questions. 
 
-```{r, echo=F,message=F,warning=F}
+
+```{r, echo=F,message=F,warning=F,fig.cap='(a) Population size of ANIMAL NAME over time. The red line is the best fit line from linear regresssion. (b) statistical power for different subsets of the time series in panel a.\\label{fig:empirical_approach_example}'}
 # Example of subsampling empirical data
-setwd("~/Desktop/Research/time-series-project")
+ setwd("~/Desktop/Research/time-series-project")
  load("cleaned-data/pop_info_example_goodNAs.Rdata")
- par(mfrow=c(1,2))
-pop = subset(long_dat,long_dat$ID=='10696') #13192 for Harp seals
-plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='population size',xlab='time (years)',pch=16,ylim=c(0,2000),las=1)
-abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+  par(mfrow=c(1,2))
+    pop = subset(long_dat,long_dat$ID=='13192') #13192 for Harp seals
+    plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='population size',xlab='time (years)',pch=16,las=1)
+    abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+    mtext(text = '(a)',side = 3,line = -1.2,at = 1965,font = 2,cex=1.2)
 # could insert all possible regressions of length n
 source('scripts/calculate_power_metric.R')
-power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
-plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='average statistical power',xlab='years sampled',las=1,pch=16)
+    power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
+    plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='statistical power',xlab='years sampled',las=1,pch=16)
+    mtext(text = '(b)',side = 3,line = -1.2,at = 7,font = 2,cex=1.2)
 # could also insert standard error bars
-abline(h=0.8,col='red',lwd=2,lty=2)
-abline(v=22,col='red',lwd=2,lty=2)
+    abline(h=0.8,col='red',lwd=2,lty=2)
+    abline(v=head(which(power_example>0.8),1),col='red',lwd=2,lty=2)
 
 ```
+
+
+We also examine how minimum time series calculations changed depending on the question of interest. In the supplementary material, we show how to make similar calculations to determine the minimum time series required to estimate overall population growth rate, the variability in population size, and future extinction risk. Again, we took subsamples of time series data to determine $T_{min}$ for each of these questions. 
 
 
 
@@ -183,14 +241,14 @@ Populations vary from year-to-year for several reasons including-->
   - walk through one empirical example (maybe in appendix)
 --> 
 
-We evaluated the question of what minimum time series is required to answer a question of interest. More specifically we asked, what is the minimum time series length required to determine, via linear regression, the longterm trend in population abundance? The minimum time series length required is that which had high enough statistical power. We investigated this question through two approaches: simulation-based and empirical analyses. In both cases, we found the minimum time series length required depended strongly on the trend strength, population variability, and autocorrelation.
+We determined the minimum time series length required to address a particular question of interest. More specifically we asked, what is the minimum time series length required to determine, via linear regression, the longterm trend in population abundance? The minimum time series length required is that which had high enough statistical power. We investigated this question through two approaches: simulation-based and empirical analyses. We briefly desribe results from the simulation approach and then discuss our emprirical approach.
 
 
 ### Simulation approach
 
-We constructed a general population model where the trend over time could be a model parameter. We chose a simple model, but any other population model could be used. The specific model choice should be tailored to the population of interest, based on its ecology. We then ran simulations of different lengths to determine the minimum time series length required to achieve a certain level of power (which we set to 0.8). We were also able to alter the parameter values (trend strength and population variability) of the population model to see how this altered $T_{min}$. 
+We constructed a general population model where the trend over time could be a model parameter. We chose a simple model, but any other population model could be used. The specific model choice should be tailored to the population of interest. We then ran simulated time series of different lengths. From these simulations we determined the minimum time series length required to achieve a certain level of power (which we set to 0.8). We were also able to alter the parameter values (trend strength and population variability) of the population model to see how this altered $T_{min}$. 
 
-In line with past work, we found the $T_{min}$ increases (i.e. more time is required) with decreases in trend strength or autocorrelation and with increases in variability (citation). 
+In line with past work, we found the $T_{min}$ increases (i.e. more time is required) with decreases in trend strength and with increases in variability (citation). 
 
 
 ### Empirical test
@@ -213,6 +271,7 @@ mtext(text = 'Minimum time required',1,line=3,cex=1.2)
  
 
 ```{r poisson_model, echo=F,include=F}
+# I should put this in the appendix
 #Poisson regression
 pop_info$abs_overall_trend = abs(pop_info$overall_trend)
 poisson_model <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + variance + gen_len,family = 'poisson',data=pop_info)
@@ -232,27 +291,28 @@ R2 <- 100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$
   par(mfrow=c(3,1),mar=c(4,1,1,1),oma=c(0,4.5,0,0.5))
   plot(abs(pop_info$overall_trend),pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
   mtext('| trend strength |',1,line=3,cex=1.2)
-  mtext('(a)',3,line=-1.5,at=0.033,cex=1.2,font = 2)
+  mtext('(a)',3,line=-1.5,at=0.0318,cex=1.2,font = 2)
     plot(pop_info$variance,pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
     mtext('population variance',1,line=3,cex=1.3)
     mtext('(b)',3,line=-1.5,at=0.128,cex=1.2,font = 2)
       plot(pop_info$autocorrelation,pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
       mtext('autocorrelation',1,line=3,cex=1.2)
-       mtext('(c)',3,line=-1.5,at=0.98,cex=1.2,font = 2)
+       mtext('(c)',3,line=-1.5,at=0.97,cex=1.2,font = 2)
        mtext('minimum time required',2,line=2.5,cex=1.2,outer = T)
 
   
   
 ```
 
+
 We examined a database of `r nrow(pop_info)` separate population time series representing `r length(table(pop_info$Binomial))` species. This database consists of species with a variety of life history characteristics. We limited our analyses to populations with at least 35 years of continuous sampling.
 
-Across all the populations we examined, we found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` ($\sigma$=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}). In addition, as expected based on theoretical results (cite papers), the minimum time series length required is strongly correlated with trend strength, population variance, and autocorrelation (Fig \ref{fig:correlates}). Using a generalized linear model, with a Poisson error structure, all three of these explanatory variables were significant and had large effect sizes (cite model from supp mat here). Combined trend strength, population variance, and autocorrelation account for about `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),1)` percent of the variance in minimum time series length required (as proposed by CITE Zuur).
+Across all the populations we examined, we found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` ($\sigma$=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}). In addition, as expected based on theoretical results (cite papers), the minimum time series length required is strongly correlated with trend strength, population variance, and autocorrelation (Fig \ref{fig:correlates}). Using a generalized linear model, with a Poisson error structure, all three of these explanatory variables were significant and had large effect sizes (see Fig. SX). Combined trend strength, population variance, and autocorrelation account for about `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),1)` of the explained deviance, which is similar to $R^2$ [@Zuur2009], in minimum time series length required.
 
-We also examined a subset of populations where more explanatory variables were known (e.g. body mass, longevity, location). None (need to do regression) of these explanatory variables were predictive of the minimum time series length required (supp mat). Some differences if $t_{min}$ did occur between biological class (supp mat), but this can be attributed to the amount populations are known to fluctuate (i.e. the variability in population size). 
+We also examined a subset of populations where more explanatory variables were known (e.g. body mass, longevity, location). None (need to do regression) of these explanatory variables were predictive of the minimum time series length required (supp mat). Some differences if $T_{min}$ did occur between biological class (supp mat), but this can be attributed to the amount populations are known to fluctuate (i.e. the variability in population size). 
 
     
-```{r,echo=F}
+```{r,echo=F,include=FALSE, eval=FALSE,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) Longterm trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:biological_correlates}'}
 # Biological correlates plots
 par(mfrow=c(2,2),mar=c(4,5,0.5,0.5))
 
@@ -270,7 +330,8 @@ boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelatio
 stripchart(pop_info$autocorrelation~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 ```
 
-```{r,echo=F}
+
+```{r,echo=F,include=FALSE,eval=FALSE,fig.cap='Minimum time series required versus the generation length of each species\\label{fig:generation_length}'}
 par(mfrow=c(1,1))
   plot(pop_info$gen_len,pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
   mtext('generation time (years)',1,line=3,cex=1.2)
@@ -312,18 +373,17 @@ Describe some of the results that we include in the appendix
 The IUCN has an 10 year/3 generation rule... If we apply this rule to the species in our database we see that approximately `r 100*sum(pop_info$min_time_for_power>pop_info$IUCN)/nrow(pop_info)`% of populations need a longer minimum time series than that required by IUCN.
 -->
 
-We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. These simulations support past work...
-
+We show two different approaches to estimate the minimum time series length required required to address a particular question of interest. The simulation-based approach has been suggested by others, especially in situations where analysis is more complicated than a simple power analysis [@Gerrodette1987]. Our simulations support past work...
 
 Here, we focus on a empirical approach to estimate the minimum time series length requried to address a given question. 
 
-First we asked, what is $t_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression? We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary (Fig. \ref{fig:fig:min_time_dist}). In line with theoretical predictions (citations), we also found $t_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation (cite figure).
+First we asked, what is $T_{min}$ for determining whether a population was increasing or decreasing over time according to linear regression? We found that for `r nrow(pop_info)` populations, at least 10-15 years of continuous monitoring were neccessary (Fig. \ref{fig:fig:min_time_dist}). In line with theoretical predictions (citations), we also found $T_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation (cite figure).
 
-We also found that $t_{min}$ did not correlate with any biological variables of interest (cite figure or supp mat). We initially hypothesized that species with longer lifespans or generation times may require more years to sample. (Our result could have been the effect of two reasons) First, the database we used may not include a diverse enough set of species with different life history traits. Second, the question we poised, whether a population is increasing or decreases, is only worried about population surveys. Therefore, biological variables may be more important if the question itself was different...
+We also found that $T_{min}$ did not correlate with any biological variables of interest (cite figure or supp mat). We initially hypothesized that species with longer lifespans or generation times may require more years to sample. (Our result could have been the effect of two reasons) First, the database we used may not include a diverse enough set of species with different life history traits. Second, the question we poised, whether a population is increasing or decreases, is only worried about population surveys. Therefore, biological variables may be more important if the question itself was different...
 
 ### Other questions addressed
 
-In the appendix we asked two additional questions to make estimates of $t_{min}$. First, we asked how many years of sampling are neccessary to estimate a geometric growth rate? 
+In the appendix we asked two additional questions to make estimates of $T_{min}$. First, we asked how many years of sampling are neccessary to estimate a geometric growth rate? 
 
 
 ### Past work on this issue - can I integrate this better into the rest of the section. How much should go in introduction?
@@ -339,13 +399,13 @@ An important related question, is the optimal allocation of sampling effort in s
 
 ### Limitations
 
-Our work has obvious limitations in determining the minimum time series length required. First, $t_{min}$ depends strongly on the question being asked and the availability of long-term census data. For our empirical approach, the subsampling of the full time series allows for estimates of power, but the individual subsamples are clearly not independent of one another. (sentence about alpha and power limititations here) The perfect scenario would be to have a population model built and parameterized for each population of interest. Then, model simulations could be used to estimate the minimum time series reuqired to address a specific question of interest. Clearly, this is not always practical, especially if running analyses for a wide array of species as we do here. In addition, our statistical models suggest that $t_{min}$ does not correlate with any biological variables of interest, at least for the question of linear regression. Therefore, it is not possible to use these results to predict $t_{min}$ for another population, even if the population is of a species with a similar life-history to one in our database. 
+Our work has obvious limitations in determining the minimum time series length required. First, $T_{min}$ depends strongly on the question being asked and the availability of long-term census data. For our empirical approach, the subsampling of the full time series allows for estimates of power, but the individual subsamples are clearly not independent of one another. (sentence about alpha and power limititations here) The perfect scenario would be to have a population model built and parameterized for each population of interest. Then, model simulations could be used to estimate the minimum time series reuqired to address a specific question of interest. Clearly, this is not always practical, especially if running analyses for a wide array of species as we do here. In addition, our statistical models suggest that $T_{min}$ does not correlate with any biological variables of interest, at least for the question of linear regression. Therefore, it is not possible to use these results to predict $T_{min}$ for another population, even if the population is of a species with a similar life-history to one in our database. 
 
 ### Conclusions
 
 - what we found, implications, future work
 
-We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required (Fig. \ref{fig:min_time_dist}. In line with theoretical predictions, we also show that $t_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation (Fig. \ref{fig:correlates}). Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $t_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
+We use a database of `r nrow(pop_info)` populations to determine the minimum time series length required. We show that to assess longterm trends in abundance, 10-15 years of continuos monitoring are required (Fig. \ref{fig:min_time_dist}. In line with theoretical predictions, we also show that $T_{min}$ is strongly correlated with the overall trend in abundance, variability in abundance, and the temporal autocorrelation (Fig. \ref{fig:correlates}). Our work implies that for many populations, census data less than 10-15 years are probably not reliable. This stresses the importance of longterm monitoring programs. (where do IUCN recommendations come from?) From both a scientific and management perspective estimates of $T_{min}$ are important. If a time series is too short, we are likely to make incorrect conclusions about longterm trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Future work can examine other species, with a wider range of life history characteristics, or address other questions besides longterm trends in abundance. 
 
 
 <!--
@@ -361,7 +421,7 @@ We use a database of `r nrow(pop_info)` populations to determine the minimum tim
 
 ## Supporting Information
 
-- list each bit of supporting information. Github reference
+In the supporting material, we provide an expanded methods sections, additional figures, and additional analyses of other time series questions. All code and data can be found at www.github.com/erwhite1
 
 ## Acknowledgements
 

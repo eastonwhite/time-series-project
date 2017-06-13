@@ -29,6 +29,7 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{plainnat}
+\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -113,9 +114,9 @@ This supplementary material includes:
 \item
   Detailed example of subsampling and power calculations
 \item
-  Figures and results from other questions of interest
+  Additional figures
 \item
-  Additional figures?
+  Figures and results from other questions of interest
 \item
   Additional references
 \end{enumerate}
@@ -160,6 +161,89 @@ length (\(t_min\)) required to achieve that level of statistical power.
 Here, \(t_min\) is the first point as which all points to the right are
 above 0.8.
 
+\subsection{Additional results from the main
+manuscript}\label{additional-results-from-the-main-manuscript}
+
+In the main manuscript, we examined the minimum time required to detect
+a significant trend in abundance over time using linear regression. As
+detailed in the main manuscript the minimum time required was around 15,
+but there was a wide distribution. Therefore, we were interested in
+potential explanatory variables of the minimum time required. In the
+main manuscript, we examined characteristics of the time series itself,
+like variability, autocorrelation, and the trend in abundance over time.
+Here, we combined our time series database with a database on life
+history characteristics of amniotes from (cite other database here).
+There was life history information available for 547 populations
+representing 315 different species, all of which were in the Aves class.
+
+We then correlated minimum time required for each population with its
+corresponding life history characteristics. In figure
+\ref{fig:biological_correlates} we examined miminmum time required
+versus generation length (years), litter size (n), adult body mass
+(grams), maximum longevity (years), egg mass (grams), and incubation
+(days). None of these variables had much explanatory power in accounting
+for the variance in the minimum time required. see table
+\ref{table:model_output}\}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-3-1.pdf}
+\caption{Mimimum time required versus (a) generation length (years), (b)
+litter size (n), (c) adult body mass (grams), (d) maximum longevity
+(years), (e) egg mass (grams), and (f) incubation (days). The lines in
+each plot represent the best fit line from linear
+regression.\label{fig:biological_correlates}}
+\end{figure}
+
+\pagebreak
+
+In the main text, we explained how the minimum time required strongly
+correlated with the trend strength, temporal autocorrelation, and
+variance in population size. Here we use a generalized linear model
+framework with a Poisson error structure to determine drivers of the
+minimum time required. In figure, \ref{fig:poisson_model} we show a set
+of residual plots for the regression. We then show the coefficient
+estimates and levels of significance in table \ref{table:model_output}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/poisson_model-1.pdf}
+\caption{Output of poisson regression\ldots{}\label{fig:poisson_model}}
+\end{figure}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Stuff here\label{table:model_output}}\tabularnewline
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endhead
+(Intercept) & 3.7141297 & 0.0274350 & 135.379203 &
+0.0000000\tabularnewline
+abs\_overall\_trend & -104.4974288 & 3.0997732 & -33.711314 &
+0.0000000\tabularnewline
+autocorrelation & -0.4905888 & 0.0431062 & -11.380936 &
+0.0000000\tabularnewline
+variance & 18.7756472 & 0.6409982 & 29.291262 & 0.0000000\tabularnewline
+gen\_len & 0.0053584 & 0.0025995 & 2.061352 & 0.0392695\tabularnewline
+\bottomrule
+\end{longtable}
+
+Our model with trend strength, autocorrelation, variance, and generation
+length accounted for 72.55\% of the variation in the minimum time
+required. However, we also found trend strength and variance to be
+strongly correlated with one another. Therefore, we ran two additional
+models with either trend strength or variance, but not both together.
+This resulted in lower explained deviance (analogue to \(R^2\)) of
+53.08\% and 45.04\%, respectively.
+
+\pagebreak
+
 \subsection{Results from other questions of
 interest}\label{results-from-other-questions-of-interest}
 
@@ -186,7 +270,7 @@ achieve less than 20\% error.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
 \caption{Example of calculating minimum time required for growth rate
 estimation. (a) abundance over time, (b) mean and standard deviation of
 growth rate for subsamples of entire time series, and (c) the percent
@@ -195,12 +279,15 @@ rate. The vertical bar denotes the minimum time required to estimate
 growth rate within 10\% error.\label{fig:growth_rate}}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-3-1.pdf}
-\caption{Histogram of the minimum time required in order to estimate the
-longterm growth rate within 20\% error.\label{fig:min_time_dist}}
-\end{figure}
+We applied the same calculations to 1032 populations, as we did in the
+main text. We then obtain a distribution of the minimum time required to
+measure the ``true" longterm growth rate (Fig.
+\ref{fig:min_time_growth_dist}). We see a bimodal distribution with many
+populations required 30+ years to estimate the longterm growth rate. The
+large number of short year required is due to cases where the entire
+time series is consistently increasing or decreasing at the same rate.
+
+\clearpage 
 
 \subsubsection{Using Generalized additive model to identify significant
 trends}\label{using-generalized-additive-model-to-identify-significant-trends}
@@ -224,19 +311,13 @@ time sampled (Fig. \ref{fig:gam_example}).
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-7-1.pdf}
 \caption{results here from GAM.\label{fig:gam_example}}
 \end{figure}
 
 We then fit GAM models for XX populations. We found\ldots{} (Fig.
 \ref{fig:gam_result}). This is shorter/longer than the main text
 question.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
-\caption{results here from GAM.\label{fig:gam_result}}
-\end{figure}
 
 \subsubsection{Minimum time to detect density-dependence in time
 series}\label{minimum-time-to-detect-density-dependence-in-time-series}
@@ -251,7 +332,8 @@ least 15 datapoints, and ranged from 15 to 157. A follow up question to
 their work would be, what time series length is required to confidently
 estimate density-dependence.
 
-\subsubsection{References}\label{references}
+\clearpage
+\#\#\# References
 
 \bibliography{White_bib.bib}
 

@@ -36,8 +36,8 @@ June 22, 2017
 This supplementary material includes:
 
 1. Detailed example of subsampling and power calculations
-2. Figures and results from other questions of interest
-3. Additional figures?
+2. Additional figures
+3. Figures and results from other questions of interest
 4. Additional references
 
 
@@ -64,7 +64,85 @@ With statistical power of 0.8, we then determine the minimum time series length 
 ```
 
 
+
+## Additional results from the main manuscript
+
+```{r, echo=F}
+setwd("~/Desktop/Research/time-series-project")
+load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
+```
+
+In the main manuscript, we examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, we were interested in potential explanatory variables of the minimum time required. In the main manuscript, we examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, we combined our time series database with a database on life history characteristics of amniotes from (cite other database here). There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were in the Aves class. 
+
+We then correlated minimum time required for each population with its corresponding life history characteristics. In figure \ref{fig:biological_correlates} we examined miminmum time required versus generation length (years), litter size (n), adult body mass (grams), maximum longevity (years), egg mass (grams), and incubation (days). None of these variables had much explanatory power in accounting for the variance in the minimum time required. see table \ref{table:model_output}}
+
+
+```{r, echo=F, fig.cap='Mimimum time required versus (a) generation length (years), (b) litter size (n), (c) adult body mass (grams), (d) maximum longevity (years), (e) egg mass (grams), and (f) incubation (days). The lines in each plot represent the best fit line from linear regression.\\label{fig:biological_correlates}',fig.height=6}
+
+par(mfrow=c(3,2),oma=c(5,4,1,1),mar=c(5,3,0,0))
+
+n=1
+x_axis_name_list = c('generation length (years)','litter size (n)','adult body mass (grams)','maximum longevity (years)','egg mass (grams)','incubation (days)')
+for (x_axis_name in names(LPI_pop_info)[20:25]){
+  plot(LPI_pop_info[[x_axis_name]],LPI_pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
+  abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info[[x_axis_name]]),lwd=3)
+
+  mtext(text = x_axis_name_list[n],side = 1,line = 3,cex = 1.2)
+  mtext(text = paste('(',letters[n],')',sep=''),side = 3,line=-1.5,adj = 0.98,cex=1.2)
+  n=n+1
+}
+
+mtext(text = 'minimum time required',side = 2,line = 2,cex = 1.4,outer = TRUE)
+
+```
+
+
+\pagebreak
+
+In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here we use a generalized linear model framework with a Poisson error structure to determine drivers of the minimum time required. In figure, \ref{fig:poisson_model} we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
+
+```{r poisson_model, echo=F,include=T,fig.cap='Output of poisson regression...\\label{fig:poisson_model}'}
+setwd("~/Desktop/Research/time-series-project")
+load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+
+# GLM with Poisson error structure (include all terms - it is best not to include abs_overall_trend with variance as they are strongly corrrelated to one another)
+pop_info$abs_overall_trend = abs(pop_info$overall_trend)
+poisson_model <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + variance + gen_len,family = 'poisson',data=pop_info)
+
+  par(mfrow=c(2,2),mar=c(5,5,1,2),oma=c(0,0,0.5,0))
+    plot(poisson_model,cex.lab=1.2,las=1,cex.axis=1.2,main=' ',pch=16, col=rgb(0.5,0.5,0.5,0.4))
+#R^2 calculation (pg. 218 Zuur et al. 2009 mixed effects book)
+R2_fullmodel <- 100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance)
+
+
+
+poisson_model_no_variance <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + gen_len,family = 'poisson',data=pop_info)
+R2_no_variance <- 100*(poisson_model_no_variance$null.deviance - poisson_model_no_variance$deviance)/(poisson_model_no_variance$null.deviance)
+
+poisson_model_no_trend <-glm(min_time_for_power~ autocorrelation + variance + gen_len,family = 'poisson',data=pop_info)
+R2_no_trend <- 100*(poisson_model_no_trend$null.deviance - poisson_model_no_trend$deviance)/(poisson_model_no_trend$null.deviance)
+
+```
+
+```{r,echo=F,message=F,warning=F}
+
+require(knitr)
+knitr::kable(summary(poisson_model)$coef,caption = 'Stuff here\\label{table:model_output}')
+
+```
+
+
+Our model with trend strength, autocorrelation, variance, and generation length accounted for `r round(R2_fullmodel,2)`% of the variation in the minimum time required. However, we also found trend strength and variance to be strongly correlated with one another. Therefore, we ran two additional models with either trend strength or variance, but not both together. This resulted in lower explained deviance (analogue to $R^2$) of `r round(R2_no_variance,2)`% and `r round(R2_no_trend,2)`%, respectively.
+
+
+
+
+\pagebreak
+
 ## Results from other questions of interest
+
+
+
 
 
 
@@ -110,9 +188,9 @@ par(mfrow=c(1,3),oma=c(0,1,0,0))
 
 
 
-We applied the same calculations to `r nrow(pop_info)` populations, as we did in the main text. We then obtain a distribution of the minimum time required to measure the ``true" longterm growth rate (Fig. \reg{fig:min_time_growth_dist}). We see a bimodal distribution with many populations required 30+ years to estimate the longterm growth rate. The large number of short year required is due to cases where the entire time series is consistently increasing or decreasing at the same rate. 
+We applied the same calculations to `r nrow(pop_info)` populations, as we did in the main text. We then obtain a distribution of the minimum time required to measure the ``true" longterm growth rate (Fig. \ref{fig:min_time_growth_dist}). We see a bimodal distribution with many populations required 30+ years to estimate the longterm growth rate. The large number of short year required is due to cases where the entire time series is consistently increasing or decreasing at the same rate. 
 
-```{r, echo=F,fig.cap='Histogram of the minimum time required in order to estimate the longterm growth rate within 20% error.\\label{fig:min_time_growth_dist}'}
+```{r, echo=F,eval=F,fig.cap='Histogram of the minimum time required in order to estimate the longterm growth rate within 20% error.\\label{fig:min_time_growth_dist}'}
 # Growth rates calculations for each species
 setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
 load('cleaned-data/cleaned_timeseries_database.Rdata')
@@ -157,7 +235,7 @@ plot(1,1)
 
 We then fit GAM models for XX populations. We found... (Fig. \ref{fig:gam_result}). This is shorter/longer than the main text question.
 
-```{r,echo=F,fig.cap='results here from GAM.\\label{fig:gam_result}'}
+```{r,echo=F,eval=F,fig.cap='results here from GAM.\\label{fig:gam_result}'}
 # show gam results for minimium time required
 setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
 load('cleaned-data/cleaned_timeseries_database.Rdata')
