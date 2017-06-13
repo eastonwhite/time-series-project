@@ -46,16 +46,16 @@ source('scripts/calculate_slope.R')
     pop = pop[(nrow(pop)-34):nrow(pop),]
     pop$popvalue=as.numeric(pop$popvalue)
     pop$popvalue=pop$popvalue/max(pop$popvalue) #should I standaridize this in a better way
-    pop_info$variance[j]= var(pop$popvalue)
-    pop_info$overall_trend[j] = calculate_slope(pop$popvalue)
-    pop_info$autocorrelation[j] = acf(pop$popvalue,plot = FALSE)$acf[2]
-    pop_info$trend_p_value[j]=calculate_p_value(pop$popvalue)
-    pop_info$popvalue = pop$popvalue[1] #initial abundance
-    pop_info$series_length = nrow(pop)
+    # pop_info$variance[j]= var(pop$popvalue)
+    # pop_info$overall_trend[j] = calculate_slope(pop$popvalue)
+    # pop_info$autocorrelation[j] = acf(pop$popvalue,plot = FALSE)$acf[2]
+    # pop_info$trend_p_value[j]=calculate_p_value(pop$popvalue)
+    # pop_info$popvalue = pop$popvalue[1] #initial abundance
+    # pop_info$series_length = nrow(pop)
     
-   # source('scripts/calculate_power_metric.R')
-   #  pop_info$min_time_for_power[j] = min_time_needed(pop$popvalue,0.05,0.8)
-   # print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
+   source('scripts/calculate_power_metric.R')
+     pop_info$min_time_for_power[j] = min_time_needed(pop$popvalue,0.05,0.8)
+    print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
   }
 
 #IUCN calculation
