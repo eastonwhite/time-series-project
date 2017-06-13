@@ -11,14 +11,14 @@
 
 
 min_time_needed= function(sigma){
-  years_to_sample=seq(2,30,by=1)
+  years_to_sample=seq(2,100,by=1)
   y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=0.5,sigma = sigma,trials=100)
   min_time_needed = years_to_sample[tail(which(y<0.8),1)] + 1
   return(min_time_needed)
 }
 
 
-r_values = seq(0.1,1.5,by=0.1)
+r_values = seq(1,3,by=0.5)
 phi_values = seq(0.1,0.9,by=0.1)
 sigma_values=seq(1,12,by=0.5)
 zed=lapply(X=sigma_values,FUN = min_time_needed)
@@ -26,13 +26,13 @@ sigma_zed=zed
 
 ##########################################################
 # Run models from r values and sigma values to make nice plot
-parameter_combinations = expand.grid(r_values,sigma_values)
+parameter_combinations = expand.grid(r_values,5)
 parameter_combinations$min_time_required = NA
 names(parameter_combinations)= c('r','sigma','min_time_required')
 
 for (i in 1:nrow(parameter_combinations)){
-  years_to_sample=seq(2,25,by=1)
-  y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=parameter_combinations$r[i],sigma = parameter_combinations$sigma[i],trials=150 )
+  years_to_sample=seq(2,50,by=1)
+  y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=parameter_combinations$r[i],sigma = parameter_combinations$sigma[i],trials=50)
   if (length(tail(which(y<0.8),1))>0){
   parameter_combinations$min_time_required[i] = years_to_sample[tail(which(y<0.8),1)] + 1
   }
