@@ -236,16 +236,42 @@ gen\_len & 0.0053584 & 0.0025995 & 2.061352 & 0.0392695\tabularnewline
 
 Our model with trend strength, autocorrelation, variance, and generation
 length accounted for 72.55\% of the variation in the minimum time
-required. However, we also found trend strength and variance to be
-strongly correlated with one another. Therefore, we ran two additional
-models with either trend strength or variance, but not both together.
-This resulted in lower explained deviance (analogue to \(R^2\)) of
-53.08\% and 45.04\%, respectively.
+required (Table \ref{table:model_output}). However, we also found trend
+strength and variance to be strongly correlated with one another.
+Therefore, we ran two additional models with either trend strength or
+variance, but not both together. This resulted in lower explained
+deviance (analogue to \(R^2\)) of 53.08\% and 45.04\%, respectively.
 
 \pagebreak
 
 \subsection{Results from other questions of
 interest}\label{results-from-other-questions-of-interest}
+
+\subsubsection{Simulations with more complicated population
+model}\label{simulations-with-more-complicated-population-model}
+
+In the main text, we showed how a simple population model could be
+simulated repeatidly to estimate the power obtained with time series of
+increasing length. The model in the main text simulated linear
+population growth with only a slope coefficient, y-intercept, and noise
+parameter required. This model is purely phenemilogical and does not
+include any species life history. Here, we use the same routine as the
+main text, but simulate from a more biologically-realistic population
+model, the (MODEL NAME HERE):
+
+\begin{equation}
+    y = x
+  \end{equation}
+
+We simulate this model repetively for different lengths of time series.
+Statistical power is the fraction of time series of a set length that
+showed signicant trends in abundance, given a true trend in abundance.
+\emph{How do I determine significance here? Through linear regression
+again, or do I look at non-zero estimation of the parameter values?}
+
+\subsubsection{Empirical approach with more complicated population model
+(use model similar to de Valpine
+work?)}\label{empirical-approach-with-more-complicated-population-model-use-model-similar-to-de-valpine-work}
 
 \subsubsection{Growth rate calculations}\label{growth-rate-calculations}
 
@@ -300,7 +326,8 @@ general linear models and allow more flexible. GAMs are models where a
 response variable depends on unknown smooth functions of explanatory
 variables. GAMs, therefore, can identify relationships between response
 variables and explantory variables that are non-linear and perhaps more
-complicated. The downsite of GAMs\ldots{}
+complicated. The downside of GAMs is they typically require more data
+and are also prone to overfitting (citations).
 
 Here, we conduct the same analyses in the main text, but instead
 calculate the minimum time series required to detect trends over time
