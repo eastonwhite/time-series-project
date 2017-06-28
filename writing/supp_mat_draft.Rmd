@@ -36,7 +36,9 @@ June 22, 2017
 This supplementary material includes:
 
 1. Detailed example of subsampling and power calculations
-2. Additional figures
+2. Additional results
+  - sensitivity of alpha and beta
+  - other
 3. Figures and results from other questions of interest
 4. Additional references
 
@@ -134,7 +136,44 @@ knitr::kable(summary(poisson_model)$coef,caption = 'Stuff here\\label{table:mode
 
 Our model with trend strength, autocorrelation, variance, and generation length accounted for `r round(R2_fullmodel,2)`% of the variation in the minimum time required (Table \ref{table:model_output}). However, we also found trend strength and variance to be strongly correlated with one another. Therefore, we ran two additional models with either trend strength or variance, but not both together. This resulted in lower explained deviance (analogue to $R^2$) of `r round(R2_no_variance,2)`% and `r round(R2_no_trend,2)`%, respectively.
 
+\pagebreak
 
+### Minimum time series and biological class
+
+```{r,echo=F,include=FALSE, eval=FALSE,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) Longterm trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:biological_correlates}'}
+# Biological correlates plots
+par(mfrow=c(2,2),mar=c(4,5,0.5,0.5))
+
+boxplot(pop_info$min_time_for_power~pop_info$class, lwd = 1, ylab = 'minimum time required',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+stripchart(pop_info$min_time_for_power~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
+
+boxplot(abs(pop_info$overall_trend)~pop_info$class, lwd = 1, ylab = ' ',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+stripchart(abs(pop_info$overall_trend)~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
+  mtext('| trend strength |',2,line=3.5,cex=1.2)
+  
+boxplot(pop_info$variance~pop_info$class, lwd = 1, ylab = 'population variance',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+stripchart(pop_info$variance~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
+
+boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelation',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+stripchart(pop_info$autocorrelation~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
+```
+
+
+
+
+\pagebreak
+
+### Sensitivity analysis of $\alpha$ and $\beta$
+
+Estimates of $T_{min}$ depend strongly on the values used for the significance level ($\alpha$) and the probability of type II error ($\beta$), both of which are set by the practioner. Here we explore how estimates of $T_{min}$ are affected by changes in each of these parameters.
+
+```{r,echo=F}
+# Bring in theoretical code
+# Build plot of $T_min$ vs alpha and another versus beta
+# Explain results after building figures
+
+
+```
 
 
 
