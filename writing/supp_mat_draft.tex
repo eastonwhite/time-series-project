@@ -106,27 +106,14 @@ June 22, 2017
 
 \vspace{2cm}
 
-This supplementary material includes:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Detailed example of subsampling and power calculations
-\item
-  Additional figures
-\item
-  Figures and results from other questions of interest
-\item
-  Additional references
-\end{enumerate}
+\tableofcontents
 
 Code for all the figures and tables can be found at
 \href{https://github.com/erwhite1}{}.
 
 \vspace{2cm}
 
-\subsection{Detailed example of subsampling and power
+\section{Detailed example of subsampling and power
 calculations}\label{detailed-example-of-subsampling-and-power-calculations}
 
 Here, we illustrate in detail how we performed the subsampling and power
@@ -143,7 +130,7 @@ leads to 34 two-year subsamples, 33 two-year subsamples, and so forth
 until a single 35-year subsample. We can call each set of subsamples, of
 the same length, a set. For each subsample, we conduct linear regression
 and extract model coefficients and p-values. Then, the fraction of
-subsamples within a set that show significant trends (signfiiant slope
+subsamples within a set that show significant trends (significant slope
 coefficient) is the statistical power. It is important to note that we
 only consider subsamples to be significant if they are significant in
 the same direction as the complete 35-year time series.
@@ -154,48 +141,31 @@ are sampled.
 
 Then, we determine an appropriate level of statistical power that we
 find acceptable. Traditionally, this has been at 0.8, however, this is
-purely historical. Statisical power of 0.8 implies\ldots{}
+purely historical. Statistical power of 0.8 implies\ldots{}
 
 With statistical power of 0.8, we then determine the minimum time series
 length (\(t_min\)) required to achieve that level of statistical power.
 Here, \(t_min\) is the first point as which all points to the right are
 above 0.8.
 
-\subsection{Additional results from the main
-manuscript}\label{additional-results-from-the-main-manuscript}
-
-In the main manuscript, we examined the minimum time required to detect
-a significant trend in abundance over time using linear regression. As
-detailed in the main manuscript the minimum time required was around 15,
-but there was a wide distribution. Therefore, we were interested in
-potential explanatory variables of the minimum time required. In the
-main manuscript, we examined characteristics of the time series itself,
-like variability, autocorrelation, and the trend in abundance over time.
-Here, we combined our time series database with a database on life
-history characteristics of amniotes from (cite other database here).
-There was life history information available for 547 populations
-representing 315 different species, all of which were in the Aves class.
-
-We then correlated minimum time required for each population with its
-corresponding life history characteristics. In figure
-\ref{fig:biological_correlates} we examined miminmum time required
-versus generation length (years), litter size (n), adult body mass
-(grams), maximum longevity (years), egg mass (grams), and incubation
-(days). None of these variables had much explanatory power in accounting
-for the variance in the minimum time required. see table
-\ref{table:model_output}\}
-
 \begin{figure}[htbp]
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-3-1.pdf}
-\caption{Mimimum time required versus (a) generation length (years), (b)
-litter size (n), (c) adult body mass (grams), (d) maximum longevity
-(years), (e) egg mass (grams), and (f) incubation (days). The lines in
-each plot represent the best fit line from linear
-regression.\label{fig:biological_correlates}}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-1-1.pdf}
+\caption{(a) Population size of Harp Seals over time. The line is the
+best fit line from linear regresssion. (b) Statistical power for
+different subsets of the time series in panel
+a.\label{fig:empirical_approach_example}}
 \end{figure}
 
-\pagebreak
+In Figure \ref{fig:empirical_approach_example}b, statistical power
+increases with more time sampled until our desired power of 0.8 at 16
+years. Therefore, 16 years would be our estimate for \(T_{min}\).
+
+\section{Additional results from the main
+manuscript}\label{additional-results-from-the-main-manuscript}
+
+\subsection{Statistical model of minimum time required and time series
+characteristics}\label{statistical-model-of-minimum-time-required-and-time-series-characteristics}
 
 In the main text, we explained how the minimum time required strongly
 correlated with the trend strength, temporal autocorrelation, and
@@ -242,19 +212,100 @@ Therefore, we ran two additional models with either trend strength or
 variance, but not both together. This resulted in lower explained
 deviance (analogue to \(R^2\)) of 53.08\% and 45.04\%, respectively.
 
+\pagebreak 
+
+\subsection{Minimum time required and biological
+correlates}\label{minimum-time-required-and-biological-correlates}
+
+In the main manuscript, we examined the minimum time required to detect
+a significant trend in abundance over time using linear regression. As
+detailed in the main manuscript the minimum time required was around 15,
+but there was a wide distribution. Therefore, we were interested in
+potential explanatory variables of the minimum time required. In the
+main manuscript, we examined characteristics of the time series itself,
+like variability, autocorrelation, and the trend in abundance over time.
+Here, we combined our time series database with a database on life
+history characteristics of amniotes from (cite other database here).
+There was life history information available for 547 populations
+representing 315 different species, all of which were in the Aves class.
+
+We then correlated minimum time required for each population with its
+corresponding life history characteristics. In figure
+\ref{fig:biological_correlates} we examined minimum time required versus
+generation length (years), litter size (n), adult body mass (grams),
+maximum longevity (years), egg mass (grams), and incubation (days). None
+of these variables had much explanatory power in accounting for the
+variance in the minimum time required. see table
+\ref{table:model_output}\}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-4-1.pdf}
+\caption{Mimimum time required versus (a) generation length (years), (b)
+litter size (n), (c) adult body mass (grams), (d) maximum longevity
+(years), (e) egg mass (grams), and (f) incubation (days). The lines in
+each plot represent the best fit line from linear
+regression.\label{fig:biological_correlates}}
+\end{figure}
+
 \pagebreak
 
-\subsection{Results from other questions of
+\subsection{Minimum time series and biological
+class}\label{minimum-time-series-and-biological-class}
+
+When we examined differences in the minimum time required there were
+similar patterns with biological classes. For instance, more time is
+required for species within the Actinopterygii class compared to other
+species (Fig. \ref{fig:class}a). These differences between biological
+classes can be explained by differences in population variability, with
+species in Actinopterygii have larger variability in population size
+from year-to-year.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
+\caption{(a) Minimum time required to estimate change in abundance for
+species class, (b) longterm trend (estimated slope coefficient) by
+species class, (c) interannual variability in population size by species
+class, and (d) temporal autocorrelation by species
+class.\label{fig:class}}
+\end{figure}
+
+\pagebreak
+
+\subsection{\texorpdfstring{Sensitivity analysis of \(\alpha\) and
+power}{Sensitivity analysis of \textbackslash{}alpha and power}}\label{sensitivity-analysis-of-alpha-and-power}
+
+Estimates of \(T_{min}\) depend strongly on the values used for the
+significance level (\(\alpha\)) and the probability of type II error
+(\(\beta\)), both of which are set by the practitioner. Here we explore
+how estimates of \(T_{min}\) are affected by changes in each of these
+parameters. We see that the minimum time required increases with
+increases in statistical power or decreases with increases in the
+threshold for statistical significance (Fig
+\ref{fig:min_time_vs_alpha_beta}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-6-1.pdf}
+\caption{Minimum time required to assess longterm trends in abundance
+for values of statistical significance (\(\alpha\)) and power
+(\(1-\beta\)).\label{fig:min_time_vs_alpha_beta}}
+\end{figure}
+
+\pagebreak
+
+\section{Results from other questions of
 interest}\label{results-from-other-questions-of-interest}
 
-\subsubsection{Simulations with more complicated population
+\subsection{Simulations with more complicated population
 model}\label{simulations-with-more-complicated-population-model}
 
 In the main text, we showed how a simple population model could be
-simulated repeatidly to estimate the power obtained with time series of
+simulated repeatedly to estimate the power obtained with time series of
 increasing length. The model in the main text simulated linear
 population growth with only a slope coefficient, y-intercept, and noise
-parameter required. This model is purely phenemilogical and does not
+parameter required. This model is purely phenomenological and does not
 include any species life history. Here, we use the same routine as the
 main text, but simulate from a more biologically-realistic population
 model, the (MODEL NAME HERE):
@@ -263,17 +314,18 @@ model, the (MODEL NAME HERE):
     y = x
   \end{equation}
 
-We simulate this model repetively for different lengths of time series.
-Statistical power is the fraction of time series of a set length that
-showed signicant trends in abundance, given a true trend in abundance.
-\emph{How do I determine significance here? Through linear regression
-again, or do I look at non-zero estimation of the parameter values?}
+We simulate this model repetitively for different lengths of time
+series. Statistical power is the fraction of time series of a set length
+that showed significant trends in abundance, given a true trend in
+abundance. \emph{How do I determine significance here? Through linear
+regression again, or do I look at non-zero estimation of the parameter
+values?}
 
-\subsubsection{Empirical approach with more complicated population model
+\subsection{Empirical approach with more complicated population model
 (use model similar to de Valpine
 work?)}\label{empirical-approach-with-more-complicated-population-model-use-model-similar-to-de-valpine-work}
 
-\subsubsection{Growth rate calculations}\label{growth-rate-calculations}
+\subsection{Growth rate calculations}\label{growth-rate-calculations}
 
 Instead of detecting a trend over time with linear regression, we could
 also calculate the geometric growth rate of the population. In figure
@@ -288,15 +340,11 @@ between the mean of each time series length (observed) and the overall
 population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c),
 we show the percent error as a function of time series length. Here we
 define the minimum time required as the minimum number of years to
-achieve less than 20\% error.
-
-\begin{verbatim}
-## Loading required package: plyr
-\end{verbatim}
+achieve less than 10\% error.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-8-1.pdf}
 \caption{Example of calculating minimum time required for growth rate
 estimation. (a) abundance over time, (b) mean and standard deviation of
 growth rate for subsamples of entire time series, and (c) the percent
@@ -315,7 +363,7 @@ time series is consistently increasing or decreasing at the same rate.
 
 \clearpage 
 
-\subsubsection{Using Generalized additive model to identify significant
+\subsection{Using Generalized additive model to identify significant
 trends}\label{using-generalized-additive-model-to-identify-significant-trends}
 
 In the main text, we examined the minimum time required to identify a
@@ -325,7 +373,7 @@ good fit. Generalized additive models (GAMs) are more general than
 general linear models and allow more flexible. GAMs are models where a
 response variable depends on unknown smooth functions of explanatory
 variables. GAMs, therefore, can identify relationships between response
-variables and explantory variables that are non-linear and perhaps more
+variables and explanatory variables that are non-linear and perhaps more
 complicated. The downside of GAMs is they typically require more data
 and are also prone to overfitting (citations).
 
@@ -338,7 +386,7 @@ time sampled (Fig. \ref{fig:gam_example}).
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-10-1.pdf}
 \caption{results here from GAM.\label{fig:gam_example}}
 \end{figure}
 
@@ -346,7 +394,7 @@ We then fit GAM models for XX populations. We found\ldots{} (Fig.
 \ref{fig:gam_result}). This is shorter/longer than the main text
 question.
 
-\subsubsection{Minimum time to detect density-dependence in time
+\subsection{Minimum time to detect density-dependence in time
 series}\label{minimum-time-to-detect-density-dependence-in-time-series}
 
 For decades, the importance of density-dependence in natural populations
@@ -355,13 +403,13 @@ question, \citet{Knape2012} used data from the Global Population
 Dynamics Database \citep{GPDD2010}. They fitted 627 time series with a
 Gompertz population model and found evidence for density-dependence in
 45\% of the time series. Each time series in their database contained at
-least 15 datapoints, and ranged from 15 to 157. A follow up question to
+least 15 data points, and ranged from 15 to 157. A follow up question to
 their work would be, what time series length is required to confidently
 estimate density-dependence.
 
 \clearpage
-\#\#\# References
 
+\renewcommand\refname{References}
 \bibliography{White_bib.bib}
 
 

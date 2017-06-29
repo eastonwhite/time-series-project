@@ -33,73 +33,75 @@ June 22, 2017
 
 \vspace{2cm}
 
+<!--
 This supplementary material includes:
 
 1. Detailed example of subsampling and power calculations
+  - figure of subsampling routine
 2. Additional results
-  - sensitivity of alpha and beta
-  - other
+  - statistical model results of main text
+  - biological correlates plot
+  - minimum time required and biological class
+  - sensitivity of alpha and power
 3. Figures and results from other questions of interest
-4. Additional references
+  - simulations with more realistic population model
+  - empirical example with more realistic population model
+  - minimum time required to estimate longterm geometric growth rate
+  - empirical approach with longterm geometric growth rate
+  - estimating minimum time required for generalized additive models
 
+4. Additional references
+-->
+
+\tableofcontents
 
 Code for all the figures and tables can be found at [](https://github.com/erwhite1).
 
 \vspace{2cm}
 
 
-## Detailed example of subsampling and power calculations
+# Detailed example of subsampling and power calculations
 
 Here, we illustrate in detail how we performed the subsampling and power calculations for a specific population. As an example, we examine a 35-year time series of (). Simple linear regression indicates a significant decline for this population with a blank and blank. We assume that this significant decline over 35 years is in fact the ``true trend". In statistical jargon, the 35-year trend is an effect that is actually present. We can then use this as a benchmark to see if subsamples of the time series show a similar result.
 
-We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample. We can call each set of subsamples, of the same length, a set. For each subsample, we conduct linear regression and extract model coefficients and p-values. Then, the fraction of subsamples within a set that show significant trends (signfiiant slope coefficient) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series.
+We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample. We can call each set of subsamples, of the same length, a set. For each subsample, we conduct linear regression and extract model coefficients and p-values. Then, the fraction of subsamples within a set that show significant trends (significant slope coefficient) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series.
 
 We can then plot statistical power as a function of time series length. As expected, we can see that power increases with the more years that are sampled. 
 
-Then, we determine an appropriate level of statistical power that we find acceptable. Traditionally, this has been at 0.8, however, this is purely historical. Statisical power of 0.8 implies...
+Then, we determine an appropriate level of statistical power that we find acceptable. Traditionally, this has been at 0.8, however, this is purely historical. Statistical power of 0.8 implies...
 
 With statistical power of 0.8, we then determine the minimum time series length ($t_min$) required to achieve that level of statistical power. Here, $t_min$ is the first point as which all points to the right are above 0.8. 
 
-
-```{r, echo=F}
-# show an example of subsampling and power calculation routines
-```
-
-
-
-## Additional results from the main manuscript
-
-```{r, echo=F}
-setwd("~/Desktop/Research/time-series-project")
-load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
-```
-
-In the main manuscript, we examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, we were interested in potential explanatory variables of the minimum time required. In the main manuscript, we examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, we combined our time series database with a database on life history characteristics of amniotes from (cite other database here). There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were in the Aves class. 
-
-We then correlated minimum time required for each population with its corresponding life history characteristics. In figure \ref{fig:biological_correlates} we examined miminmum time required versus generation length (years), litter size (n), adult body mass (grams), maximum longevity (years), egg mass (grams), and incubation (days). None of these variables had much explanatory power in accounting for the variance in the minimum time required. see table \ref{table:model_output}}
-
-
-```{r, echo=F, fig.cap='Mimimum time required versus (a) generation length (years), (b) litter size (n), (c) adult body mass (grams), (d) maximum longevity (years), (e) egg mass (grams), and (f) incubation (days). The lines in each plot represent the best fit line from linear regression.\\label{fig:biological_correlates}',fig.height=6}
-
-par(mfrow=c(3,2),oma=c(5,4,1,1),mar=c(5,3,0,0))
-
-n=1
-x_axis_name_list = c('generation length (years)','litter size (n)','adult body mass (grams)','maximum longevity (years)','egg mass (grams)','incubation (days)')
-for (x_axis_name in names(LPI_pop_info)[20:25]){
-  plot(LPI_pop_info[[x_axis_name]],LPI_pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
-  abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info[[x_axis_name]]),lwd=3)
-
-  mtext(text = x_axis_name_list[n],side = 1,line = 3,cex = 1.2)
-  mtext(text = paste('(',letters[n],')',sep=''),side = 3,line=-1.5,adj = 0.98,cex=1.2)
-  n=n+1
-}
-
-mtext(text = 'minimum time required',side = 2,line = 2,cex = 1.4,outer = TRUE)
+<!-- example of how subsampling and empirical approach works -->
+```{r, echo=F,message=F,warning=F,fig.cap='(a) Population size of Harp Seals over time. The line is the best fit line from linear regresssion. (b) Statistical power for different subsets of the time series in panel a.\\label{fig:empirical_approach_example}'}
+# Example of subsampling empirical data
+ setwd("~/Desktop/Research/time-series-project")
+ load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+  par(mfrow=c(1,2),oma=c(4,4,0.5,0.5))
+    pop = subset(long_dat,long_dat$ID=='13192') #13192 for Harp seals
+    plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='time (years)',pch=16,las=1)
+    abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+    mtext(text = '(a)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+    mtext(text='population size', side=2,line=4,cex=1.2)
+# could insert all possible regressions of length n
+source('scripts/calculate_power_metric.R')
+    power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
+    plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='statistical power',xlab='years sampled',las=1,pch=16)
+    mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+# could also insert standard error bars
+    abline(h=0.8,col='red',lwd=2,lty=2)
+    abline(v=head(which(power_example>0.8),1),col='red',lwd=2,lty=2)
 
 ```
 
+In Figure \ref{fig:empirical_approach_example}b, statistical power increases with more time sampled until our desired power of 0.8 at 16 years. Therefore, 16 years would be our estimate for $T_{min}$.
 
-\pagebreak
+
+
+# Additional results from the main manuscript
+
+
+## Statistical model of minimum time required and time series characteristics
 
 In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here we use a generalized linear model framework with a Poisson error structure to determine drivers of the minimum time required. In figure, \ref{fig:poisson_model} we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
 
@@ -136,25 +138,66 @@ knitr::kable(summary(poisson_model)$coef,caption = 'Stuff here\\label{table:mode
 
 Our model with trend strength, autocorrelation, variance, and generation length accounted for `r round(R2_fullmodel,2)`% of the variation in the minimum time required (Table \ref{table:model_output}). However, we also found trend strength and variance to be strongly correlated with one another. Therefore, we ran two additional models with either trend strength or variance, but not both together. This resulted in lower explained deviance (analogue to $R^2$) of `r round(R2_no_variance,2)`% and `r round(R2_no_trend,2)`%, respectively.
 
+\pagebreak 
+
+## Minimum time required and biological correlates
+```{r, echo=F}
+setwd("~/Desktop/Research/time-series-project")
+load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
+```
+
+In the main manuscript, we examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, we were interested in potential explanatory variables of the minimum time required. In the main manuscript, we examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, we combined our time series database with a database on life history characteristics of amniotes from (cite other database here). There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were in the Aves class. 
+
+We then correlated minimum time required for each population with its corresponding life history characteristics. In figure \ref{fig:biological_correlates} we examined minimum time required versus generation length (years), litter size (n), adult body mass (grams), maximum longevity (years), egg mass (grams), and incubation (days). None of these variables had much explanatory power in accounting for the variance in the minimum time required. see table \ref{table:model_output}}
+
+
+```{r, echo=F, fig.cap='Mimimum time required versus (a) generation length (years), (b) litter size (n), (c) adult body mass (grams), (d) maximum longevity (years), (e) egg mass (grams), and (f) incubation (days). The lines in each plot represent the best fit line from linear regression.\\label{fig:biological_correlates}',fig.height=6}
+
+par(mfrow=c(3,2),oma=c(5,4,1,1),mar=c(5,3,0,0))
+
+n=1
+x_axis_name_list = c('generation length (years)','litter size (n)','adult body mass (grams)','maximum longevity (years)','egg mass (grams)','incubation (days)')
+for (x_axis_name in names(LPI_pop_info)[20:25]){
+  plot(LPI_pop_info[[x_axis_name]],LPI_pop_info$min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2)
+  abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info[[x_axis_name]]),lwd=3)
+
+  mtext(text = x_axis_name_list[n],side = 1,line = 3,cex = 1.2)
+  mtext(text = paste('(',letters[n],')',sep=''),side = 3,line=-1.5,adj = 0.98,cex=1.2)
+  n=n+1
+}
+
+mtext(text = 'minimum time required',side = 2,line = 2,cex = 1.4,outer = TRUE)
+
+```
+
+
+
+
 \pagebreak
 
-### Minimum time series and biological class
+## Minimum time series and biological class
 
-```{r,echo=F,include=FALSE, eval=FALSE,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) Longterm trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:biological_correlates}'}
+When we examined differences in the minimum time required there were similar patterns with biological classes. For instance, more time is required for species within the Actinopterygii class compared to other species (Fig. \ref{fig:class}a). These differences between biological classes can be explained by differences in population variability, with species in Actinopterygii have larger variability in population size from year-to-year.
+
+```{r,echo=F,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) longterm trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:class}',fig.height=6}
+
+# Pull in data
+setwd("~/Desktop/Research/time-series-project")
+load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 # Biological correlates plots
-par(mfrow=c(2,2),mar=c(4,5,0.5,0.5))
+par(mfrow=c(2,2),oma=c(8,1,1.5,0.5),mar=c(0,4,0,1))
 
-boxplot(pop_info$min_time_for_power~pop_info$class, lwd = 1, ylab = 'minimum time required',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+boxplot(pop_info$min_time_for_power~pop_info$class, lwd = 1, ylab = 'minimum time required',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n")
 stripchart(pop_info$min_time_for_power~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 
-boxplot(abs(pop_info$overall_trend)~pop_info$class, lwd = 1, ylab = ' ',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+boxplot(abs(pop_info$overall_trend)~pop_info$class, lwd = 1, ylab = ' ',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n")
 stripchart(abs(pop_info$overall_trend)~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
   mtext('| trend strength |',2,line=3.5,cex=1.2)
   
-boxplot(pop_info$variance~pop_info$class, lwd = 1, ylab = 'population variance',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+boxplot(pop_info$variance~pop_info$class, lwd = 1, ylab = 'population variance',col='white',cex.lab=1.4,cex.axis=1.2,las=2)
 stripchart(pop_info$variance~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 
-boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelation',col='white',cex.lab=1.4,cex.axis=1.2,las=1)
+boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelation',col='white',cex.lab=1.4,cex.axis=1.2,las=2)
 stripchart(pop_info$autocorrelation~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 ```
 
@@ -163,17 +206,76 @@ stripchart(pop_info$autocorrelation~pop_info$class, vertical = TRUE,method = "ji
 
 \pagebreak
 
-### Sensitivity analysis of $\alpha$ and $\beta$
+## Sensitivity analysis of $\alpha$ and power
 
-Estimates of $T_{min}$ depend strongly on the values used for the significance level ($\alpha$) and the probability of type II error ($\beta$), both of which are set by the practioner. Here we explore how estimates of $T_{min}$ are affected by changes in each of these parameters.
+Estimates of $T_{min}$ depend strongly on the values used for the significance level ($\alpha$) and the probability of type II error ($\beta$), both of which are set by the practitioner. Here we explore how estimates of $T_{min}$ are affected by changes in each of these parameters. We see that the minimum time required increases with increases in statistical power or decreases with increases in the threshold for statistical significance (Fig \ref{fig:min_time_vs_alpha_beta}).
 
-```{r,echo=F}
+```{r,echo=F,message=F,error=F,fig.cap='Minimum time required to assess longterm trends in abundance for values of statistical significance ($\\alpha$) and power ($1-\\beta$).\\label{fig:min_time_vs_alpha_beta}'}
 # Bring in theoretical code
 # Build plot of $T_min$ vs alpha and another versus beta
 # Explain results after building figures
+setwd("~/Desktop/Research/time-series-project")
+source('scripts/calculate_slope.R') 
+source('scripts/theoretical-models/simulate_pop.R')
+# calculate_power = function(r,phi,sigma,trials,max.time,alpha){
+#   trials   = trials
+#   max.time = max.time
+#   r        = r
+#   phi      = phi
+#   sigma    = sigma
+#   
+#   y=replicate(n=trials,simulate_pop(r,phi,sigma,max.time)) 
+#   
+#   power=sum((apply(y,2,calculate_p_value)<alpha) & sign(apply(y,2,calculate_slope))==sign(r))/trials 
+#   
+#   return(power)
+# }
+# 
+# 
+# min_time_needed= function(alpha,power){
+#   years_to_sample=seq(2,30,by=1)
+#   y=lapply(X=years_to_sample,FUN = calculate_power,phi =0.5,r=0.5,sigma = 1,trials=100,alpha=alpha)
+#   min_time_needed = years_to_sample[tail(which(y<power),1)] + 1
+#   return(min_time_needed)
+# }
+# 
+# alpha_values=seq(0.001,0.2,by=0.01)
+# power_values=seq(0.65,0.95,by=0.01)
+# parameter_combinations = expand.grid(alpha_values,power_values)
+# names(parameter_combinations) = c('alpha','power')
+# parameter_combinations$min_time_required = NA
+# 
+# for (i in 1:nrow(parameter_combinations)){
+# 
+#   parameter_combinations$min_time_required[i] =  min_time_needed(parameter_combinations[i,1],parameter_combinations[i,2])
+#  
+#   #print(i)
+# }
 
 
+#write.csv(parameter_combinations,file = 'analysis-outputs/min_time_vs_alpha_and_power.csv',quote = F,row.names = F)
+
+# Pull in data to prevent R from running for a long time to create data from scratch
+parameter_combinations = read.csv('analysis-outputs/min_time_vs_alpha_and_power.csv',header=T)
+
+require(ggplot2)
+ggplot(parameter_combinations, aes(x = alpha, y = power, z = min_time_required, fill=min_time_required)) +
+  geom_tile() + 
+  labs(title = " ", x = expression(alpha), y = expression(paste('power ',(1-beta))), fill = expression(T[min])) +
+  scale_fill_distiller(palette="Spectral", na.value="white") +
+  theme_bw()
 ```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,26 +283,30 @@ Estimates of $T_{min}$ depend strongly on the values used for the significance l
 
 \pagebreak
 
-## Results from other questions of interest
+# Results from other questions of interest
 
 
-### Simulations with more complicated population model
+## Simulations with more complicated population model
 
-In the main text, we showed how a simple population model could be simulated repeatidly to estimate the power obtained with time series of increasing length. The model in the main text simulated linear population growth with only a slope coefficient, y-intercept, and noise parameter required. This model is purely phenemilogical and does not include any species life history. Here, we use the same routine as the main text, but simulate from a more biologically-realistic population model, the (MODEL NAME HERE):
+In the main text, we showed how a simple population model could be simulated repeatedly to estimate the power obtained with time series of increasing length. The model in the main text simulated linear population growth with only a slope coefficient, y-intercept, and noise parameter required. This model is purely phenomenological and does not include any species life history. Here, we use the same routine as the main text, but simulate from a more biologically-realistic population model, the (MODEL NAME HERE):
   
   \begin{equation}
     y = x
   \end{equation}
+  
+```{r,echo=F}
+#Include simulations of more interesting model here
+```
 
-We simulate this model repetively for different lengths of time series. Statistical power is the fraction of time series of a set length that showed signicant trends in abundance, given a true trend in abundance. *How do I determine significance here? Through linear regression again, or do I look at non-zero estimation of the parameter values?*
+We simulate this model repetitively for different lengths of time series. Statistical power is the fraction of time series of a set length that showed significant trends in abundance, given a true trend in abundance. *How do I determine significance here? Through linear regression again, or do I look at non-zero estimation of the parameter values?*
 
 
-### Empirical approach with more complicated population model (use model similar to de Valpine work?)
+## Empirical approach with more complicated population model (use model similar to de Valpine work?)
 
 
-### Growth rate calculations
+## Growth rate calculations
 
-Instead of detecting a trend over time with linear regression, we could also calculate the geometric growth rate of the population. In figure \ref{fig:growth_rate}, we show how to calculate growth rates for subsamples of a time series. First, we created subsamples of each possible length from the full 35 year time series, as we did in the main next. Next, we calculated the mean and standard deviation of growth rates for each possible time series length (Fig. \ref{fig:growth_rate}b). Lastly, we calculated the percent error $\mbox{percent error} = 100 \times \left| \frac{\mbox{observed} - \mbox{theoretical}}{\mbox{theoretical}} \right|$ between the mean of each time series length (observed) and the overall population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c), we show the percent error as a function of time series length. Here we define the minimum time required as the minimum number of years to achieve less than 20% error. 
+Instead of detecting a trend over time with linear regression, we could also calculate the geometric growth rate of the population. In figure \ref{fig:growth_rate}, we show how to calculate growth rates for subsamples of a time series. First, we created subsamples of each possible length from the full 35 year time series, as we did in the main next. Next, we calculated the mean and standard deviation of growth rates for each possible time series length (Fig. \ref{fig:growth_rate}b). Lastly, we calculated the percent error $\mbox{percent error} = 100 \times \left| \frac{\mbox{observed} - \mbox{theoretical}}{\mbox{theoretical}} \right|$ between the mean of each time series length (observed) and the overall population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c), we show the percent error as a function of time series length. Here we define the minimum time required as the minimum number of years to achieve less than 10% error. 
 
 ```{r, echo=F, fig.cap='Example of calculating minimum time required for growth rate estimation. (a) abundance over time, (b) mean and standard deviation of growth rate for subsamples of entire time series, and (c) the percent error between mean estimated growth rate and the true longterm growth rate. The vertical bar denotes the minimum time required to estimate growth rate within 10% error.\\label{fig:growth_rate}'}
 #Example of using population growth rate instead of power
@@ -273,16 +379,35 @@ mtext(text = 'Minimum time required',1,line=3,cex=1.2)
 
 \clearpage 
 
-### Using Generalized additive model to identify significant trends
 
-In the main text, we examined the minimum time required to identify a trend in abundance via linear regression. This approach allowed us to identify increases or decreases, but a linear model may not always be a good fit. Generalized additive models (GAMs) are more general than general linear models and allow more flexible. GAMs are models where a response variable depends on unknown smooth functions of explanatory variables. GAMs, therefore, can identify relationships between response variables and explantory variables that are non-linear and perhaps more complicated. The downside of GAMs is they typically require more data and are also prone to overfitting (citations). 
+
+
+## Using Generalized additive model to identify significant trends
+
+In the main text, we examined the minimum time required to identify a trend in abundance via linear regression. This approach allowed us to identify increases or decreases, but a linear model may not always be a good fit. Generalized additive models (GAMs) are more general than general linear models and allow more flexible. GAMs are models where a response variable depends on unknown smooth functions of explanatory variables. GAMs, therefore, can identify relationships between response variables and explanatory variables that are non-linear and perhaps more complicated. The downside of GAMs is they typically require more data and are also prone to overfitting (citations). 
 
 Here, we conduct the same analyses in the main text, but instead calculate the minimum time series required to detect trends over time according to a GAM model. We hypothesize that GAMs should require less time to detect a trend as they are more flexible than linear regression. We provide an example that shows statistical power increases with more time sampled (Fig. \ref{fig:gam_example}).
 
 
-```{r,echo=F,fig.cap='results here from GAM.\\label{fig:gam_example}'}
+```{r,echo=F,message=F,warning=F,fig.cap='results here from GAM.\\label{fig:gam_example}'}
 # show gam example side-by-side plot
-plot(1,1)
+ setwd("~/Desktop/Research/time-series-project")
+ load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+ source('scripts/calculate_power_metric_gam.R')
+  par(mfrow=c(1,2),oma=c(4,4,0.5,0.5))
+    pop = subset(long_dat,long_dat$ID=='7558') #13192 for Harp seals, 7558 for Thunnus obesus
+    plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='time (years)',pch=16,las=1)
+    abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
+    mtext(text = '(a)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+    mtext(text='population size', side=2,line=4,cex=1.2)
+# could insert all possible regressions of length n
+
+    power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
+    plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='statistical power',xlab='years sampled',las=1,pch=16)
+    mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+# could also insert standard error bars
+    abline(h=0.8,col='red',lwd=2,lty=2)
+    abline(v=head(which(power_example>0.8),1),col='red',lwd=2,lty=2)
 ```
 
 We then fit GAM models for XX populations. We found... (Fig. \ref{fig:gam_result}). This is shorter/longer than the main text question.
@@ -313,9 +438,10 @@ mtext(text = 'Minimum time required',1,line=3,cex=1.2)
 
 
 
-### Minimum time to detect density-dependence in time series
+## Minimum time to detect density-dependence in time series
 
-For decades, the importance of density-dependence in natural populations has been an important question in ecology (citations). To address this question, @Knape2012 used data from the Global Population Dynamics Database [@GPDD2010]. They fitted 627 time series with a Gompertz population model and found evidence for density-dependence in 45% of the time series. Each time series in their database contained at least 15 datapoints, and ranged from 15 to 157. A follow up question to their work would be, what time series length is required to confidently estimate density-dependence. 
+For decades, the importance of density-dependence in natural populations has been an important question in ecology (citations). To address this question, @Knape2012 used data from the Global Population Dynamics Database [@GPDD2010]. They fitted 627 time series with a Gompertz population model and found evidence for density-dependence in 45% of the time series. Each time series in their database contained at least 15 data points, and ranged from 15 to 157. A follow up question to their work would be, what time series length is required to confidently estimate density-dependence. 
 
 \clearpage
-### References
+
+# References
