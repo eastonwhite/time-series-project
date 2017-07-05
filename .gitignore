@@ -29,3 +29,8 @@ writing/?*.bbl
 writing/supp_mat_draft_files/*
 
 Art_Time_Series_Data/
+
+cleaned-data/old_data_outputs_do_not_use/*
+*.Rapp.history
+*.rtf
+*.gz
