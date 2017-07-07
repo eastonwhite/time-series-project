@@ -54,14 +54,6 @@ Long-term census data is necessary to better understand ecological processes and
 
 # Introduction
 
-<!--
-- intro long time series
-- my general question
-- primer on power
-- more general power interpretation
-- 2+ approaches
-- what we do in this paper
--->
 
 Observational studies and population censuses have become a cornerstone of modern ecological research and conservation biology [@Magurran2010]. long-term data is necessary to both understand population dynamics and to assess extinction risk of species. Even though many time series may now be considered "long-term", most are still short (i.e. less than X years). *I could have statistic on how long is considered "long-term" in papers*. Time series are typically short for a variety of reasons. They are often coupled with an experiment, which may only last a couple of years. In addition, short funding cycles make it difficult to examine populations over longer periods of time (citations). There are, of course, notable exceptions including the Isle Royale study, Iowa corn study, cod, lynx-hair, and many others (citations).  
 
@@ -92,9 +84,8 @@ In Fig. \ref{fig:theoretical_approach}a, a number of simulated time series are s
 
 
 ```{r,echo=F,eval=F,fig.cap='(a) example of simulated time series for 40 time periods and (b) statistical power versus the simulated time series length. The horizontal, dashed line is our desired statistical power of 0.8. The vertical, dashed line is the minimum time required to achieve our desired statistical power. (c) Minimum time required for different values of the trend strength ($r$) and (d) minimum time required for different levels of population variability ($\\sigma$).\\label{fig:theoretical_approach}'}
-setwd("~/Desktop/Research/time-series-project")
-source("scripts/theoretical-models/calculate_power.R")
-source("scripts/theoretical-models/simulate_pop.R")
+source("../scripts/theoretical-models/calculate_power.R")
+source("../scripts/theoretical-models/simulate_pop.R")
 
 
   years_to_sample=seq(2,100,by=1)
@@ -172,13 +163,12 @@ source("scripts/theoretical-models/simulate_pop.R")
 <!-- code to pull in databases-->
 ```{r, echo=F}
 # Pull in original database from Keith et al. 2015 and the cleaned version after our series of filtering steps
-  setwd("~/Desktop/Research/time-series-project")
 
 #Load keith et al. database (from GPDD database)
-  load('data/Keith_et_al_2015_data.Rdata')
+  load('../data/Keith_et_al_2015_data.Rdata')
 
 #Load our cleaned data (see other code for cleaning steps)
-  load('cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata') #Do i need to filter out non-significant populations as well (where no trend was present)
+  load('../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata') #Do i need to filter out non-significant populations as well (where no trend was present)
  # pop_info=pop_info[pop_info$trend_p_value<0.05,]
  # long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
  # long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
@@ -193,8 +183,7 @@ We use a database of `r length(table(dat$ID))` population time series compiled i
 
 ```{r,echo=F}
 # Pull in results of biological characteristics comparison to min time series length required
-setwd("~/Desktop/Research/time-series-project")
-load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
+load('../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 ```
 For a subset of populations in the database ($n =$ `r nrow(LPI_pop_info)`), we were able to connect a database on biological characteristics [@Myhrvold2015] like body size and generation length. All `r nrow(LPI_pop_info)` populations are within the Aves class. In the supplementary material, we explore how the minimum time required does not strongly correlate with any biological characteristics. 
 
@@ -248,8 +237,7 @@ In line with past work, we found the $T_{min}$ increases (i.e. more time is requ
 
 ```{r,echo=F,fig.cap='Distribution of the minimum time required in order to detect a significant trend (at the 0.05 level) in abundance given power of 0.8.\\label{fig:min_time_dist}'}
 # Pull in analysis of average min time needed for **empirical species** (save analysis as Rdata file or something)
- setwd("~/Desktop/Research/time-series-project")
- load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+ load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
 
 #only look at pops with significant long-term declines or increases
 #pop_info=pop_info[pop_info$trend_p_value<0.05,]
@@ -313,19 +301,6 @@ par(mfrow=c(1,1))
 ```
     
 
-
-```{r,echo=F,eval=F}
-#summary(poisson_model)
-```
-
-<!--
-# Potential figures
-- Examples of how determining minimum time series works (probably in methods)
-- What min time should scale with theoretically (trend, power, variability, etc) - another multi panel figure
-- Mean min time by class or system
-- Separate results for species, body size, location, biology. - multi panel figure
-
--->
 
 ## Questions in the appendix
 
@@ -423,37 +398,3 @@ Statistical power for different subsets of the time series in panel
 a.\label{fig:empirical_approach_example}}
 \end{figure}
 
-
-
-\begin{longtable}[]{@{}lrrrr@{}}
-\caption{Output of generalized linear model to examine predictors of the
-minimum time required for determing long-term population
-trends.\label{table:model_output}}\tabularnewline
-\toprule
-& Estimate & Std. Error & z value &
-Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-& Estimate & Std. Error & z value &
-Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
-\midrule
-\endhead
-(Intercept) & 3.7405513 & 0.0242742 & 154.09595 & 0\tabularnewline
-abs\_overall\_trend & -104.0533454 & 3.0941097 & -33.62949 &
-0\tabularnewline
-autocorrelation & -0.4899533 & 0.0431769 & -11.34757 & 0\tabularnewline
-variance & 18.7366110 & 0.6404458 & 29.25557 & 0\tabularnewline
-\bottomrule
-\end{longtable}
-
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
-\caption{Mimimum time required versus (a) generation length (years), (b)
-litter size (n), (c) adult body mass (grams), (d) maximum longevity
-(years), (e) egg mass (grams), and (f) incubation (days). The lines in
-each plot represent the best fit line from linear
-regression.\label{fig:biological_correlates}}
-\end{figure}

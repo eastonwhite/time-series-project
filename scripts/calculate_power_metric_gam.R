@@ -12,8 +12,8 @@
 require(plyr)
 
 #pull in neccessary functions
-source('scripts/calculate_p_value_gam.R')
-source('scripts/create_subsamples.R')
+source('../scripts/calculate_p_value_gam.R')
+source('../scripts/create_subsamples.R')
 
 
 ######## Implement two-tailed test

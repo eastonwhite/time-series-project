@@ -6,7 +6,7 @@
 
 calculate_power = function(r,phi,sigma,trials,max.time){
   
-  source('scripts/calculate_slope.R') # calls another function which calculates the slope and p_value of a linear regression on a time series
+  source('../scripts/calculate_slope.R') # calls another function which calculates the slope and p_value of a linear regression on a time series
   # Parameter values
   trials   = trials
   max.time = max.time

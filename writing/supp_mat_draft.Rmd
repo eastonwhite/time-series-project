@@ -47,8 +47,8 @@ Code for all the figures and tables can be found at (https://github.com/erwhite1
 # Detailed example of subsampling and power calculations
 
 ```{r,echo=F}
- setwd("~/Desktop/Research/time-series-project")
- load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+ #
+ load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
     pop = subset(long_dat,long_dat$ID=='7558')
     model_example = lm(pop$popvalue~c(1:nrow(pop)))
 ```
@@ -62,8 +62,7 @@ We can then plot statistical power as a function of time series length (Fig. \re
 <!-- example of how subsampling and empirical approach works -->
 ```{r, echo=F,message=F,warning=F,fig.cap='(a) Population size of Bigeye tuna (\\emph{Thunnus obesus}) over time. The line is the best fit line from linear regresssion. (b) Statistical power for different subsets of the time series in panel a.\\label{fig:empirical_approach_example}'}
 # Example of subsampling empirical data
- setwd("~/Desktop/Research/time-series-project")
- load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+ load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
   par(mfrow=c(1,2),oma=c(4,4,0.5,0.5))
     pop = subset(long_dat,long_dat$ID=='7558') #13192 for Harp seals, 7558 for Thunnus obesus
     plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='time (years)',pch=16,las=1)
@@ -71,7 +70,7 @@ We can then plot statistical power as a function of time series length (Fig. \re
     mtext(text = '(a)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
     mtext(text='population size', side=2,line=4,cex=1.2)
 # could insert all possible regressions of length n
-source('scripts/calculate_power_metric.R')
+source("../scripts/calculate_power_metric.R",chdir=T)
     power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
     plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='statistical power',xlab='years sampled',las=1,pch=16)
     mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
@@ -99,8 +98,8 @@ With statistical power of 0.8, we then determine the minimum time series length 
 In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here, we use a generalized linear model framework with a Poisson error structure to determine drivers of the minimum time required. In figure, \ref{fig:poisson_model} we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
 
 ```{r poisson_model, echo=F,include=T,fig.cap='Output of generalized linear model with a Poisson error structure for predicting the minimum time required with explanatory variables of the absolute value of the slope coefficient (or trend strength), temporal autocorrelation, and variability in population size.\\label{fig:poisson_model}'}
-setwd("~/Desktop/Research/time-series-project")
-load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+
+load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
 
 # GLM with Poisson error structure (include all terms - it is best not to include abs_overall_trend with variance as they are strongly corrrelated to one another)
 pop_info$abs_overall_trend = abs(pop_info$overall_trend)
@@ -135,8 +134,8 @@ Our model with trend strength, autocorrelation, variance, and generation length 
 
 ## Minimum time required and biological correlates
 ```{r, echo=F}
-setwd("~/Desktop/Research/time-series-project")
-load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
+
+load('../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 ```
 
 In the main manuscript, we examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, we were interested in potential explanatory variables of the minimum time required. In the main manuscript, we examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, we combined our time series database with a database on life history characteristics of amniotes from @Myhrvold2015. There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were in the Aves class. 
@@ -145,8 +144,8 @@ We then correlated minimum time required for each population with its correspond
 
 
 ```{r, echo=F, fig.cap='Mimimum time required versus (a) generation length (years), (b) litter size (n), (c) adult body mass (grams), (d) maximum longevity (years), (e) egg mass (grams), and (f) incubation (days). The lines in each plot represent the best fit line from linear regression.\\label{fig:biological_correlates}',fig.height=6}
-setwd("~/Desktop/Research/time-series-project")
-load('cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
+
+load('../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 par(mfrow=c(3,2),oma=c(5,4,1,1),mar=c(5,3,0,0))
 
 n=1
@@ -176,8 +175,8 @@ When we examined differences in the minimum time required there were similar pat
 ```{r,echo=F,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) long-term trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:class}',fig.height=6}
 
 # Pull in data
-setwd("~/Desktop/Research/time-series-project")
-load("~/Desktop/Research/time-series-project/cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+
+load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
 # Biological correlates plots
 par(mfrow=c(2,2),oma=c(8,1,1.5,0.5),mar=c(0,4,0,1))
 
@@ -212,9 +211,9 @@ Estimates of $T_{min}$ depend strongly on the values used for the significance l
 # Bring in theoretical code
 # Build plot of $T_min$ vs alpha and another versus beta
 # Explain results after building figures
-setwd("~/Desktop/Research/time-series-project")
-source('scripts/calculate_slope.R') 
-source('scripts/theoretical-models/simulate_pop.R')
+
+source('../scripts/calculate_slope.R') 
+source('../scripts/theoretical-models/simulate_pop.R')
 # calculate_power = function(r,phi,sigma,trials,max.time,alpha){
 #   trials   = trials
 #   max.time = max.time
@@ -254,7 +253,7 @@ source('scripts/theoretical-models/simulate_pop.R')
 #write.csv(parameter_combinations,file = 'analysis-outputs/min_time_vs_alpha_and_power.csv',quote = F,row.names = F)
 
 # Pull in data to prevent R from running for a long time to create data from scratch
-parameter_combinations = read.csv('analysis-outputs/min_time_vs_alpha_and_power.csv',header=T)
+parameter_combinations = read.csv('../analysis-outputs/min_time_vs_alpha_and_power.csv',header=T)
 
 require(ggplot2)
 ggplot(parameter_combinations, aes(x = alpha, y = power, z = min_time_required, fill=min_time_required)) +
@@ -275,11 +274,11 @@ ggplot(parameter_combinations, aes(x = alpha, y = power, z = min_time_required, 
 In the main text we evaluated the minimum time required to determine long-term trends in abundance via linear regression. This process examined linear trends in abundance over time. Here we examine the minimum time required to estimate long-term trends that are either exponential growth or decay. We use the same methods as described in the previous sections, but we take the $log$ of population density, or abundance.
 
 ```{r,echo=F,message=F,error=F,fig.cap='Distribution of the minimum time required in order to detect a significant trend (at the 0.05 level) in log(abundance) given power of 0.8.\\label{fig:min_time_dist_log_pop}'}
-setwd("~/Desktop/Research/time-series-project")
-# load('cleaned-data/cleaned_timeseries_database.Rdata')
+
+# load('../cleaned-data/cleaned_timeseries_database.Rdata')
 # 
-# source('scripts/calculate_slope.R')
-# source('scripts/calculate_power_metric.R')
+# source('../scripts/calculate_slope.R')
+# source('../scripts/calculate_power_metric.R')
 # 
 # for (j in 1:nrow(pop_info)){
 #     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
@@ -307,11 +306,11 @@ setwd("~/Desktop/Research/time-series-project")
 # long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
 # long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
 # 
-# save(pop_info,long_dat,long_time_names,file = 'cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
+# save(pop_info,long_dat,long_time_names,file = '../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
 
 
 # LOAD in previously run script from this code chuck and make histogram plot
-load('cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
+load('../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
 
 plot(density(pop_info$min_time_for_power),las=1,ylab='',xlab='',cex.axis=1.2,main='')
 mtext(text = 'Frequency',2,line=3,cex=1.2)
@@ -330,12 +329,12 @@ In the main text, we showed how a simple population model could be simulated rep
 
 ```{r, echo=F,fig.cap='Statistical power for different length of time series simulations for a lemon shark population in Bimini, Bahamas.\\label{fig:shark_example}'}
 
-setwd("~/Desktop/Research/time-series-project")
-#source('scripts/LemonShark_PopulationModel.R')
+
+#source('../scripts/LemonShark_PopulationModel.R')
 years_to_sample=seq(5,50,by=1)
 #shark_power=sapply(years_to_sample,power)
 
-load('analysis-outputs/example_power_for_shark_model.Rdata')
+load('../analysis-outputs/example_power_for_shark_model.Rdata')
 par(mfrow=c(1,1),oma=c(3,3,0.5,0.5),mar=c(2,2,0,0))
    plot(years_to_sample,shark_power,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2)
       abline(v=years_to_sample[tail(which(shark_power<0.8),1)+1],lty=2,lwd=2,col='red')
@@ -344,7 +343,7 @@ par(mfrow=c(1,1),oma=c(3,3,0.5,0.5),mar=c(2,2,0,0))
       mtext(text = 'statistical power' ,side = 2,cex = 1.2,line=3.5)
       #mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
       
-#save(shark_power,file='analysis-outputs/example_power_for_shark_model.Rdata')  
+#save(shark_power,file='../analysis-outputs/example_power_for_shark_model.Rdata')  
 
 ```
 
@@ -372,15 +371,14 @@ Instead of detecting a trend over time with linear regression, we could also cal
 
 ```{r, echo=F, fig.cap='Example of calculating minimum time required for growth rate estimation. (a) European herring gull (\\emph{Larus argentatus}) scaled density over time, (b) mean and standard deviation of growth rate for subsamples of entire time series, and (c) the percent error between mean estimated growth rate and the true long-term growth rate. The vertical bar denotes the minimum time required to estimate growth rate within 20% error.\\label{fig:growth_rate}'}
 #Example of using population growth rate instead of power
-setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
-source("scripts/calculate_geometric_growth.R")
-load('cleaned-data/cleaned_timeseries_database.Rdata')
+source("../scripts/calculate_geometric_growth.R")
+load('../cleaned-data/cleaned_timeseries_database.Rdata')
 
 par(mfrow=c(1,3),oma=c(0,1,0,0))
 
   pop = subset(long_dat,long_dat$ID=='10008') #13192 for Harp seals, 10007 is California Gull, 10008 for European herring gull (Larus argentatus)
-  source('scripts/create_subsamples.R')
-  source('scripts/percent_error.R')
+  source('../scripts/create_subsamples.R')
+  source('../scripts/percent_error.R')
   aaa=calculate_average_geometric_growth(pop$popvalue)
   plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,las=1)
     #abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
@@ -415,18 +413,17 @@ We applied the same calculations to `r nrow(pop_info)` populations, as we did in
 
 ```{r, echo=F,eval=T,fig.cap='Histogram of the minimum time required in order to estimate the long-term growth rate within 20% error.\\label{fig:min_time_growth_dist}'}
 # Growth rates calculations for each species
-setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
-# load('cleaned-data/cleaned_timeseries_database.Rdata')
+# load('../cleaned-data/cleaned_timeseries_database.Rdata')
 # 
-# source('scripts/create_subsamples.R')
-# source('scripts/calculate_geometric_growth.R')
-# source('scripts/percent_error.R')
+# source('../scripts/create_subsamples.R')
+# source('../scripts/calculate_geometric_growth.R')
+# source('../scripts/percent_error.R')
 #  for (j in 1:nrow(pop_info)){
 #     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
 #     pop$popvalue=as.numeric(pop$popvalue)
 #     pop$popvalue=pop$popvalue/max(pop$popvalue) #should I standaridize this in a better way
 #     
-#    # source('scripts/calculate_power_metric.R')
+#    # source('../scripts/calculate_power_metric.R')
 #     aaa=calculate_average_geometric_growth(pop$popvalue)
 #     if (length(which(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34])>0.2))==0){
 #       pop_info$min_time_growth_rate[j] = 2
@@ -434,9 +431,9 @@ setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
 #       pop_info$min_time_growth_rate[j] = tail(which(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34])>0.2),1)+1}
 #     #print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
 #  }
-# save(pop_info,file = 'analysis-outputs/min_time_for_growth_rate0_2.Rdata')
+# save(pop_info,file = '../analysis-outputs/min_time_for_growth_rate0_2.Rdata')
 
-load('analysis-outputs/min_time_for_growth_rate0_2.Rdata')
+load('../analysis-outputs/min_time_for_growth_rate0_2.Rdata')
 
 # Create plot
 par(mfrow=c(1,1))
@@ -461,9 +458,9 @@ Here, we conduct the same analyses in the main text, but instead calculate the m
 
 ```{r,echo=F,message=F,warning=F,fig.cap='(a) Time series for Bigeye tuna (\\emph{Thunnus obesus}) with corresponding fitted GAM model in red and (b) statistical power as a function of the number of years sampled. The horizontal ine at 0.8 indicates the minimum threshold for statistical power and the vertical line denotes the minimum time required to achieve 0.8 statistical power.\\label{fig:gam_example}'}
 # show gam example side-by-side plot
- setwd("~/Desktop/Research/time-series-project")
- load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
- source('scripts/calculate_power_metric_gam.R')
+ 
+ load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+ source('../scripts/calculate_power_metric_gam.R')
   par(mfrow=c(1,2),oma=c(4,4,0.5,0.5))
     pop = subset(long_dat,long_dat$ID=='7558') #13192 for Harp seals, 7558 for Thunnus obesus
     plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='time (years)',pch=16,las=1)
@@ -485,11 +482,10 @@ Here, we conduct the same analyses in the main text, but instead calculate the m
 
 ```{r,echo=F,fig.cap='Distribution of the minimum time required in order to detect a significant trend (at the 0.05 level) in abundance according to a GAM model given statistical power of 0.8. The smoothing parameter was set to 3 for each population.\\label{fig:min_time_dist_gam}'}
 # show gam results for minimium time required
-setwd("/Users/eastonwhite/Desktop/Research/time-series-project")
-load("cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
 main_text = pop_info
-# load('cleaned-data/cleaned_timeseries_database.Rdata')
-#  source('scripts/calculate_power_metric_gam.R')
+# load('../cleaned-data/cleaned_timeseries_database.Rdata')
+#  source('../scripts/calculate_power_metric_gam.R')
 #  for (j in 1:nrow(pop_info)){
 #     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
 #     pop$popvalue=as.numeric(pop$popvalue)
@@ -507,9 +503,9 @@ main_text = pop_info
 # long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
 # long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
 # 
-# save(pop_info,long_dat,long_time_names,file='analysis-outputs/min_time_required_GAM.Rdata')
+# save(pop_info,long_dat,long_time_names,file='../analysis-outputs/min_time_required_GAM.Rdata')
 
-load('analysis-outputs/min_time_required_GAM.Rdata')
+load('../analysis-outputs/min_time_required_GAM.Rdata')
 # Create plot
 par(mfrow=c(1,1))
 min_time_gam = pop_info$min_time_for_power_gam[pop_info$min_time_for_power_gam!=-999]

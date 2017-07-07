@@ -9,8 +9,8 @@
 require(plyr)
 
 #pull in neccessary functions
-source('scripts/calculate_slope.R')
-source('scripts/create_subsamples.R')
+source('../scripts/calculate_slope.R')
+source('../scripts/create_subsamples.R')
 
 
 #This is a two-sided test (should use 1 tailed test)
