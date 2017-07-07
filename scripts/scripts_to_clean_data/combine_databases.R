@@ -60,15 +60,15 @@ save(LPI_pop_info,new_dat,file = 'cleaned-data/combined_databases_with_min_time_
 # Simple plots
 if (makePlot=TRUE){
 par(mfrow=c(1,3),oma=c(4,4,1,1),mar=c(1,3,0,0))
-with(LPI_pop_info,plot(gen_len,min_time_required,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
+with(LPI_pop_info,plot(gen_len,min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
 mtext(text = 'minimum time required',side = 2,line = 3,cex = 1.4)
 mtext(text = 'generation length (years)',side = 1,line = 3,cex = 1.4)
 
-with(LPI_pop_info,plot(litter_or_clutch_size_n,min_time_required,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
+with(LPI_pop_info,plot(litter_or_clutch_size_n,min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
 #mtext(text = 'minimum time required',side = 2,line = 3,cex = 1.4)
 mtext(text = 'litter size',side = 1,line = 3,cex = 1.4)
 
-with(LPI_pop_info,plot(log(adult_body_mass_g),min_time_required,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
+with(LPI_pop_info,plot(log(adult_body_mass_g),min_time_for_power,pch=16,col=rgb(0.5,0.5,0.5,0.5),las=1,ylab='',xlab='',cex.axis=1.2))
 #mtext(text = 'minimum time required',side = 2,line = 3,cex = 1.4)
 mtext(text = 'log(adult body mass (grams))',side = 1,line = 3,cex = 1.4)
 }

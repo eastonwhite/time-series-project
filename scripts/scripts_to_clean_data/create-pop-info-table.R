@@ -40,8 +40,11 @@ pop_info$trend_p_value=NA
 pop_info$min_time_for_power=NA
 pop_info$popvalue=NA
 time_series_data=NULL
+
 source('scripts/calculate_slope.R')
-  for (j in 1:nrow(pop_info)){
+source('scripts/calculate_power_metric.R')
+
+for (j in 1:nrow(pop_info)){
     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
     pop = pop[(nrow(pop)-34):nrow(pop),]
     pop$popvalue=as.numeric(pop$popvalue)
@@ -54,13 +57,13 @@ source('scripts/calculate_slope.R')
     pop_info$popvalue = pop$popvalue[1] #initial abundance
     pop_info$series_length = nrow(pop)
     
-   #source('scripts/calculate_power_metric.R')
+
      pop_info$min_time_for_power[j] = min_time_needed(pop$popvalue,0.05,0.8)
     print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
     
     
     time_series_data = rbind(time_series_data,pop)
-  }
+}
 
 long_dat = time_series_data
 
@@ -68,12 +71,15 @@ long_dat = time_series_data
 pop_info$IUCN = 3*pop_info$gen_len
 pop_info$IUCN[pop_info$IUCN<10]=10
 
-# Save output here
-save(pop_info,long_dat,long_time_names,file = 'cleaned-data/cleaned_timeseries_database.Rdata')
+
+
+
+##### SAVE OUTPUT HERE ######
+save(pop_info[,c(1:13,15)],long_dat,long_time_names,file = 'cleaned-data/cleaned_timeseries_database.Rdata')
 
 #Only look at populations with certain level of the overall trend
-#pop_info=pop_info[pop_info$trend_p_value<0.05,]
-#long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
-#long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
+pop_info=pop_info[pop_info$trend_p_value<0.05,]
+long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
+long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
 
-
+save(pop_info,long_dat,long_time_names,file = 'cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata')
