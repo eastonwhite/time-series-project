@@ -251,23 +251,33 @@ can then determine the minimum time series required to achieve designed
 levels of significance and power for a particular question. This
 approach requires us to determine values for our model parameters
 (e.g.~population variability). As an example, we can take the following
-population model for population size \(N\) at time \(t\): \[
-N(t + 1) = N(t) + r(t) \mbox{ with } r(t) \sim N(\mu, \sigma)
-\] where \(\epsilon\) is a normally-distributed random noise term with
-mean \(\mu\) and standard deviation \(\sigma\). The rate of growth \(r\)
-is also the trend strength of the increase or decrease (i.e.~the rate of
-increase).
+population model for population size \(N\) at time \(t\):
 
-By simulating this model repetitively for different lengths of time, we
-can determine the minimum time series required. Here, statistical power
-is simply the fraction of simulations with significant trends in
+\begin{equation}
+N(t + 1) = N(t) + r(t) \mbox{ with } r(t) \sim N(\mu, \sigma)
+\label{sim_model}
+\end{equation}
+
+where \(\epsilon\) is a normally-distributed random noise term with mean
+\(\mu\) and standard deviation \(\sigma\). The rate of growth \(r\) is
+also the trend strength of the increase or decrease (i.e.~the rate of
+increase). It is important to note that any population model could be
+subsituted for equation \ref{sim_model}, as we do in the supplementary
+material (Figs. \ref{fig:min_time_dist_log_pop},
+\ref{fig:shark_example}).
+
+We can determine the minimum time series required by simulating this
+model repetitively for different lengths of time. Here, statistical
+power is simply the fraction of simulations with significant trends in
 abundance. A significant trend in abundance is determined by estimating
 the significance of the slope parameter from simple linear regression.
 Then, the minimum time required (\(T_{min}\)) is the number of years
 required to obtain statistical power above some pre-determined threshold
 (historically at 0.8, Cohen (1992)). Statistical power of 0.8 would
 indicate that, if there was a true trend in abundance, we would have a
-0.8 probability of detecting the trend.
+0.8 probability of detecting the trend. We also tested the effect of
+varying both the significance level and statistical power (Fig.
+\ref{fig:min_time_vs_alpha_beta}).
 
 In Fig. \ref{fig:theoretical_approach}a, a number of simulated time
 series are shown for a set number of time periods (\(t=40\)). It is
@@ -279,16 +289,16 @@ greater than 0.8 (the dotted line), that is the minimum time required
 \begin{figure}[htbp]
 \centering
 \includegraphics{manuscript_draft_files/figure-latex/unnamed-chunk-1-1.pdf}
-\caption{(a) example of simulated time series for 40 time periods and
-(b) statistical power versus the simulated time series length. The
-horizontal, dashed line is our desired statistical power of 0.8. The
-vertical, dashed line is the minimum time required to achieve our
+\caption{(a) Example of a simulated time series for 40 time periods. (b)
+Statistical power versus the simulated time series length. The
+horizontal, dashed line is the desired statistical power of 0.8. The
+vertical, dashed line is the minimum time required to achieve the
 desired statistical power. (c) Minimum time required (\(T_{min}\)) for
-simulations with different values of the trend strength (\(r\)) and (d)
-different levels of population variability (\(\sigma\)). In each case,
-the minimum time required is the minimum number of years to achieve 0.8
-statistical power given a significance level of
-0.05.\label{fig:theoretical_approach}}
+simulations with different values of the trend strength (\(r\)). (d)
+Minimum time required for different levels of population variability
+(\(\sigma\)). In each case, the minimum time required is the minimum
+number of years to achieve 0.8 statistical power given a significance
+level of 0.05.\label{fig:theoretical_approach}}
 \end{figure}
 
 \subsection{Data source}\label{data-source}
@@ -369,8 +379,9 @@ and with increases in variability (Fig. \ref{fig:theoretical_approach}).
 \begin{figure}[htbp]
 \centering
 \includegraphics{manuscript_draft_files/figure-latex/unnamed-chunk-4-1.pdf}
-\caption{Distribution of the minimum time required in order to detect a
-significant trend (at the 0.05 level) in abundance given power of
+\caption{Distributions of the minimum time required for four different
+biological classes. The minimum time required calculation corresponds to
+a significant level of 0.05 and statistical power of
 0.8.\label{fig:min_time_dist}}
 \end{figure}
 
@@ -380,7 +391,7 @@ significant trend (at the 0.05 level) in abundance given power of
 \caption{Minimum time required to estimate change in abundance
 correlated with (a) trend strength (absolute value of slope coefficient
 estimated from linear regression), (b) population variance (interannual
-variability in population size), and (c) temporal
+variability in population size), and (c) temporal lag-1
 autocorrelation.\label{fig:correlates}}
 \end{figure}
 
