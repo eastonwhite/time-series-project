@@ -297,6 +297,16 @@ number of years to achieve 0.8 statistical power given a significance
 level of 0.05.\label{fig:theoretical_approach}}
 \end{figure}
 
+We also explored how the simulation approach can be applied to more
+biologically-realistic population models (Fig. \ref{fig:shark_example}).
+More specifically, we determine the minimum time required to estimate
+long-term population trends using a stochastic, age-structured model of
+lemon shark population dynamics in the Bahamas (White, Nagy, and Gruber
+2014). We found that over 27 years of continuous monitoring were needed
+in this particular scenario (Fig. \ref{fig:shark_example}). Similar to
+the simulation approach decribed above, the minimum time required for
+the lemon shark population was strongly dependent on model parameters.
+
 \subsection{Data source}\label{data-source}
 
 We use a database of 2444 population time series compiled in (Keith et
@@ -337,6 +347,17 @@ measure of statistical power. Lastly, we determine which subsample
 length is required to achieve a certain threshold of statistical power
 (0.8, Cohen (1992)). The subsampled length meeting these criteria is the
 minimum time series length required (\(T_{min}\)).
+
+In the supplementary material, we show how the same approach described
+here can be used to determine the minimum time required to estimate a
+population's geometric growth rate (Figs.
+\ref{fig:growth_rate},\ref{fig:min_time_growth_dist}). We also determine
+the minimum time required to estimate long-term trends according to
+generalized additive models, instead of the simple linear models used
+here (Fig. \ref{fig:gam_example}). We found that although we obtain a
+similar distribution of minimum times required for GAMs, the minimum
+time required for GAMs is on average shorter than for linear regression
+(Fig. \ref{fig:min_time_dist_gam}).
 
 \section{Results}\label{results}
 
@@ -391,7 +412,9 @@ autocorrelation.\label{fig:correlates}}
 We examined a database of 878 separate population time series
 representing 478 species. This database consists of species with a
 variety of life history characteristics. We limited our analyses to
-populations with at least 35 years of continuous sampling.
+populations with at least 35 years of continuous sampling. We examined
+the minimum time required to estimate long-term trends via linear
+regression.
 
 Across all the populations we examined, we found an average minimum time
 series length required (\(T_{min}\)) of 16.5 (\(\sigma\)=8.4), with a
@@ -413,31 +436,6 @@ length required (Fig. \ref{fig:biological_correlates}). Some differences
 in \(T_{min}\) did occur between biological class (Fig.
 \ref{fig:class}), but this can be attributed to the amount populations
 are known to fluctuate (i.e.~the variability in population size).
-
-\subsection{Questions in the supplmentary
-material}\label{questions-in-the-supplmentary-material}
-
-In the supplementary material, we explore several additional questions
-related to statistical power and estimating \(T_{min}\). First, we
-showed that other metrics besides estimating the slope coefficient from
-linear regression could be used. More specifically, we show how the same
-approach described here can be used to determine the minimum time
-required to estimate a population's geometric growth rate (Figs.
-\ref{fig:growth_rate},\ref{fig:min_time_growth_dist}). We also explored
-how the simulation approach can be applied to more
-biologically-realistic population models (Fig. \ref{fig:shark_example}).
-More specifically, we determine the minimum time required to estimate
-long-term population trends using a stochastic, age-structured model of
-lemon shark population dynamics in the Bahamas (White, Nagy, and Gruber
-2014). We found that over 27 years of continuous monitoring were needed
-in this particular scenario (Fig. \ref{fig:shark_example}. Lastly, we
-determine the minimum time required to estimate long-term trends
-according to generalized additive models, instead of the simple linear
-models used here (Fig. \ref{fig:gam_example}). We found that although we
-obtain a similar distribution of minimum times required for GAMs, the
-minimum time required for GAMs is on average shorter than for linear
-regression (Fig. \ref{fig:min_time_dist_gam}). We expand on these
-results in the supplementary material.
 
 \section{Discussion}\label{discussion}
 
@@ -479,8 +477,8 @@ diverse enough set of species with different life history traits.
 Second, the question we poised, whether a population is increasing or
 decreasing, was specifically concerned with trends in population density
 over time. Therefore, life-history characteristics may be more important
-for other questions (e.g.~extinction risk) where estimates minimum time
-required are needed.
+for other questions (e.g.~species extinction risk) where estimates
+minimum time required are needed.
 
 There has been interest in determining the minimum time series length in
 the bird research community (Hatch 2003; Bart et al. 2004; Seavy and

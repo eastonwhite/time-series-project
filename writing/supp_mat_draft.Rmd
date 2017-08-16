@@ -11,8 +11,8 @@ header-includes:
     \usepackage{float}
     \renewcommand{\thepage}{S\arabic{page}} 
     \renewcommand{\thesection}{S\arabic{section}}  
-    \renewcommand{\thetable}{S\arabic{table}}  
-    \renewcommand{\thefigure}{S\arabic{figure}}
+    \renewcommand{\thetable}{A\arabic{table}}  
+    \renewcommand{\thefigure}{A\arabic{figure}}
     \usepackage[round]{natbib} \bibpunct[; ]{(}{)}{,}{a}{}{;}
 ---
 
@@ -38,7 +38,7 @@ June 22, 2017
 
 \vspace{1cm}
 
-Code for all the figures and tables can be found at (https://github.com/erwhite1).
+Data and code for all the figures and tables can be found at (https://github.com/erwhite1).
 
 \vspace{2cm}
 
