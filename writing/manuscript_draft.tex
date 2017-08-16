@@ -246,10 +246,8 @@ This is the same approach one might use in sample size calculations for
 any experimental design too complicated for simple power analyses
 (Bolker 2008; P. C. Johnson et al. 2015). We only briefly discuss this
 approach as it has been described elsewhere. Essentially, we use a
-population model and simulate it for a number of years repetitively. We
-can then determine the minimum time series required to achieve designed
-levels of significance and power for a particular question. This
-approach requires us to determine values for our model parameters
+population model and repetitively simulate it for a number of years.
+This approach requires us to determine values for our model parameters
 (e.g.~population variability). As an example, we can take the following
 population model for population size \(N\) at time \(t\):
 
@@ -266,18 +264,16 @@ subsituted for equation \ref{sim_model}, as we do in the supplementary
 material (Figs. \ref{fig:min_time_dist_log_pop},
 \ref{fig:shark_example}).
 
-We can determine the minimum time series required by simulating this
-model repetitively for different lengths of time. Here, statistical
-power is simply the fraction of simulations with significant trends in
-abundance. A significant trend in abundance is determined by estimating
-the significance of the slope parameter from simple linear regression.
-Then, the minimum time required (\(T_{min}\)) is the number of years
-required to obtain statistical power above some pre-determined threshold
-(historically at 0.8, Cohen (1992)). Statistical power of 0.8 would
-indicate that, if there was a true trend in abundance, we would have a
-0.8 probability of detecting the trend. We also tested the effect of
-varying both the significance level and statistical power (Fig.
-\ref{fig:min_time_vs_alpha_beta}).
+Statistical power is then the fraction of simulations that meet some
+criteria. Here, we use whether the slope parameter from linear
+regression is significant. Statistical power changes with the simulation
+length (Fig. \ref{fig:theoretical_approach}b). Then, the minimum time
+required (\(T_{min}\)) is the number of years needed to obtain
+statistical power above some threshold (historically at 0.8, Cohen
+(1992)). Statistical power of 0.8 would indicate that, if there was a
+true trend in abundance, we would have a 0.8 probability of detecting
+the trend. We also tested the effect of varying both the significance
+level and statistical power (Fig. \ref{fig:min_time_vs_alpha_beta}).
 
 In Fig. \ref{fig:theoretical_approach}a, a number of simulated time
 series are shown for a set number of time periods (\(t=40\)). It is
@@ -304,22 +300,22 @@ level of 0.05.\label{fig:theoretical_approach}}
 \subsection{Data source}\label{data-source}
 
 We use a database of 2444 population time series compiled in (Keith et
-al. 2015). The data are originally from the Global Population Dynamics
+al. 2015) to compare the predictability of growth rates amongst
+populations. The data are originally from the Global Population Dynamics
 Database (NERC Centre for Population Biology 2010). We filtered out
 short time series (less than 35 years), and those with missing data, and
-were left with 878 time series. The database includes information on 478
-vertebrate species with a focus on mammals, birds, and fish. The
-database also includes information on generation length and census
+were left with 878 time series. The data includes information on 478
+vertebrate species with a focus on mammals, birds, and fish. The data
+also includes information on generation length and census
 specifications. For each time series, we also calculated variables of
 interest like variance in population size, long-term trend in abundance
 (slope coefficient from simple linear regression), and temporal
 autocorrelation.
 
-For a subset of populations in the database (\(n =\) 547), we were able
-to connect a database on biological characteristics (Myhrvold et al.
-2015), including body size and generation length. All 547 populations
-are within the Aves class. In the supplementary material, we explore how
-the minimum time required does not strongly correlate with any
+For a subset of populations (\(n =\) 547), we had information on
+biological characteristics from another paper (Myhrvold et al. 2015),
+including body size and generation length. All 547 populations were
+birds. We examine how the minimum time required is related to these
 biological characteristics (Fig. \ref{fig:biological_correlates}).
 
 \subsection{Empirical approach}\label{empirical-approach}
@@ -328,22 +324,19 @@ We assume that each time series in our database is long enough to
 include all necessary information (e.g.~variability) about the
 population. In other words, each time series is a representative sample.
 We first take all possible contiguous subsamples of each time series.
-For example, a time series of 40 years would have 39 possible contiguous
-subsamples of length 2, 38 possible contiguous subsamples of length 3,
-and continuing until 1 possible contiguous subsample of length 40
-(Gerber, DeMaster, and Kareiva 1999; Giron-Nava et al. 2017). Then, we
-determine the \(T_{min}\) required to be confident (i.e.~have high
-enough statistical power) in an estimate of the slope coefficient from
-linear regression. Therefore, we run a linear regression for each
-subsampled time series. Then, we determine the fraction of subsamples of
-a particular length that have estimated slope coefficients which are
-statistically different from zero given the long-term, or ``true'', time
-series also has a significant slope. This is a measure of statistical
-power (often denoted as \(1 - \beta\), where \(\beta\) is the
-probability of a type II error). Lastly, we determine which subsample
-length is required to guarantee we have above a certain threshold of
-statistical power, which we will assume is 0.8 by convention (Cohen
-1992).
+For example, a time series of 35 years would have 34 possible contiguous
+subsamples of length 2, 34 possible contiguous subsamples of length 3,
+and continuing until 1 possible contiguous subsample of length 35
+(Gerber, DeMaster, and Kareiva 1999; Giron-Nava et al. 2017). Next, we
+run a linear regression for each subsampled time series. Then, we
+determine the fraction of subsamples of a particular length that have
+estimated slope coefficients which are statistically different from
+zero. We only look at the fraction of samples where the long-term, or
+``true'', time series also has a significant slope. This fraction is a
+measure of statistical power. Lastly, we determine which subsample
+length is required to achieve a certain threshold of statistical power
+(0.8, Cohen (1992)). The subsampled length meeting these criteria is the
+minimum time series length required (\(T_{min}\)).
 
 \section{Results}\label{results}
 
