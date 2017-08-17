@@ -2,7 +2,7 @@
 bibliography: White_bib.bib
 fontsize: 12pt
 geometry: margin=1in
-header-includes: \usepackage{float} \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage[firstinits=true,style=authoryear-comp,natbib=true,doi=false,isbn=false,url=false,uniquename=false,uniquelist=false,sorting=none]{biblatex}
+header-includes: \usepackage{float} \usepackage{lineno} \usepackage[firstinits=true,style=authoryear-comp,natbib=true,doi=false,isbn=false,url=false,uniquename=false,uniquelist=false,sorting=none]{biblatex}
 
  \linenumbers
 
@@ -24,13 +24,20 @@ Title: Minimum time required to detect population trends: the need for long-term
 Author(s): \textsc{Easton R. White$^{1,2}$} 
 \vspace{3 mm}
 
-Addresses:\emph{$^1$ Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
+Address:\emph{
+    \\$^1$Center for Population Biology \\
+    University of California, Davis \\
+    2320 Storer Hall \\
+		University of California, Davis \\
+		One Shields Avenue Davis, CA, USA}
 \vspace{3 mm}
 
-$^2$Corresponding author: eawhite@ucdavis.edu
+$^2$Corresponding author: eawhite@ucdavis.edu, 1 480 203 7931
 \vspace{3 mm}
 
-Number of words: X,XXX (less than 4,000 words or 20 pages)
+Number of words (including 300 words for figures): X,XXX 
+Number of figures:
+Number of figures in supplementary material:
 \vspace{3 mm}
 
 To be submitted to: \emph{Biological Conservation}
@@ -38,6 +45,11 @@ To be submitted to: \emph{Biological Conservation}
 
 Available as a preprint at: www.peerj.com
 \vspace{3 mm}
+
+Color does not need to be used for any figures in print
+\vspace{3 mm}
+
+
 
 Keywords: ecological time series, experimental design, monitoring, power analysis, statistical power, sampling design
 
@@ -50,9 +62,9 @@ Keywords: ecological time series, experimental design, monitoring, power analysi
 \linenumbers
 
  
-# Abstract
+\begin{abstract}
 Long-term census data are necessary to better understand ecological processes and make management decisions. However, census data are often expensive, requiring a lot of time and resources. Little work has addressed the question: when is a time series of census data long enough to address a question of interest? <!--Here, we explore two approaches to address this question: simulations and an empirical approach.--> We determine the minimum time series length required to estimate significant increases or decreases in population abundance. Importantly, we examine the ability to detect a trend with a set level of statistical power, which is often neglected in ecological time series analyses. Using a simulation approach, we demonstrate how the minimum time series length required increases with weaker trends in abundance and with higher population variability. In addition, we examine 878 populations of vertebrate species to determine the minimum time required to detect changes in their abundance. We show that 10-15 years of continuous monitoring are required in order to achieve a high level of statistical power. Similar to simulation-approaches, the minimum time required for field census data strongly depends on trend strength, population variability, and temporal autocorrelation. <!--Perhaps surprisingly, the minimum time required did not correlate well with biological explanatory variables, like body size or generation length.--> These results point to the importance of sampling populations over long periods of time. <!--We stress the need for verifying a study has enough statistical power to accurately determine long-term population trends.--> Time series less than 10-15 years are likely under-powered and potentially misleading.
-
+\end{abstract}
 
 
 
@@ -173,7 +185,7 @@ source("../scripts/theoretical-models/simulate_pop.R")
 
 
 
-We also explored how the simulation approach can be applied to more biologically-realistic population models (Fig. \ref{fig:shark_example}). More specifically, we determine the minimum time required to estimate long-term population trends using a stochastic, age-structured model of lemon shark population dynamics in the Bahamas [@White2014]. We found that over 27 years of continuous monitoring were needed in this particular scenario (Fig. \ref{fig:shark_example}). Similar to the simulation approach decribed above, the minimum time required for the lemon shark population was strongly dependent on model parameters. 
+
 
 
 
@@ -230,15 +242,14 @@ We also examine how minimum time series calculations changed depending on the qu
 # Results
 
 
-We determined the minimum time series length ($T_{min}$) required to address a particular question of interest. More specifically we asked, what is the minimum time series length required to determine, via linear regression, the long-term population trend? Here, the minimum time series length required had high enough statistical power (greater than 0.8) for a set significance level of 0.05. We investigated this question through two approaches: simulation-based and empirical analyses. We briefly describe results from the simulation approach and then discuss our empirical approach.
+We determined the minimum time series length ($T_{min}$) required to address a particular question of interest. What is the minimum time series length required to determine, via linear regression, the long-term population trend? Here, the minimum time series length required had high enough statistical power ($1-\beta$ greater than 0.8) for a set significance level ($\alpha$) of 0.05. It is also possible to alter $1-\beta$ and $\alpha$. Predictably, as we increased our level of power or decreased $\alpha$, $T_{min}$ increased (Fig. \ref{fig:min_time_vs_alpha_beta}). We investigated this question through two approaches. We briefly describe results from the simulation approach and then discuss our empirical approach.
 
 
 ## Simulation approach
 
-We constructed a general population model where the trend (i.e. slope coefficient) over time could be a model parameter. We chose a simple model, but any other population model could be used (Fig. \ref{fig:min_time_dist_log_pop}). Ideally, the specific model choice should be tailored to the population of interest. We then ran simulated time series of different lengths. From these simulations we determined the minimum time series length required to achieve a certain level of statistical power. We were also able to alter the parameter values (trend strength and population variability) of the population model to see how this altered $T_{min}$ (Fig. \ref{fig:theoretical_approach}). 
+We constructed a general population model where the trend strength (i.e. slope coefficient) over time could be a model parameter. We then ran simulated time series of different lengths. From these simulations we determined the minimum time series length required to achieve a certain level of statistical power. In line with past work [@Gerrodette1987], we found the $T_{min}$ increases (i.e. more time is required) with decreases in trend strength and with increases in population variability (Figs. \ref{fig:theoretical_approach}c,d). 
 
-In line with past work [@Gerrodette1987], we found the $T_{min}$ increases (i.e. more time is required) with decreases in trend strength and with increases in variability (Fig. \ref{fig:theoretical_approach}). 
-
+We chose a simple model, but any other population model could be used (see example in Fig. \ref{fig:min_time_dist_log_pop}). Ideally, the specific model choice should be tailored to the population of interest. We explored how the simulation approach can be applied to more biologically-realistic population models (Fig. \ref{fig:shark_example}). More specifically, we determined the minimum time required to estimate long-term population trends using a stochastic, age-structured model of lemon shark population dynamics in the Bahamas [@White2014]. We found that over 27 years of continuous monitoring were needed in this particular scenario (Fig. \ref{fig:shark_example}). Similar to the simulation approach decribed above, the minimum time required for the lemon shark population was strongly dependent on model parameters. 
 
 ## Empirical approach
 
@@ -302,11 +313,14 @@ R2 <- 100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$
 ```
 
 
-We examined a database of `r nrow(pop_info)` separate population time series representing `r length(table(pop_info$Binomial))` species. This database consists of species with a variety of life history characteristics. We limited our analyses to populations with at least 35 years of continuous sampling. We examined the minimum time required to estimate long-term trends via linear regression.
+We examined a database of `r nrow(pop_info)` separate population time series representing `r length(table(pop_info$Binomial))` species. This database consists of vertebrate species with a variety of life history characteristics (Fig. \ref{fig:biological_correlates}). We limited our analyses to populations with at least 35 years of continuous sampling. We then examined the minimum time required to estimate long-term trends via linear regression.
 
-Across all the populations we examined, we found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` ($\sigma$=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}). In addition, as expected based on our simulation results and those of others [@Rhodes2011], the minimum time series length required is strongly correlated with trend strength, population variance, and autocorrelation (Fig \ref{fig:correlates}). Using a generalized linear model, with a Poisson error structure, all three of these explanatory variables were significant and had large effect sizes (see Table S1). Combined, trend strength, population variance, and autocorrelation account for about `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),1)` of the explained deviance, which is similar to $R^2$ [@Zuur2009], in minimum time series length required.
+Across all the populations we examined, we found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` ($\sigma$=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}). Estimates of $T_{min}$ varied between biological class (Fig. \ref{fig:min_time_dist}). Ray-finned fish (class Actinopterygii) typically had estimates of $T_{min}$ over 20 years. Birds (class Aves) had a much wider distribution of $T_{min}$, but usually required less years of sampling. Differences between these classes were explained by differences in interannual variability in population size (Fig. \ref{fig:class}). We also examined a subset of populations where life-history characteristics were known. None of these explanatory variables were predictive of the minimum time series length required (Fig. \ref{fig:biological_correlates}). 
 
-We also examined a subset of populations where more explanatory variables were known (e.g. body mass, longevity, location). None of these explanatory variables were predictive of the minimum time series length required (Fig. \ref{fig:biological_correlates}). Some differences in $T_{min}$ did occur between biological class (Fig. \ref{fig:class}), but this can be attributed to the amount populations are known to fluctuate (i.e. the variability in population size). 
+
+The minimum time series length required was strongly correlated with trend strength, population variance, and autocorrelation (Fig. \ref{fig:correlates}). This is in line based on our simulations and those of others [@Rhodes2011]. Using a generalized linear model, with a Poisson error structure, all three of these explanatory variables were significant and had large effect sizes (see Table A1). Combined, trend strength, population variance, and autocorrelation account for about `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),1)`% of the explained deviance, which is similar to $R^2$ [@Zuur2009], in minimum time series length required.
+
+Lastly, we tested model sensitivity by using generalized additive models (GAMs) instead of simple linear regression. Again, we examined the minimum time required to estimate long-term population trends (Fig. \ref{fig:gam_example}). We found that although we obtain a similar distribution of minimum times required for GAMs, the minimum time required for GAMs is on average shorter than for linear regression (Fig. \ref{fig:min_time_dist_gam}).
 
 
 ```{r,echo=F,include=FALSE,eval=FALSE,fig.cap='Minimum time series required versus the generation length of each species\\label{fig:generation_length}'}
@@ -317,11 +331,6 @@ par(mfrow=c(1,1))
 ```
     
 
-<!--Integrate with other sections
-## Questions in the supplmentary material
-
-In the supplementary material, we explore several additional questions related to statistical power and estimating $T_{min}$. First, we showed that other metrics besides estimating the slope coefficient from linear regression could be used. More specifically, we show how the same approach described here can be used to determine the minimum time required to estimate a population's geometric growth rate (Figs. \ref{fig:growth_rate},\ref{fig:min_time_growth_dist}). We also explored how the simulation approach can be applied to more biologically-realistic population models (Fig. \ref{fig:shark_example}). More specifically, we determine the minimum time required to estimate long-term population trends using a stochastic, age-structured model of lemon shark population dynamics in the Bahamas [@White2014]. We found that over 27 years of continuous monitoring were needed in this particular scenario (Fig. \ref{fig:shark_example}. Lastly, we determine the minimum time required to estimate long-term trends according to generalized additive models, instead of the simple linear models used here (Fig. \ref{fig:gam_example}). We found that although we obtain a similar distribution of minimum times required for GAMs, the minimum time required for GAMs is on average shorter than for linear regression (Fig. \ref{fig:min_time_dist_gam}). We expand on these results in the supplementary material.
--->
 
 
 
@@ -394,7 +403,7 @@ ERW was partially supported by a National Science Foundation Graduate Fellowship
 # Supplementary material
 
  \setcounter{figure}{0}
- \renewcommand{\thefigure}{S\arabic{figure}}
+ \renewcommand{\thefigure}{A\arabic{figure}}
  
 \begin{figure}[htbp]
 \centering

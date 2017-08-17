@@ -95,7 +95,7 @@ With statistical power of 0.8, we then determine the minimum time series length 
 
 ## Statistical model of minimum time required and time series characteristics
 
-In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here, we use a generalized linear model framework with a Poisson error structure to determine drivers of the minimum time required. In figure, \ref{fig:poisson_model} we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
+In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here, we use a generalized linear model framework with a Poisson error structure to determine drivers of the minimum time required. In figure \ref{fig:poisson_model}, we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
 
 ```{r poisson_model, echo=F,include=T,fig.cap='Output of generalized linear model with a Poisson error structure for predicting the minimum time required with explanatory variables of the absolute value of the slope coefficient (or trend strength), temporal autocorrelation, and variability in population size.\\label{fig:poisson_model}'}
 
