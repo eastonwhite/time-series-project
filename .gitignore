@@ -27,6 +27,7 @@ writing/?*.log
 writing/manuscript_draft_files/*
 writing/?*.bbl
 writing/supp_mat_draft_files/*
+writing/*cover_letter*
 
 Art_Time_Series_Data/
 
