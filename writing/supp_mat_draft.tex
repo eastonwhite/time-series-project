@@ -100,7 +100,6 @@ Address: \\ \emph{Center for Population Biology, University of California-Davis,
 
 *Corresponding author: eawhite@ucdavis.edu
 
-June 22, 2017
  \end{center}
 
 \vspace{2cm}
@@ -148,9 +147,9 @@ This is the same routine we used for the results in the main manuscript.
 
 \begin{enumerate}
   \item We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample.  
-  \item For each subsample, we conduct linear regression and extract model coefficients and p-values.    \item We can call each set of subsamples, of the same length, a set. The fraction of subsamples within a set that show significant trends (significant slope coefficient $\alpha$ less than 0.05) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series. In other words, we are conducting a one-tailed test.
+  \item For each subsample, we conduct linear regression and extract model coefficients and p-values.    \item We can call each set of subsamples, of the same length, a set. The proportion of subsamples within a set that show significant trends (significant slope coefficient $\alpha$ less than 0.05) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series. In other words, we are conducting a one-tailed test.
   \item We can then plot statistical power as a function of time series length (Fig. \ref{fig:empirical_approach_example}b). As expected, we can see that power increases with the more years that are sampled.
-  \item  Then, we determine an appropriate level of statistical power that we find acceptable. Traditionally, this has been at 0.8, however, this is purely historical. Statistical power of 0.8 implies if a true trend is present, or there is a real change in abundance, then we will detect this trend 0.8 fraction of the time. 
+  \item  Then, we determine an appropriate level of statistical power that we find acceptable. Traditionally, this has been at 0.8, however, this is purely historical. Statistical power of 0.8 implies if a true trend is present, or there is a real change in abundance, then we will detect this trend 0.8 proportion of the time. 
   \item We then determine the minimum time series length ($T_{min}$) required to achieve that level of statistical power. Here, $T_{min}$ is the first point in Fig. \ref{fig:empirical_approach_example}b where following points are also above 0.8. In this example, $T_{min}$ is 22. 
 \end{enumerate}
 
