@@ -22,7 +22,7 @@ calculate_average_geometric_growth = function(pop){
 }  
 
 
-pop=0.2*(1:100) +100 + rnorm(100,0,5)
+
 # zed=as.data.frame(calculate_average_geometric_growth(pop))
 # 
 # matplot(2:100,zed,ylim=range(zed,na.rm=T),pch=16,col=rgb(0.5,0.5,0.5,0.5))

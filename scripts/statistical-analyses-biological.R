@@ -12,13 +12,13 @@ pop_info_test=pop_info
 # Check for highly correlated traits
 
 # Simple GLM with poisson error structure
-poisson_model <-glm(min_time_for_power~ gen_len + litter_or_clutch_size_n + litters_or_clutches_per_y + adult_body_mass_g+ maximum_longevity_y + egg_mass_g +incubation_d,family = 'poisson',data=pop_info)
+poisson_model <-glm(min_time_for_power~ abs(overall_trend) + coefficient_variation + litter_or_clutch_size_n  + gen_len + adult_body_mass_g + maximum_longevity_y  +incubation_d + trophic,family = 'poisson',data=LPI_pop_info)
 
 # Plots of residuals
 EP <- resid(poisson_model,type='pearson')
 ED <- resid(poisson_model,type='deviance')
 mu <- predict(poisson_model, type='response')
-E <- pop_info$min_time_for_power - mu
+E <- LPI_pop_info$min_time_for_power - mu
 EP2 <- E/ sqrt(7.630148 *mu)
 op <- par(mfrow=c(2,2),mar=c(4,4,0,0))
 plot(mu,E,main='Response residuals')
@@ -42,10 +42,10 @@ require(MuMIn)
 
 #CocosData$SiteCode <- as.factor(CocosData$SiteCode)
 #CocosData$CurrentCode <- as.factor(CocosData$CurrentCode)
-pop_info$Binomial <- as.factor(pop_info$Binomial)
+LPI_pop_info$Binomial <- as.factor(LPI_pop_info$Binomial)
 
 #model <- glmmadmb(formula=min_time_for_power~gen_len+habitat + exploitation + invasive + mass ,data=pop_info,family="nbinom",zeroInflation=FALSE)
-model <- glmmadmb(formula=min_time_for_power~ gen_len + litter_or_clutch_size_n + litters_or_clutches_per_y + adult_body_mass_g+ maximum_longevity_y + egg_mass_g +incubation_d,data=pop_info,family="poisson",zeroInflation=FALSE)
+model <- glmmadmb(formula = min_time_for_power ~ abs(overall_trend) + coefficient_variation + litter_or_clutch_size_n  + gen_len + adult_body_mass_g + maximum_longevity_y  +incubation_d ,data=LPI_pop_info,family="poisson",zeroInflation=FALSE)
 
 model_nb <- with(pop_info,glm.nb(formula=min_time_for_power~ gen_len + litter_or_clutch_size_n + litters_or_clutches_per_y + adult_body_mass_g+ maximum_longevity_y + egg_mass_g +incubation_d))
 
