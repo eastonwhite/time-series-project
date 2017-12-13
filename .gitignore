@@ -1,9 +1,12 @@
-
-
+writing/peej_submission/*
+writing/biological_conservation*
+writing/peerj*
+writing/eve_logo*
 .DS_Store
 .Rhistory
 Literature/*
 analysis-outputs/*
+phylo*
 data/*
 long-term-literature/*
 *.docx
