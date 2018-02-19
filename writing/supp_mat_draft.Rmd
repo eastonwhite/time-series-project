@@ -21,12 +21,12 @@ header-includes:
 \begin{center}
  \textbf{Supplementary Material: Minimum time required to detect population trends: the need for long-term monitoring programs}
  
-Easton R. White$^{*}$
+Easton R. White
 \vspace{3 mm}
 
-Address: \\ \emph{Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
+Center for Population Biology, University of California, Davis, California 95616 USA
 
-*Corresponding author: eawhite@ucdavis.edu
+eawhite@ucdavis.edu
 
  \end{center}
 
@@ -54,7 +54,7 @@ Data and code for all the figures and tables can be found at (https://github.com
 
 
     
-Here, we illustrate how we performed the subsampling and power calculations for a specific population. We provide more detail here than in the main manuscript. As an example, we examine a 35-year time series of Bigeye tuna (\emph{Thunnus obesus}), one species in the Global Population Dynamics Database [@GPDD2010]. Simple linear regression indicates a significant decrease for this population with an estimated slope coefficient of `r as.numeric(coef(model_example)[2])`. We assume that this significant increase over 35 years is in fact the ``true trend". In statistical jargon, the 35-year trend is an effect that is actually present; we can reject the null hypothesis of no trend. We can then use this as a benchmark to see if subsamples of the time series also indicate a significant increase.
+Here, I illustrate how we performed the subsampling and power calculations for a specific population. As an example, I examine a 35-year time series of Bigeye tuna (\emph{Thunnus obesus}), one species in the Global Population Dynamics Database [@GPDD2010]. Simple linear regression indicates a significant decrease for this population with an estimated slope coefficient of `r as.numeric(coef(model_example)[2])`. I assume that this significant increase over 35 years is in fact the ``true trend". In statistical jargon, the 35-year trend is an effect that is actually present; we can reject the null hypothesis of no trend. We can then use this as a benchmark to see if subsamples of the time series also indicate a significant increase.
 
 <!-- example of how subsampling and empirical approach works -->
 ```{r, echo=F,message=F,warning=F,fig.cap='(a) Population size of Bigeye tuna (\\emph{Thunnus obesus}) over time. The line is the best fit line from linear regresssion. (b) Statistical power for different subsets of the time series in panel a.\\label{fig:empirical_approach_example}'}
@@ -67,7 +67,7 @@ Here, we illustrate how we performed the subsampling and power calculations for 
     mtext(text = '(a)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
     mtext(text='population size', side=2,line=4,cex=1.2)
 # could insert all possible regressions of length n
-source("../scripts/calculate_power_metric.R",chdir=T)
+source("../scripts/calculate_power_metric.R")
     power_example=calculate_power_for_subsamples(pop$popvalue,0.05)
     plot(power_example,cex.axis=1.2,cex.lab=1.2,ylab='statistical power',xlab='years sampled',las=1,pch=16)
     mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
@@ -78,7 +78,7 @@ source("../scripts/calculate_power_metric.R",chdir=T)
 ```
 
 
-We then perform a subsampling routine to estimate the minimum time required $T_{min}$ (similar to @Gerber1999). This is the same routine we used for the results in the main manuscript.
+I then perform a subsampling routine to estimate the minimum time required $T_{min}$ (similar to @Gerber1999). This is the same routine I used for the results in the main manuscript.
 \begin{enumerate}
   \item We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample.  
   \item For each subsample, we conduct linear regression and extract model coefficients and p-values.    \item We can call each set of subsamples, of the same length, a set. The proportion of subsamples within a set that show significant trends (significant slope coefficient $\alpha$ less than 0.05) is the statistical power. It is important to note that we only consider subsamples to be significant if they are significant in the same direction as the complete 35-year time series. In other words, we are conducting a one-tailed test.
@@ -102,57 +102,71 @@ Therefore, a minimum of `r head(which(power_example>0.8),1)` years of continuous
 
 
 
+
+\pagebreak
+
 # Additional results from the main manuscript
 
+## Correlates of minimum time required
 
-## Predictors of minimum time required
-
-```{r poisson_model, echo=F,include=T,fig.cap='Output of generalized linear model with a Poisson error structure for predicting the minimum time required with explanatory variables of the absolute value of the slope coefficient (or trend strength), temporal autocorrelation, and variability in population size.\\label{fig:poisson_model}'}
+```{r poisson_model, echo=F,fig.cap='Output of generalized linear model with a Poisson error structure for predicting the minimum time required with explanatory variables of the absolute value of the slope coefficient (or trend strength), temporal autocorrelation, and coefficient of variation of population size.\\label{fig:poisson_model}'}
 
 load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
+load("../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata")
 
 # GLM with Poisson error structure (include all terms - it is best not to include abs_overall_trend with variance as they are strongly corrrelated to one another)
 pop_info$abs_overall_trend = abs(pop_info$overall_trend)
-poisson_model <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + variance,family = 'poisson',data=pop_info)
+poisson_model <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + coefficient_variation,family = 'poisson',data=pop_info)
 
-  par(mfrow=c(2,2),mar=c(5,5,1,2),oma=c(0,0,0.5,0))
-    plot(poisson_model,cex.lab=1.2,las=1,cex.axis=1.2,main=' ',pch=16, col=rgb(0.5,0.5,0.5,0.4))
+par(mfrow=c(2,2),mar=c(5,5,1,2),oma=c(0,0,0.5,0))
+plot(poisson_model,cex.lab=1.2,las=1,cex.axis=1.2,main=' ',pch=16, col=rgb(0.5,0.5,0.5,0.4))
 #R^2 calculation (pg. 218 Zuur et al. 2009 mixed effects book)
-R2_fullmodel <- 100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance)
+
+time_series_correlates_poisson_model <-glm(min_time_for_power~ abs_overall_trend + autocorrelation + coefficient_variation,family = 'poisson',data=pop_info)
+R2_time_series_correlates <- 100*(time_series_correlates_poisson_model$null.deviance - time_series_correlates_poisson_model$deviance)/(time_series_correlates_poisson_model$null.deviance)
 
 
+biological_correlates_poisson_model <-glm(min_time_for_power~  litter_or_clutch_size_n  + gen_len + adult_body_mass_g + maximum_longevity_y  +incubation_d + trophic,family = 'poisson',data=LPI_pop_info)
+R2_biological_correlates_poisson_model <- 100*(biological_correlates_poisson_model$null.deviance - biological_correlates_poisson_model$deviance)/(biological_correlates_poisson_model$null.deviance)
 
-poisson_model_no_variance <-glm(min_time_for_power~ abs_overall_trend + autocorrelation,family = 'poisson',data=pop_info)
-R2_no_variance <- 100*(poisson_model_no_variance$null.deviance - poisson_model_no_variance$deviance)/(poisson_model_no_variance$null.deviance)
-
-poisson_model_no_trend <-glm(min_time_for_power~ autocorrelation + variance,family = 'poisson',data=pop_info)
-R2_no_trend <- 100*(poisson_model_no_trend$null.deviance - poisson_model_no_trend$deviance)/(poisson_model_no_trend$null.deviance)
+all_correlates_poisson_model <-glm(min_time_for_power~ abs(overall_trend) + coefficient_variation + autocorrelation +  litter_or_clutch_size_n  + gen_len + adult_body_mass_g + maximum_longevity_y  +incubation_d + trophic,family = 'poisson',data=LPI_pop_info)
+R2_all_correlates_poisson_model <- 100*(all_correlates_poisson_model$null.deviance - all_correlates_poisson_model$deviance)/(all_correlates_poisson_model$null.deviance)
 
 ```
 
-In the main text, we explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and variance in population size. Here, we use a generalized linear model framework with a Poisson error structure to determine explanatory variables of the minimum time required. We use the same `r nrow(pop_info)` populations as in the main text. In figure \ref{fig:poisson_model}, we show a set of residual plots for the regression. We then show the coefficient estimates and levels of significance in table \ref{table:model_output}.
-
+In the main text, I explained how the minimum time required strongly correlated with the trend strength, temporal autocorrelation, and coefficient of variation in population size. Here, I use a generalized linear model framework with a Poisson error structure to determine explanatory variables of the minimum time required. I use the same `r nrow(pop_info)` populations as in the main text. In figure \ref{fig:poisson_model}, I show a set of residual plots for the regression analysis. I then show the coefficient estimates and levels of significance in table \ref{table:model_summary_time_series_correlates}.
 
 
 ```{r,echo=F,message=F,warning=F}
-
 require(knitr)
-knitr::kable(summary(poisson_model)$coef,caption = 'Output of generalized linear model to examine predictors of the minimum time required for determing long-term population trends.\\label{table:model_output}')
+knitr::kable(summary(time_series_correlates_poisson_model)$coef,caption = 'Output of generalized linear model to examine time series characteristics as correlates of the minimum time required for determining long-term population trends.\\label{table:model_summary_time_series_correlates}')
+```
 
+```{r,echo=F,message=F,warning=F}
+require(knitr)
+knitr::kable(summary(biological_correlates_poisson_model)$coef,caption = 'Output of generalized linear model to examine life-history trait correlates of the minimum time required for determining long-term population trends.\\label{table:model_summary_biological_correlates}')
+```
+
+```{r,echo=F,message=F,warning=F}
+require(knitr)
+knitr::kable(summary(all_correlates_poisson_model)$coef,caption = 'Output of generalized linear model to examine both time series characteristics and life-history trait correlates of the minimum time required for determining long-term population trends.\\label{table:model_summary_all_correlates}')
 ```
 
 
-Our model with trend strength, autocorrelation, variance, and generation length accounted for `r round(R2_fullmodel,2)`% of the variation in the minimum time required (Table \ref{table:model_output}). However, we also found trend strength and variance to be strongly correlated with one another. Therefore, we ran two additional models with either trend strength or variance, but not both together. This resulted in lower explained deviance (analogue to $R^2$) of `r round(R2_no_variance,2)`% and `r round(R2_no_trend,2)`%, respectively.
+The model with trend strength, autocorrelation, and the coefficient of variation in population size `r round(R2_time_series_correlates,2)`% of the variation in the minimum time required (Table \ref{table:model_summary_time_series_correlates}). 
+
+For a subset of populations, I examined life-history correlates as potential explanatory variables for the minimum time required. Table \ref{table:model_summary_biological_correlates} and \ref{table:model_summary_all_correlates} summarize results for a model with only life-history traits and an additional model with life-history traits and time series characteristics combined, respectively. The model with all life-history traits explained only `r round(R2_biological_correlates_poisson_model,2)`% of the variation in the minimum time required (Table \ref{table:model_summary_biological_correlates}). The model with all life-history traits and time series characteristics explained `r round(R2_all_correlates_poisson_model,2)`% of the variation in the minimum time required (Table \ref{table:model_summary_all_correlates}). When accounting for characteristics of the time series, no life-history variables were significant.  
 
 \pagebreak 
 
+<!--
 ## Minimum time required and biological correlates
 ```{r, echo=F}
 
 load('../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 ```
 
-In the main manuscript, we examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, we were interested in potential explanatory variables of the minimum time required. In the main manuscript, we examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, we combined our time series data with a data on life history characteristics of amniotes from @Myhrvold2015. There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were birds (Aves class). 
+In the main manuscript, I examined the minimum time required to detect a significant trend in abundance over time using linear regression. As detailed in the main manuscript the minimum time required was around 15, but there was a wide distribution. Therefore, I were interested in potential explanatory variables of the minimum time required. In the main manuscript, I examined characteristics of the time series itself, like variability, autocorrelation, and the trend in abundance over time. Here, I combined our time series data with a data on life history characteristics of amniotes from @Myhrvold2015. There was life history information available for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were birds (Aves class). 
 
 ```{r, echo=F, fig.cap='Mimimum time required versus (a) generation length (years), (b) litter size (n), (c) adult body mass (grams), (d) maximum longevity (years), (e) egg mass (grams), and (f) incubation (days). The lines in each plot represent the best fit line from linear regression.\\label{fig:biological_correlates}',fig.height=6}
 
@@ -183,9 +197,8 @@ R2_fullmodel <- 100*(poisson_model$null.deviance - poisson_model$deviance)/(pois
 ```
 
 
-
-We then correlated minimum time required for each population with its corresponding life history characteristics. In figure \ref{fig:biological_correlates} we examined minimum time required versus generation length (years), litter size (n), adult body mass (grams), maximum longevity (years), egg mass (grams), and incubation (days). None of these variables had much explanatory power in accounting for the variance in the minimum time required. We ran a generalized linear model (with a Poisson error structure) and found that these six variables only accounted for `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),2)`% of the explained deviance in minimum time required.
-
+I then correlated minimum time required for each population with its corresponding life history characteristics. In figure \ref{fig:biological_correlates} I examined minimum time required versus generation length (years), litter size (n), adult body mass (grams), maximum longevity (years), egg mass (grams), and incubation (days). None of these variables had much explanatory power in accounting for the variance in the minimum time required. We ran a generalized linear model (with a Poisson error structure) and found that these six variables only accounted for `r round(100*(poisson_model$null.deviance - poisson_model$deviance)/(poisson_model$null.deviance),2)`% of the explained deviance in minimum time required.
+-->
 
 
 
@@ -194,9 +207,9 @@ We then correlated minimum time required for each population with its correspond
 
 ## Minimum time series and biological class
 
-Minimum time required differed for different biological classes. For instance, more time is required for species within the Actinopterygii class compared to other species (Fig. \ref{fig:class}a). These differences between biological classes can be explained by differences in population variability, with species in the Actinopterygii class experiencing larger inter-annual variability in population size (Fig. \ref{fig:class}c).
+Minimum time required differed for different biological classes. For instance, more time is required for species within the Actinopterygii class compared to other species (Fig. \ref{fig:class}a). These differences between biological classes can be explained by differences in population variability, with species in the Actinopterygii class experiencing larger inter-annual variability in population size (Fig. \ref{fig:class}c). In addition, populations in the Actinopterygii class generally had weaker trends in abundance (i.e. smaller slope coefficients) compared to the Aves and Mammalia populations.
 
-```{r,echo=F,fig.cap='(a) Minimum time required to estimate change in abundance for species class, (b) long-term trend (estimated slope coefficient) by species class, (c) interannual variability in population size by species class, and (d) temporal autocorrelation by species class.\\label{fig:class}',fig.height=6}
+```{r,echo=F,fig.cap='(a) Minimum time required to estimate change in abundance by biological class, (b) long-term trend (estimated slope coefficient) by class, (c) coefficient of variation in population size by class, and (d) temporal autocorrelation by class.\\label{fig:class}',fig.height=6}
 
 # Pull in data
 
@@ -204,20 +217,20 @@ load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regressio
 # Biological correlates plots
 par(mfrow=c(2,2),oma=c(8,1,1.5,0.5),mar=c(0.5,4,0,1))
 
-boxplot(pop_info$min_time_for_power~pop_info$class, lwd = 1, ylab = 'minimum time required',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n")
+boxplot(pop_info$min_time_for_power~pop_info$class, lwd = 1, ylab = 'minimum time required',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n",outline=FALSE)
 mtext(text = '(a)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
 stripchart(pop_info$min_time_for_power~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 
-boxplot(abs(pop_info$overall_trend)~pop_info$class, lwd = 1, ylab = ' ',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n")
+boxplot(abs(pop_info$overall_trend)~pop_info$class, lwd = 1, ylab = ' ',col='white',cex.lab=1.4,cex.axis=1.2,las=2,xaxt="n",outline=FALSE)
 stripchart(abs(pop_info$overall_trend)~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
   mtext('| slope coefficient |',2,line=3.5,cex=1.2)
   mtext(text = '(b)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
   
-boxplot(pop_info$variance~pop_info$class, lwd = 1, ylab = 'population variance',col='white',cex.lab=1.4,cex.axis=1.2,las=2)
-stripchart(pop_info$variance~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
+boxplot(pop_info$coefficient_variation~pop_info$class, lwd = 1, ylab = 'coefficient of variation',col='white',cex.lab=1.4,cex.axis=1.2,las=2,outline=FALSE)
+stripchart(pop_info$coefficient_variation~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 mtext(text = '(c)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
 
-boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelation',col='white',cex.lab=1.4,cex.axis=1.2,las=2,ylim=c(-0.2,1.2))
+boxplot(pop_info$autocorrelation~pop_info$class, lwd = 1, ylab = 'autocorrelation',col='white',cex.lab=1.4,cex.axis=1.2,las=2,ylim=c(-0.2,1.2),outline=FALSE)
 stripchart(pop_info$autocorrelation~pop_info$class, vertical = TRUE,method = "jitter", add = TRUE, pch = 20, col = rgb(0.5,0.5,0.5,0.5))
 mtext(text = '(d)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
 ```
@@ -293,9 +306,49 @@ ggplot(parameter_combinations, aes(x = alpha, y = power, z = min_time_required, 
 
 
 
+
+
+## Additional results for IUCN analysis
+
+In the main text, I presented results detailing the difference between the minimum time required to achieve a high level of statistical power and the number of years suggested by IUCN based on generation length to assess a species as vulnerable. There were deviations between the two approaches. These deviations were mostly explained by the differences in inter-annual population variability (coefficient of variation) and generation time (Fig. \ref{fig:IUCN_correlates}). 
+
+```{r, echo=F,message=F,warning=F,fig.cap='The difference between minimum time estimates is the minimum time required to achieve 0.8 statistical power versus the minimum time required under IUCN criteria A2 to classify a species as vulnerable. Each point represents a single population, all of which saw declines of 30% or greater over a 10 year period. (a) Difference between minimum time estimates versus the coefficient of variation in population size. (b) Difference between minimum time estimates versus the generation length in years.\\label{fig:IUCN_correlates}',fig.height=6}
+
+library(viridis)
+pop_info$color = as.numeric(as.factor(pop_info$class))
+pop_info$color = viridis_pal(alpha=0.3,option='viridis')(5)[pop_info$color]
+pop_info$shape = as.numeric(as.factor(pop_info$color)) + 14
+
+declining_populations = subset(pop_info,pop_info$percent_change_10years>30 & pop_info$overall_trend<0)
+
+par(mfrow=c(2,1),oma=c(0,5,0,0),mar=c(5,0.5,0.5,0.5))
+error=(declining_populations$IUCN - declining_populations$min_time_for_power)
+plot(declining_populations$coefficient_variation,error,
+     ylab = '', las=1,
+     xlab = 'coefficient of variation', col=declining_populations$color,
+       pch=declining_populations$shape)
+abline(lm(error~declining_populations$coefficient_variation),lwd=2)
+mtext(text = '(a)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+
+plot(declining_populations$gen_len,error,
+     ylab = '', las=1,
+     xlab = 'generation length (years)', col=declining_populations$color,
+       pch=declining_populations$shape)
+abline(lm(error~declining_populations$gen_len),lwd=2)
+mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+
+mtext(text = 'Difference between minimum time estimates',side = 2,
+      outer = T,at=0.6,line = 2,cex = 1.2)
+
+
+legend('bottomright',legend=c('Aves','Actinopterygii','Mammalia'),pch=as.numeric(names(table(declining_populations$shape))),col=c(names(table(declining_populations$color))),bty ="n",cex=1.2,pt.cex = 1.4) 
+```
+
+\pagebreak
+
 # Minimum time calculations testing exponential growth
 
-In the main text, we evaluated the minimum time required to determine long-term trends in abundance via linear regression. This process examined linear trends in abundance over time. Here we examine the minimum time required to estimate long-term trends that are either exponential growth or decay. We use the same methods as described in the previous sections, but we take the $log$ of population density, or abundance.
+In the main text, I evaluated the minimum time required to determine long-term trends in abundance via linear regression. This process examined linear trends in abundance over time. Here I examine the minimum time required to estimate long-term trends that are either exponential growth or decay. I use the same methods as described in the previous sections, but we take the $log$ of population density, or abundance.
 
 ```{r,echo=F,message=F,error=F,fig.cap='Distribution of the minimum time required in order to detect a significant trend (at the 0.05 level) in log(abundance) given power of 0.8.\\label{fig:min_time_dist_log_pop}'}
 
@@ -303,42 +356,20 @@ In the main text, we evaluated the minimum time required to determine long-term 
 # 
 # source('../scripts/calculate_slope.R')
 # source('../scripts/calculate_power_metric.R')
-# 
-# for (j in 1:nrow(pop_info)){
-#     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
-#     pop = pop[(nrow(pop)-34):nrow(pop),]
-#     pop$popvalue=as.numeric(pop$popvalue)
-#     pop$popvalue=pop$popvalue/max(pop$popvalue) #should I standaridize this in a better way
-#     ## Take the log of population size and add a small number
-#     pop$popvalue = log(pop$popvalue + 0.001)
-#     
-#     pop_info$year[j] = pop$year[1]
-#     pop_info$variance[j]= var(pop$popvalue)
-#     pop_info$overall_trend[j] = calculate_slope(pop$popvalue)
-#     pop_info$autocorrelation[j] = acf(pop$popvalue,plot = FALSE)$acf[2]
-#     pop_info$trend_p_value[j]=calculate_p_value(pop$popvalue)
-#     pop_info$popvalue = pop$popvalue[1] #initial abundance
-#     pop_info$series_length = nrow(pop)
-#     
-# 
-#      pop_info$min_time_for_power[j] = min_time_needed(pop$popvalue,0.05,0.8)
-#     print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
-#     
-# }
-# 
-# pop_info=pop_info[pop_info$trend_p_value<0.05,]
-# long_dat=subset(long_dat,long_dat$ID %in% pop_info$ID)
-# long_time_names=subset(long_time_names,long_time_names %in% pop_info$ID)
-# 
+
 # save(pop_info,long_dat,long_time_names,file = '../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
 
 
 # LOAD in previously run script from this code chuck and make histogram plot
 load('../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression_for_log_pop.Rdata')
 
-plot(density(pop_info$min_time_for_power),las=1,ylab='',xlab='',cex.axis=1.2,main='')
-mtext(text = 'Frequency',2,line=3,cex=1.2)
-mtext(text = 'Minimum time required',1,line=3,cex=1.2)
+#plot(density(pop_info$min_time_for_power),las=1,ylab='',xlab='',cex.axis=1.2,main='')
+#mtext(text = 'Frequency',2,line=3,cex=1.2)
+#mtext(text = 'Minimum time required',1,line=3,cex=1.2)
+require(ggplot2)
+ggplot(aes(min_time_for_power),data=pop_info) + geom_bar() +  
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text = element_text(size=12),axis.title.x =element_text(size=16) ,axis.title.y =element_text(size=16) ) +
+ labs(y='count',x='minimum time required')
 
 ```
 
@@ -349,29 +380,70 @@ We see that the distribution of $T_{min}$ is almost identical to that in the mai
 
 # Simulations with more complicated population model
 
-In the main text, we showed how a simple population model could be simulated repeatedly to estimate the power obtained with time series of increasing length [@Bolker2008;@Johnson2015]. The model in the main text simulated linear population growth with only a slope coefficient, y-intercept, and noise parameter required. This model is purely phenomenological and does not include any species life history. Here, we use the same routine as the main text, but simulate from a more biologically-realistic population model. We use the model described in @White2014. The model is a stochastic, age-structured population model that includes density-dependence for lemon sharks (\emph{Negaprion brevirostris}) in Bimini, Bahamas. 
+In the main text, I showed how a simple population model could be simulated repeatedly to estimate the power obtained with time series of increasing length [@Bolker2008;@Johnson2015]. The model in the main text simulated linear population growth with only a slope coefficient, y-intercept, and noise parameter required. This model is purely phenomenological and does not include any species life-history information. Here, I use the same routine as the main text, but simulate from a more biologically-realistic population model. I use the model described in @White2014. The model is a stochastic, age-structured population model that includes density-dependence for lemon sharks (\emph{Negaprion brevirostris}) in Bimini, Bahamas. 
 
-```{r, echo=F,fig.cap='Statistical power for different length of time series simulations for a lemon shark population in Bimini, Bahamas.\\label{fig:shark_example}'}
+```{r, echo=F,fig.height=3,fig.cap='Statistical power for different length of time series simulations for a lemon shark population in Bimini, Bahamas.\\label{fig:shark_example}'}
 
+par(mfrow=c(1,2),oma=c(0.5,0.5,0.5,0.5),mar=c(4,4,0,0))
+#### Simulate lemon shark model (See White et al. 2014)
+total_lemons=NULL
+IC= c(30,30,10,15,15,5,5,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,2,2,2,2)
+no.runs=50
+max.time=50
+for (g in 1:(no.runs)){
+#set up matrix (Lemons) to track number of individuals in each age class over time and matrix (Stable_age) to track the age distribution through time
+	Lemons = matrix(IC,nrow= 26,ncol=max.time)
+	Stable_age =matrix(0,nrow=26,ncol=max.time)
+	#initialize matrices
+	Lemons[1:26,1] = IC
+	#keep track of Juveniles, Subadults, and Adults
+	J =  sum(Lemons[1:3,1])    #Juveniles and newborns in lagoon
+	S =  sum(Lemons[4:12,1])   #subadults who have left the lagoon and cannot reproduce
+	A =  sum(Lemons[13:26,1])  #adults who can reproduce
+	
+	#initialize parameters (these are described in the paper)
+	b=6.087   #Number of offspring per female 8.3 from Feldheim 2002, 6.7 from 
+	h=1   	  #hill coefficient
+	k=100     #half saturation constant (Estimated from Gruber 2001)
+	u=0.17    #adult mortality rate, 0.15 is the default rate
+	
+		for (j in 2:(max.time)){
+				Lemons[1,j]= sum(rpois(sum(Lemons[13:26,j-1])/4,b))  #use 
+				Lemons[2,j] = Lemons[1,j-1] - rbinom (1, Lemons[1,j-1],(Lemons[1,j-1]^h)/(k+Lemons[1,j-1]^h))
+				Lemons[3,j] = Lemons[2,j-1] - rbinom (1, Lemons[2,j-1],u) 
+				Lemons[4,j] = Lemons[3,j-1] - rbinom (1, Lemons[3,j-1], u)
+					for (i in 5:25){
+					    Lemons[i,j] = Lemons[i-1,j-1] - rbinom (1, Lemons[i-1,j-1], u)
+					}
+					Lemons[26,j] = Lemons[25,j-1] - rbinom (1, Lemons[25,j-1], 1)
+		          J = c(J, sum(Lemons[1:3,j]))
+			 	  S = c(S, sum(Lemons[4:12,j]))
+			  	  A = c(A, sum(Lemons[13:26,j]))
+		}#end of time loop 
 
+total_lemons = rbind(total_lemons,colSums(Lemons))
+}#end of trial loop 
+matplot(t(total_lemons),type='l',col=1,lty=1,las=1,ylab='population size',xlab='time (years)',cex.lab=1.2)
+mtext(text = '(a)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
+###
 #source('../scripts/LemonShark_PopulationModel.R')
 years_to_sample=seq(5,50,by=1)
 #shark_power=sapply(years_to_sample,power)
 
 load('../analysis-outputs/example_power_for_shark_model.Rdata')
-par(mfrow=c(1,1),oma=c(3,3,0.5,0.5),mar=c(2,2,0,0))
-   plot(years_to_sample,shark_power,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2)
-      abline(v=years_to_sample[tail(which(shark_power<0.8),1)+1],lty=2,lwd=2,col='red')
-      abline(h=0.8,lty=2,lwd=2,col='red')
-      mtext(text = 'time sampled' ,side = 1,cex = 1.2,line=3)
-      mtext(text = 'statistical power' ,side = 2,cex = 1.2,line=3.5)
-      #mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
+   plot(years_to_sample,shark_power,type='l',lwd=2,las=1,
+        ylab='',xlab='',cex.axis=1, ylim = c(0,1.05))
+   abline(v=years_to_sample[tail(which(shark_power<0.8),1)+1],lty=2,lwd=2,col='red')
+   abline(h=0.8,lty=2,lwd=2,col='red')
+   mtext(text = 'time sampled' ,side = 1,cex = 1.2,line=3)
+   mtext(text = 'statistical power' ,side = 2,cex = 1.2,line=2.5)
+   mtext(text = '(b)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
       
 #save(shark_power,file='../analysis-outputs/example_power_for_shark_model.Rdata')  
 
 ```
 
-Here, we parameterize the model for a situation where adult mortality rate is high enough to cause a population decline. In the same way we simulated models in the main text, we simulate this more biologically-realistic model for different lengths of time. For each length of time, we calculate the statistical power. Similar to results with the simpler model, statistical power generally increases with longer sampling time (Fig. \ref{fig:shark_example}). In this example, the minimum time required ($T_{min}$) t0 obtain at least 0.8 statistical power, given a significance level of 0.05, is `r years_to_sample[tail(which(shark_power<0.8),1)+1]` years.
+Here, I parameterize the model for a situation where adult mortality rate is high enough to cause a population decline. As in the main text, I simulated this more biologically-realistic model for different lengths of time. For each length of time, I calculated the statistical power. Similar to results with the simpler model, statistical power generally increases with longer sampling time (Fig. \ref{fig:shark_example}). In this example, the minimum time required ($T_{min}$) to obtain at least 0.8 statistical power, given a significance level of 0.05, is `r years_to_sample[tail(which(shark_power<0.8),1)+1]` years.
 
 <!--
 ## Optional section looking at Gompertz model
@@ -388,12 +460,12 @@ Here, $N_t$ is the population density in year $t$, $a$ is an intercept term, and
 We simulate this model repetitively for different lengths of time series. Statistical power is the proportion of time series of a set length that showed significant trends in abundance, given a true trend in abundance. *How do I determine significance here? Through linear regression again, or do I look at non-zero estimation of the parameter values?*-->
 
 
-
+<!-- REMOVING from paper as it takes away from main message
 # Minimum time required to estimate geometric growth rate
 
 Instead of detecting a trend over time with linear regression, we could also calculate the geometric growth rate of the population. In figure \ref{fig:growth_rate}, we show how to calculate growth rates for subsamples of a time series. First, we created subsamples of each possible length from the full 35 year time series, as we did in the main next. Next, we calculated the mean and standard deviation of growth rates for each possible time series length (Fig. \ref{fig:growth_rate}b). Lastly, we calculated the percent error $\mbox{percent error} = 100 \times \left| \frac{\mbox{observed} - \mbox{theoretical}}{\mbox{theoretical}} \right|$ between the mean of each time series length (observed) and the overall population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c), we show the percent error as a function of time series length. Here we define the minimum time required as the minimum number of years to achieve less than 20% error. 
 
-```{r, echo=F, fig.cap='Example of calculating minimum time required for growth rate estimation. (a) European herring gull (\\emph{Larus argentatus}) scaled density over time, (b) mean and standard deviation of growth rate for subsamples of entire time series, and (c) the percent error between mean estimated growth rate and the true long-term growth rate. The vertical bar denotes the minimum time required to estimate growth rate within 20% error.\\label{fig:growth_rate}'}
+```{r, echo=F,eval=F, fig.cap='Example of calculating minimum time required for growth rate estimation. (a) European herring gull (\\emph{Larus argentatus}) scaled density over time, (b) mean and standard deviation of growth rate for subsamples of entire time series, and (c) the percent error between mean estimated growth rate and the true long-term growth rate. The vertical bar denotes the minimum time required to estimate growth rate within 20% error.\\label{fig:growth_rate}'}
 #Example of using population growth rate instead of power
 source("../scripts/calculate_geometric_growth.R")
 load('../cleaned-data/cleaned_timeseries_database.Rdata')
@@ -403,8 +475,8 @@ par(mfrow=c(1,3),oma=c(0,1,0,0))
   pop = subset(long_dat,long_dat$ID=='10008') #13192 for Harp seals, 10007 is California Gull, 10008 for European herring gull (Larus argentatus)
   source('../scripts/create_subsamples.R')
   source('../scripts/percent_error.R')
-  aaa=calculate_average_geometric_growth(pop$popvalue)
-  plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,las=1)
+  aaa=calculate_average_geometric_growth(pop$popvalue + 0.0001)
+  plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='',pch=16,las=1,ylim=c(0,1))
     #abline(lm(pop$popvalue~pop$year),lwd=2,col='red')
     mtext(text = 'year',1,line=3,cex=1.4)
     mtext(text = 'population size',2,line=3.5,cex=1.4)
@@ -412,18 +484,18 @@ par(mfrow=c(1,3),oma=c(0,1,0,0))
     
 
   
-  plot(rowMeans(aaa,na.rm=T),cex.axis=1.2,pch=16,ylab='',xlab='',las=1)
+  plot(rowMeans(aaa,na.rm=T),cex.axis=1.2,pch=16,ylab='',xlab='',las=1,ylim=c(0.8,1))
     mtext(text = 'years sampled',1,line=3,cex=1.4)
     mtext(text = 'population growth rate',2,line=3.7,cex=1.4)
     
     abline(h= -0.01*rowMeans(aaa,na.rm = T)[34] +rowMeans(aaa,na.rm = T)[34] )
     abline(h= 0.01*rowMeans(aaa,na.rm = T)[34] +rowMeans(aaa,na.rm = T)[34] )
     
-    arrows(1:34,rowMeans(aaa,na.rm=T),1:34,rowMeans(aaa,na.rm=T)+sd(apply(aaa,MARGIN = 1,FUN=var,na.rm=T),na.rm=T),angle = 90,length = 0.1)
-    arrows(1:34,rowMeans(aaa,na.rm=T),1:34,rowMeans(aaa,na.rm=T)-sd(apply(aaa,MARGIN = 1,FUN=var,na.rm=T),na.rm=T),angle = 90,length = 0.1)
+    #arrows(1:34,rowMeans(aaa,na.rm=T),1:34,rowMeans(aaa,na.rm=T)+sd(apply(aaa,MARGIN = 1,FUN=var,na.rm=T),na.rm=T),angle = 90,length = 0.1)
+    #arrows(1:34,rowMeans(aaa,na.rm=T),1:34,rowMeans(aaa,na.rm=T)-sd(apply(aaa,MARGIN = 1,FUN=var,na.rm=T),na.rm=T),angle = 90,length = 0.1)
     mtext(text = '(b)',side = 3,line = -1.2,adj=0.95,font = 2,cex=1.2)
     
-    plot(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34]),cex.axis=1.2,pch=16,ylab='',xlab='',las=1)
+    plot(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34]),cex.axis=1.2,pch=16,ylab='',xlab='',las=1, ylim = c(0,10))
     mtext(text = 'years sampled',1,line=3,cex=1.4)
     mtext(text = 'percent error in growth rate',2,line=3.7,cex=1.4)
     abline(h=0.2,lty=2)
@@ -435,9 +507,9 @@ par(mfrow=c(1,3),oma=c(0,1,0,0))
 
 We applied the same calculations to `r nrow(pop_info)` population time series. We then obtain a distribution of the minimum time required to measure the ``true" long-term growth rate (Fig. \ref{fig:min_time_growth_dist}). We see a bimodal distribution with many populations required 30+ years to estimate the long-term growth rate. The large number of short years required is due to cases where the entire time series is consistently increasing or decreasing at the same rate. 
 
-```{r, echo=F,eval=T,fig.cap='Histogram of the minimum time required in order to estimate the long-term growth rate within 20% error.\\label{fig:min_time_growth_dist}'}
+```{r, echo=F,eval=F,fig.cap='Histogram of the minimum time required in order to estimate the long-term growth rate within 20% error.\\label{fig:min_time_growth_dist}'}
 # Growth rates calculations for each species
-# load('../cleaned-data/cleaned_timeseries_database.Rdata')
+load('../cleaned-data/cleaned_timeseries_database.Rdata')
 # 
 # source('../scripts/create_subsamples.R')
 # source('../scripts/calculate_geometric_growth.R')
@@ -445,48 +517,56 @@ We applied the same calculations to `r nrow(pop_info)` population time series. W
 #  for (j in 1:nrow(pop_info)){
 #     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
 #     pop$popvalue=as.numeric(pop$popvalue)
-#     pop$popvalue=pop$popvalue/max(pop$popvalue) #should I standaridize this in a better way
-#     
+#     pop$popvalue=(pop$popvalue - min(pop$popvalue))/(max(pop$popvalue) - min(pop$popvalue))
+#     pop$popvalue = pop$popvalue + 0.001
+# 
 #    # source('../scripts/calculate_power_metric.R')
 #     aaa=calculate_average_geometric_growth(pop$popvalue)
 #     if (length(which(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34])>0.2))==0){
 #       pop_info$min_time_growth_rate[j] = 2
 #     }else{
 #       pop_info$min_time_growth_rate[j] = tail(which(percent_error(rowMeans(aaa,na.rm=T),rowMeans(aaa,na.rm=T)[34])>0.2),1)+1}
-#     #print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
+#     print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
 #  }
+# 
 # save(pop_info,file = '../analysis-outputs/min_time_for_growth_rate0_2.Rdata')
+
 
 load('../analysis-outputs/min_time_for_growth_rate0_2.Rdata')
 
 # Create plot
-par(mfrow=c(1,1))
-hist(pop_info$min_time_growth_rate,las=1,ylab='',xlab='',cex.axis=1.2,main='',breaks=20,xlim=c(0,40),ylim=c(0,500))
-mtext(text = 'frequency',2,line=3,cex=1.2)
-mtext(text = 'minimum time required',1,line=3,cex=1.2)
+#par(mfrow=c(1,1))
+#hist(pop_info$min_time_growth_rate,las=1,ylab='',xlab='',cex.axis=1.2,main='',breaks=20,xlim=c(0,40),ylim=c(0,500))
+#mtext(text = 'frequency',2,line=3,cex=1.2)
+#mtext(text = 'minimum time required',1,line=3,cex=1.2)
+
+ggplot(aes(min_time_growth_rate),data=pop_info) + geom_bar() +  
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text = element_text(size=12),axis.title.x =element_text(size=16) ,axis.title.y =element_text(size=16) ) +
+ labs(y='count',x='minimum time required')
 
 ```
 
 
 \clearpage 
+-->
 
-
-
+\pagebreak
 
 # Using Generalized additive model to identify significant trends
 
-In the main text, we examined the minimum time required to identify a trend in abundance via linear regression. This approach allowed us to identify increases or decreases, but a linear model may not always be a good fit. Generalized additive models (GAMs) are more general than general linear models and allow more flexibility [@Wood2006]. GAMs are models where a response variable depends on unknown smooth functions of explanatory variables. GAMs, therefore, can identify relationships between response variables and explanatory variables that are non-linear and perhaps more complicated. The downside of GAMs is they typically require more data and are also prone to overfitting. 
+In the main text, I examined the minimum time required to identify a trend in abundance via linear regression. This approach allowed us to identify increases or decreases, but a linear model may not always be a good fit. Generalized additive models (GAMs) are more general than general linear models and allow more flexibility [@Wood2006]. GAMs are models where a response variable depends on unknown smooth functions of explanatory variables. GAMs, therefore, can identify relationships between response variables and explanatory variables that are non-linear and perhaps more complicated. The downside of GAMs is they typically require more data and are also prone to overfitting. 
 
-Here, we conduct the same analyses in the main text, but instead calculate the minimum time series required to detect trends over time according to a GAM model. We hypothesized that GAMs should require less time to detect a trend as they are more flexible than linear regression. We provide an example that shows statistical power increases with more time sampled (Fig. \ref{fig:gam_example}).
+Here, I conduct the same analyses in the main text, but instead calculate the minimum time series required to detect trends over time according to a GAM model. I hypothesized that GAMs should require less time to detect a trend as they are more flexible than linear regression. I provide an example that shows statistical power increases with more time sampled (Fig. \ref{fig:gam_example}).
 
 
-```{r,echo=F,message=F,warning=F,fig.cap='(a) Time series for Bigeye tuna (\\emph{Thunnus obesus}) with corresponding fitted GAM model in red and (b) statistical power as a function of the number of years sampled. The horizontal ine at 0.8 indicates the minimum threshold for statistical power and the vertical line denotes the minimum time required to achieve 0.8 statistical power.\\label{fig:gam_example}'}
+```{r,echo=F,message=F,warning=F,fig.cap='(a) Time series for Bigeye tuna (\\emph{Thunnus obesus}) with corresponding fitted GAM model in red (with a smoothing parameter of 3) and (b) statistical power as a function of the number of years sampled. The horizontal ine at 0.8 indicates the minimum threshold for statistical power and the vertical line denotes the minimum time required to achieve 0.8 statistical power.\\label{fig:gam_example}'}
 # show gam example side-by-side plot
  
  load("../cleaned-data/cleaned_timeseries_database_with_min_time_linear_regression.Rdata")
  source('../scripts/calculate_power_metric_gam.R')
   par(mfrow=c(1,2),oma=c(4,4,0.5,0.5))
     pop = subset(long_dat,long_dat$ID=='7558') #13192 for Harp seals, 7558 for Thunnus obesus
+    pop$popvalue=(pop$popvalue - min(pop$popvalue))/(max(pop$popvalue) - min(pop$popvalue)) 
     plot(pop$year,pop$popvalue,cex.axis=1.2,cex.lab=1.2,ylab='',xlab='time (years)',pch=16,las=1)
     example_gam_model=gam(pop$popvalue ~ s(pop$year,k=3),family=gaussian)
     points(pop$year,example_gam_model$fitted.values,col='red',type='l',lwd=2)
@@ -513,10 +593,10 @@ main_text = pop_info
 #  for (j in 1:nrow(pop_info)){
 #     pop= subset(long_dat,long_dat$ID==pop_info$ID[j])
 #     pop$popvalue=as.numeric(pop$popvalue)
-#     pop$popvalue=pop$popvalue/max(pop$popvalue) #should I standaridize this in a better way
-#   
+#     pop$popvalue=(pop$popvalue - min(pop$popvalue))/(max(pop$popvalue) - min(pop$popvalue))
+# 
 #     pop$trend_p_value = calculate_p_value_gam(pop$popvalue)
-#  
+# 
 #     pop_info$min_time_for_power_gam[j] = min_time_needed(pop$popvalue,0.05,0.8)
 #     print(paste(j,':',pop_info$min_time_for_power[j],sep=' '))
 #  }
@@ -531,14 +611,18 @@ main_text = pop_info
 
 load('../analysis-outputs/min_time_required_GAM.Rdata')
 # Create plot
-par(mfrow=c(1,1))
-min_time_gam = pop_info$min_time_for_power_gam[pop_info$min_time_for_power_gam!=-999]
-plot(density(min_time_gam),las=1,ylab='',xlab='',cex.axis=1.2,main='',xlim=c(0,40))
-mtext(text = 'Frequency',2,line=3,cex=1.2)
-mtext(text = 'Minimum time required',1,line=3,cex=1.2)
+#par(mfrow=c(1,1))
+pop_info = subset(pop_info,pop_info$min_time_for_power_gam!=-999)
+#plot(density(min_time_gam),las=1,ylab='',xlab='',cex.axis=1.2,main='',xlim=c(0,40))
+#mtext(text = 'Frequency',2,line=3,cex=1.2)
+#mtext(text = 'Minimum time required',1,line=3,cex=1.2)
+require(ggplot2)
+ggplot(aes(min_time_for_power_gam),data=pop_info) + geom_bar() +  
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text = element_text(size=12),axis.title.x =element_text(size=16) ,axis.title.y =element_text(size=16) ) +
+ labs(y='count',x='minimum time required')
 ```
 
-We then fit GAM models for `r length(pop_info$min_time_for_power_gam[pop_info$min_time_for_power_gam!=-999])` populations. We found a similar distribution of minimum time required as in the main text for linear regression (Fig. \ref{fig:min_time_dist_gam}). However, in line with our hypothesis, the GAM models did result in a lower mean minimum time required of `r round(mean(pop_info$min_time_for_power_gam[pop_info$min_time_for_power_gam!=-999]),2)` years compared to the results from the main text of `r round(mean(main_text$min_time_for_power),2)` years.
+We then fit GAM models for `r nrow(pop_info)` populations. We found a similar distribution of minimum time required as in the main text for linear regression (Fig. \ref{fig:min_time_dist_gam}). However, in line with our hypothesis, the GAM models did result in a lower mean minimum time required of `r round(mean(pop_info$min_time_for_power_gam),2)` years compared to the results from the main text of `r round(mean(main_text$min_time_for_power),2)` years.
 
 <!--
 ## Minimum time to detect density-dependence in time series

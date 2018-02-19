@@ -93,12 +93,12 @@
 \begin{center}
  \textbf{Supplementary Material: Minimum time required to detect population trends: the need for long-term monitoring programs}
  
-Easton R. White$^{*}$
+Easton R. White
 \vspace{3 mm}
 
-Address: \\ \emph{Center for Population Biology, University of California-Davis, Davis, California 95616 USA}
+Center for Population Biology, University of California, Davis, California 95616 USA
 
-*Corresponding author: eawhite@ucdavis.edu
+eawhite@ucdavis.edu
 
  \end{center}
 
@@ -119,20 +119,19 @@ were run using R (R Core Team 2016).
 \section{Detailed example of subsampling and power
 calculations}\label{detailed-example-of-subsampling-and-power-calculations}
 
-Here, we illustrate how we performed the subsampling and power
-calculations for a specific population. We provide more detail here than
-in the main manuscript. As an example, we examine a 35-year time series
-of Bigeye tuna (\emph{Thunnus obesus}), one species in the Global
-Population Dynamics Database (NERC Centre for Population Biology 2010).
-Simple linear regression indicates a significant decrease for this
-population with an estimated slope coefficient of -0.0189581. We assume
-that this significant increase over 35 years is in fact the ``true
-trend``. In statistical jargon, the 35-year trend is an effect that is
-actually present; we can reject the null hypothesis of no trend. We can
-then use this as a benchmark to see if subsamples of the time series
-also indicate a significant increase.
+Here, I illustrate how we performed the subsampling and power
+calculations for a specific population. As an example, I examine a
+35-year time series of Bigeye tuna (\emph{Thunnus obesus}), one species
+in the Global Population Dynamics Database (NERC Centre for Population
+Biology 2010). Simple linear regression indicates a significant decrease
+for this population with an estimated slope coefficient of -0.0271717. I
+assume that this significant increase over 35 years is in fact the
+``true trend``. In statistical jargon, the 35-year trend is an effect
+that is actually present; we can reject the null hypothesis of no trend.
+We can then use this as a benchmark to see if subsamples of the time
+series also indicate a significant increase.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-2-1.pdf}
 \caption{(a) Population size of Bigeye tuna (\emph{Thunnus obesus}) over
@@ -141,9 +140,9 @@ Statistical power for different subsets of the time series in panel
 a.\label{fig:empirical_approach_example}}
 \end{figure}
 
-We then perform a subsampling routine to estimate the minimum time
+I then perform a subsampling routine to estimate the minimum time
 required \(T_{min}\) (similar to Gerber, DeMaster, and Kareiva (1999)).
-This is the same routine we used for the results in the main manuscript.
+This is the same routine I used for the results in the main manuscript.
 
 \begin{enumerate}
   \item We first extract all contiguous subsamples of the time series. This leads to 34 two-year subsamples, 33 two-year subsamples, and so forth until a single 35-year subsample.  
@@ -157,35 +156,39 @@ Therefore, a minimum of 22 years of continuous monitoring are required
 (for 0.8 statistical power at 0.05 significance level) to determine
 long-term changes in abundance.
 
+\pagebreak
+
 \section{Additional results from the main
 manuscript}\label{additional-results-from-the-main-manuscript}
 
-\subsection{Predictors of minimum time
-required}\label{predictors-of-minimum-time-required}
+\subsection{Correlates of minimum time
+required}\label{correlates-of-minimum-time-required}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{supp_mat_draft_files/figure-latex/poisson_model-1.pdf}
 \caption{Output of generalized linear model with a Poisson error
 structure for predicting the minimum time required with explanatory
 variables of the absolute value of the slope coefficient (or trend
-strength), temporal autocorrelation, and variability in population
-size.\label{fig:poisson_model}}
+strength), temporal autocorrelation, and coefficient of variation of
+population size.\label{fig:poisson_model}}
 \end{figure}
 
-In the main text, we explained how the minimum time required strongly
+In the main text, I explained how the minimum time required strongly
 correlated with the trend strength, temporal autocorrelation, and
-variance in population size. Here, we use a generalized linear model
-framework with a Poisson error structure to determine explanatory
-variables of the minimum time required. We use the same 878 populations
-as in the main text. In figure \ref{fig:poisson_model}, we show a set of
-residual plots for the regression. We then show the coefficient
-estimates and levels of significance in table \ref{table:model_output}.
+coefficient of variation in population size. Here, I use a generalized
+linear model framework with a Poisson error structure to determine
+explanatory variables of the minimum time required. I use the same 822
+populations as in the main text. In figure \ref{fig:poisson_model}, I
+show a set of residual plots for the regression analysis. I then show
+the coefficient estimates and levels of significance in table
+\ref{table:model_summary_time_series_correlates}.
 
 \begin{longtable}[]{@{}lrrrr@{}}
-\caption{Output of generalized linear model to examine predictors of the
-minimum time required for determing long-term population
-trends.\label{table:model_output}}\tabularnewline
+\caption{Output of generalized linear model to examine time series
+characteristics as correlates of the minimum time required for
+determining long-term population
+trends.\label{table:model_summary_time_series_correlates}}\tabularnewline
 \toprule
 & Estimate & Std. Error & z value &
 Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
@@ -196,58 +199,110 @@ Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
 Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
 \midrule
 \endhead
-(Intercept) & 3.7405513 & 0.0242742 & 154.09595 & 0\tabularnewline
-abs\_overall\_trend & -104.0533454 & 3.0941097 & -33.62949 &
-0\tabularnewline
-autocorrelation & -0.4899533 & 0.0431769 & -11.34757 & 0\tabularnewline
-variance & 18.7366110 & 0.6404458 & 29.25557 & 0\tabularnewline
+(Intercept) & 4.2658002 & 0.0369853 & 115.337838 &
+0.0000000\tabularnewline
+abs\_overall\_trend & -70.0413235 & 2.0027094 & -34.973283 &
+0.0000000\tabularnewline
+autocorrelation & 0.0601596 & 0.0550282 & 1.093249 &
+0.2742843\tabularnewline
+coefficient\_variation & -0.1928445 & 0.0387392 & -4.978022 &
+0.0000006\tabularnewline
 \bottomrule
 \end{longtable}
 
-Our model with trend strength, autocorrelation, variance, and generation
-length accounted for 72.45\% of the variation in the minimum time
-required (Table \ref{table:model_output}). However, we also found trend
-strength and variance to be strongly correlated with one another.
-Therefore, we ran two additional models with either trend strength or
-variance, but not both together. This resulted in lower explained
-deviance (analogue to \(R^2\)) of 53.03\% and 45.03\%, respectively.
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Output of generalized linear model to examine life-history
+trait correlates of the minimum time required for determining long-term
+population
+trends.\label{table:model_summary_biological_correlates}}\tabularnewline
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endhead
+(Intercept) & 2.8131074 & 0.1297488 & 21.681181 &
+0.0000000\tabularnewline
+litter\_or\_clutch\_size\_n & 0.0473894 & 0.0058279 & 8.131439 &
+0.0000000\tabularnewline
+gen\_len & 0.0640424 & 0.0087382 & 7.328999 & 0.0000000\tabularnewline
+adult\_body\_mass\_g & -0.0000809 & 0.0000177 & -4.563594 &
+0.0000050\tabularnewline
+maximum\_longevity\_y & -0.0074775 & 0.0019534 & -3.827907 &
+0.0001292\tabularnewline
+incubation\_d & -0.0127828 & 0.0031681 & -4.034864 &
+0.0000546\tabularnewline
+trophic2 & -0.2872678 & 0.1267799 & -2.265878 & 0.0234589\tabularnewline
+trophic2.5 & -0.3604948 & 0.1260791 & -2.859274 &
+0.0042461\tabularnewline
+trophic3 & -0.2936987 & 0.1274698 & -2.304064 & 0.0212190\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Output of generalized linear model to examine both time series
+characteristics and life-history trait correlates of the minimum time
+required for determining long-term population
+trends.\label{table:model_summary_all_correlates}}\tabularnewline
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Estimate & Std. Error & z value &
+Pr(\textgreater{}\textbar{}z\textbar{})\tabularnewline
+\midrule
+\endhead
+(Intercept) & 4.3236120 & 0.1361628 & 31.7532519 &
+0.0000000\tabularnewline
+abs(overall\_trend) & -70.8497548 & 2.8424505 & -24.9255898 &
+0.0000000\tabularnewline
+coefficient\_variation & -0.2089905 & 0.0531591 & -3.9314122 &
+0.0000844\tabularnewline
+autocorrelation & -0.0038698 & 0.0790400 & -0.0489597 &
+0.9609515\tabularnewline
+litter\_or\_clutch\_size\_n & 0.0008944 & 0.0058450 & 0.1530248 &
+0.8783787\tabularnewline
+gen\_len & 0.0087069 & 0.0088167 & 0.9875484 & 0.3233738\tabularnewline
+adult\_body\_mass\_g & -0.0000214 & 0.0000174 & -1.2311406 &
+0.2182703\tabularnewline
+maximum\_longevity\_y & -0.0023131 & 0.0019647 & -1.1773197 &
+0.2390679\tabularnewline
+incubation\_d & -0.0004509 & 0.0031244 & -0.1443118 &
+0.8852542\tabularnewline
+trophic2 & 0.0302480 & 0.1273238 & 0.2375677 & 0.8122164\tabularnewline
+trophic2.5 & -0.0101150 & 0.1263433 & -0.0800595 &
+0.9361899\tabularnewline
+trophic3 & -0.0049709 & 0.1276051 & -0.0389552 &
+0.9689261\tabularnewline
+\bottomrule
+\end{longtable}
+
+The model with trend strength, autocorrelation, and the coefficient of
+variation in population size 75.13\% of the variation in the minimum
+time required (Table \ref{table:model_summary_time_series_correlates}).
+
+For a subset of populations, I examined life-history correlates as
+potential explanatory variables for the minimum time required. Table
+\ref{table:model_summary_biological_correlates} and
+\ref{table:model_summary_all_correlates} summarize results for a model
+with only life-history traits and an additional model with life-history
+traits and time series characteristics combined, respectively. The model
+with all life-history traits explained only 5.99\% of the variation in
+the minimum time required (Table
+\ref{table:model_summary_biological_correlates}). The model with all
+life-history traits and time series characteristics explained 77.26\% of
+the variation in the minimum time required (Table
+\ref{table:model_summary_all_correlates}). When accounting for
+characteristics of the time series, no life-history variables were
+significant.
 
 \pagebreak 
-
-\subsection{Minimum time required and biological
-correlates}\label{minimum-time-required-and-biological-correlates}
-
-In the main manuscript, we examined the minimum time required to detect
-a significant trend in abundance over time using linear regression. As
-detailed in the main manuscript the minimum time required was around 15,
-but there was a wide distribution. Therefore, we were interested in
-potential explanatory variables of the minimum time required. In the
-main manuscript, we examined characteristics of the time series itself,
-like variability, autocorrelation, and the trend in abundance over time.
-Here, we combined our time series data with a data on life history
-characteristics of amniotes from Myhrvold et al. (2015). There was life
-history information available for 547 populations representing 315
-different species, all of which were birds (Aves class).
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-5-1.pdf}
-\caption{Mimimum time required versus (a) generation length (years), (b)
-litter size (n), (c) adult body mass (grams), (d) maximum longevity
-(years), (e) egg mass (grams), and (f) incubation (days). The lines in
-each plot represent the best fit line from linear
-regression.\label{fig:biological_correlates}}
-\end{figure}
-
-We then correlated minimum time required for each population with its
-corresponding life history characteristics. In figure
-\ref{fig:biological_correlates} we examined minimum time required versus
-generation length (years), litter size (n), adult body mass (grams),
-maximum longevity (years), egg mass (grams), and incubation (days). None
-of these variables had much explanatory power in accounting for the
-variance in the minimum time required. We ran a generalized linear model
-(with a Poisson error structure) and found that these six variables only
-accounted for 6.87\% of the explained deviance in minimum time required.
 
 \pagebreak
 
@@ -260,16 +315,17 @@ class compared to other species (Fig. \ref{fig:class}a). These
 differences between biological classes can be explained by differences
 in population variability, with species in the Actinopterygii class
 experiencing larger inter-annual variability in population size (Fig.
-\ref{fig:class}c).
+\ref{fig:class}c). In addition, populations in the Actinopterygii class
+generally had weaker trends in abundance (i.e.~smaller slope
+coefficients) compared to the Aves and Mammalia populations.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-6-1.pdf}
-\caption{(a) Minimum time required to estimate change in abundance for
-species class, (b) long-term trend (estimated slope coefficient) by
-species class, (c) interannual variability in population size by species
-class, and (d) temporal autocorrelation by species
-class.\label{fig:class}}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-8-1.pdf}
+\caption{(a) Minimum time required to estimate change in abundance by
+biological class, (b) long-term trend (estimated slope coefficient) by
+class, (c) coefficient of variation in population size by class, and (d)
+temporal autocorrelation by class.\label{fig:class}}
 \end{figure}
 
 \pagebreak
@@ -288,28 +344,54 @@ time required increases with increases in statistical power or decreases
 with increases in the threshold for statistical significance (Fig
 \ref{fig:min_time_vs_alpha_beta}).
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-9-1.pdf}
 \caption{Minimum time required to assess long-term trends in abundance
 for values of statistical significance (\(\alpha\)) and power
 (\(1-\beta\)).\label{fig:min_time_vs_alpha_beta}}
 \end{figure}
 
+\subsection{Additional results for IUCN
+analysis}\label{additional-results-for-iucn-analysis}
+
+In the main text, I presented results detailing the difference between
+the minimum time required to achieve a high level of statistical power
+and the number of years suggested by IUCN based on generation length to
+assess a species as vulnerable. There were deviations between the two
+approaches. These deviations were mostly explained by the differences in
+inter-annual population variability (coefficient of variation) and
+generation time (Fig. \ref{fig:IUCN_correlates}).
+
+\begin{figure}
+\centering
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-10-1.pdf}
+\caption{The difference between minimum time estimates is the minimum
+time required to achieve 0.8 statistical power versus the minimum time
+required under IUCN criteria A2 to classify a species as vulnerable.
+Each point represents a single population, all of which saw declines of
+30\% or greater over a 10 year period. (a) Difference between minimum
+time estimates versus the coefficient of variation in population size.
+(b) Difference between minimum time estimates versus the generation
+length in years.\label{fig:IUCN_correlates}}
+\end{figure}
+
+\pagebreak
+
 \section{Minimum time calculations testing exponential
 growth}\label{minimum-time-calculations-testing-exponential-growth}
 
-In the main text, we evaluated the minimum time required to determine
+In the main text, I evaluated the minimum time required to determine
 long-term trends in abundance via linear regression. This process
-examined linear trends in abundance over time. Here we examine the
+examined linear trends in abundance over time. Here I examine the
 minimum time required to estimate long-term trends that are either
-exponential growth or decay. We use the same methods as described in the
+exponential growth or decay. I use the same methods as described in the
 previous sections, but we take the \(log\) of population density, or
 abundance.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-11-1.pdf}
 \caption{Distribution of the minimum time required in order to detect a
 significant trend (at the 0.05 level) in log(abundance) given power of
 0.8.\label{fig:min_time_dist_log_pop}}
@@ -328,88 +410,41 @@ calculations estimate the same number of parameters.
 \section{Simulations with more complicated population
 model}\label{simulations-with-more-complicated-population-model}
 
-In the main text, we showed how a simple population model could be
+In the main text, I showed how a simple population model could be
 simulated repeatedly to estimate the power obtained with time series of
 increasing length (Bolker 2008; Johnson et al. 2015). The model in the
 main text simulated linear population growth with only a slope
 coefficient, y-intercept, and noise parameter required. This model is
-purely phenomenological and does not include any species life history.
-Here, we use the same routine as the main text, but simulate from a more
-biologically-realistic population model. We use the model described in
-White, Nagy, and Gruber (2014). The model is a stochastic,
+purely phenomenological and does not include any species life-history
+information. Here, I use the same routine as the main text, but simulate
+from a more biologically-realistic population model. I use the model
+described in White, Nagy, and Gruber (2014). The model is a stochastic,
 age-structured population model that includes density-dependence for
 lemon sharks (\emph{Negaprion brevirostris}) in Bimini, Bahamas.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-12-1.pdf}
 \caption{Statistical power for different length of time series
 simulations for a lemon shark population in Bimini,
 Bahamas.\label{fig:shark_example}}
 \end{figure}
 
-Here, we parameterize the model for a situation where adult mortality
-rate is high enough to cause a population decline. In the same way we
-simulated models in the main text, we simulate this more
-biologically-realistic model for different lengths of time. For each
-length of time, we calculate the statistical power. Similar to results
-with the simpler model, statistical power generally increases with
-longer sampling time (Fig. \ref{fig:shark_example}). In this example,
-the minimum time required (\(T_{min}\)) t0 obtain at least 0.8
-statistical power, given a significance level of 0.05, is 27 years.
+Here, I parameterize the model for a situation where adult mortality
+rate is high enough to cause a population decline. As in the main text,
+I simulated this more biologically-realistic model for different lengths
+of time. For each length of time, I calculated the statistical power.
+Similar to results with the simpler model, statistical power generally
+increases with longer sampling time (Fig. \ref{fig:shark_example}). In
+this example, the minimum time required (\(T_{min}\)) to obtain at least
+0.8 statistical power, given a significance level of 0.05, is 27 years.
 
-\section{Minimum time required to estimate geometric growth
-rate}\label{minimum-time-required-to-estimate-geometric-growth-rate}
-
-Instead of detecting a trend over time with linear regression, we could
-also calculate the geometric growth rate of the population. In figure
-\ref{fig:growth_rate}, we show how to calculate growth rates for
-subsamples of a time series. First, we created subsamples of each
-possible length from the full 35 year time series, as we did in the main
-next. Next, we calculated the mean and standard deviation of growth
-rates for each possible time series length (Fig.
-\ref{fig:growth_rate}b). Lastly, we calculated the percent error
-\(\mbox{percent error} = 100 \times \left| \frac{\mbox{observed} - \mbox{theoretical}}{\mbox{theoretical}} \right|\)
-between the mean of each time series length (observed) and the overall
-population growth rate (theoretical). In Fig. \ref{fig:growth_rate}c),
-we show the percent error as a function of time series length. Here we
-define the minimum time required as the minimum number of years to
-achieve less than 20\% error.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-10-1.pdf}
-\caption{Example of calculating minimum time required for growth rate
-estimation. (a) European herring gull (\emph{Larus argentatus}) scaled
-density over time, (b) mean and standard deviation of growth rate for
-subsamples of entire time series, and (c) the percent error between mean
-estimated growth rate and the true long-term growth rate. The vertical
-bar denotes the minimum time required to estimate growth rate within
-20\% error.\label{fig:growth_rate}}
-\end{figure}
-
-We applied the same calculations to 1032 population time series. We then
-obtain a distribution of the minimum time required to measure the
-``true" long-term growth rate (Fig. \ref{fig:min_time_growth_dist}). We
-see a bimodal distribution with many populations required 30+ years to
-estimate the long-term growth rate. The large number of short years
-required is due to cases where the entire time series is consistently
-increasing or decreasing at the same rate.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-11-1.pdf}
-\caption{Histogram of the minimum time required in order to estimate the
-long-term growth rate within 20\%
-error.\label{fig:min_time_growth_dist}}
-\end{figure}
-
-\clearpage 
+\pagebreak
 
 \section{Using Generalized additive model to identify significant
 trends}\label{using-generalized-additive-model-to-identify-significant-trends}
 
-In the main text, we examined the minimum time required to identify a
+In the main text, I examined the minimum time required to identify a
 trend in abundance via linear regression. This approach allowed us to
 identify increases or decreases, but a linear model may not always be a
 good fit. Generalized additive models (GAMs) are more general than
@@ -420,39 +455,39 @@ between response variables and explanatory variables that are non-linear
 and perhaps more complicated. The downside of GAMs is they typically
 require more data and are also prone to overfitting.
 
-Here, we conduct the same analyses in the main text, but instead
+Here, I conduct the same analyses in the main text, but instead
 calculate the minimum time series required to detect trends over time
-according to a GAM model. We hypothesized that GAMs should require less
+according to a GAM model. I hypothesized that GAMs should require less
 time to detect a trend as they are more flexible than linear regression.
-We provide an example that shows statistical power increases with more
+I provide an example that shows statistical power increases with more
 time sampled (Fig. \ref{fig:gam_example}).
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-15-1.pdf}
 \caption{(a) Time series for Bigeye tuna (\emph{Thunnus obesus}) with
-corresponding fitted GAM model in red and (b) statistical power as a
-function of the number of years sampled. The horizontal ine at 0.8
-indicates the minimum threshold for statistical power and the vertical
-line denotes the minimum time required to achieve 0.8 statistical
-power.\label{fig:gam_example}}
+corresponding fitted GAM model in red (with a smoothing parameter of 3)
+and (b) statistical power as a function of the number of years sampled.
+The horizontal ine at 0.8 indicates the minimum threshold for
+statistical power and the vertical line denotes the minimum time
+required to achieve 0.8 statistical power.\label{fig:gam_example}}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{supp_mat_draft_files/figure-latex/unnamed-chunk-16-1.pdf}
 \caption{Distribution of the minimum time required in order to detect a
 significant trend (at the 0.05 level) in abundance according to a GAM
 model given statistical power of 0.8. The smoothing parameter was set to
 3 for each population.\label{fig:min_time_dist_gam}}
 \end{figure}
 
-We then fit GAM models for 851 populations. We found a similar
+We then fit GAM models for 799 populations. We found a similar
 distribution of minimum time required as in the main text for linear
 regression (Fig. \ref{fig:min_time_dist_gam}). However, in line with our
 hypothesis, the GAM models did result in a lower mean minimum time
-required of 14.65 years compared to the results from the main text of
-16.45 years.
+required of 14.12 years compared to the results from the main text of
+15.91 years.
 
 \clearpage
 
@@ -474,12 +509,6 @@ Johnson, Paul CD, Sarah JE Barry, Heather M Ferguson, and Pie Müller.
 2015. ``Power analysis for generalized linear mixed models in ecology
 and evolution.'' \emph{Methods in Ecology and Evolution} 6 (2): 133--42.
 doi:\href{https://doi.org/10.1111/2041-210X.12306}{10.1111/2041-210X.12306}.
-
-\hypertarget{ref-Myhrvold2015}{}
-Myhrvold, Nathan P., Elita Baldridge, Benjamin Chan, Dhileep Sivam,
-Daniel L. Freeman, and S.K. Morgan Ernest. 2015. ``An amniote
-life-history database to perform comparative analyses with birds,
-mammals, and reptiles.'' \emph{Ecology} 96 (11): 3109.
 
 \hypertarget{ref-GPDD2010}{}
 NERC Centre for Population Biology, Imperial College. 2010. ``The Global
