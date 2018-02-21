@@ -1,18 +1,23 @@
 ---
 bibliography: White_bib.bib
+csl: ecology-letters.csl
 fontsize: 12pt
 geometry: margin=1in
-header-includes: \usepackage{float} \usepackage{lineno} \usepackage{setspace}\doublespacing \usepackage[firstinits=true,style=authoryear-comp,natbib=true,doi=false,isbn=false,url=false,uniquename=false,uniquelist=false,sorting=none]{biblatex} 
+header-includes: 
+  \usepackage{float} 
+  \usepackage{lineno} 
+  \usepackage{setspace}\doublespacing 
+  \usepackage[round]{natbib} \bibpunct[; ]{(}{)}{,}{a}{}{,}
 output:
   pdf_document:
     fig_caption: yes
     keep_tex: yes
-    number_sections: yes
+    number_sections: no
   word_document: default
 editor_options: 
   chunk_output_type: console
 ---
-Running head: Power to detect population trends [33 of 40 characters]
+<!--Running head: Power to detect population trends-->
 
 Title: Minimum time required to detect population trends: the need for long-term monitoring programs
 \vspace{7 mm}
@@ -31,22 +36,22 @@ Address:\emph{
 $^2$Corresponding author: eawhite@ucdavis.edu , 1 480 203 7931
 \vspace{1 mm}
 
-To be submitted to: \emph{Ecology} as a Statistical Report
+To be submitted to: \emph{BioScience} as a Forum
 \vspace{1 mm}
 
-Number of pages: 20  
+Number of words: 4,400 (21 pages)  
 \vspace{1 mm}
 
 Number of figures: 4
 \vspace{1 mm}
 
-Number of references: 33
+Number of references: 34
 \vspace{1 mm}
 
 Supplementary material: 9 figures and 3 tables
 \vspace{2 mm}
 
-Data and code for all the figures and tables can be found at (https://github.com/erwhite1/time-series-project).
+All data and code is freely available at: (https://github.com/erwhite1/time-series-project).
 \vspace{2 mm}
 
 Available as a preprint at: https://peerj.com/preprints/3168/
@@ -73,21 +78,20 @@ Easton R. White$^{*}$
 
 
 \begin{abstract}
-Long-term time series are necessary to better understand population dynamics, assess species' conservation status, and make management decisions. However, population data are often expensive, requiring a lot of time and resources. When is a population time series long enough to address a question of interest? I determine the minimum time series length required to detect significant increases or decreases in population abundance. To address this question, I examine 822 populations of vertebrate species. I show that on average 15.9 years of continuous monitoring are required in order to achieve a high level of statistical power. However, there is a wide distribution around this average, casting doubt on simple rules of thumb. The minimum time required depends on trend strength, population variability, and temporal autocorrelation. However, there were no life-history traits (e.g. generation length) that were predictive of the minimum time required. These results point to the importance of sampling populations over long periods of time. I argue that statistical power needs to be considered in monitoring program design and evaluation. Short time series are likely under-powered and potentially misleading.
+Long-term time series are necessary to better understand population dynamics, assess species' conservation status, and make management decisions. However, population data are often expensive, requiring a lot of time and resources. What is the minimum population time series length required to detect significant trends in abundance? I first present an overview of the theory and past work that has tried to address this question. As a test of these approaches, I then examine 822 populations of vertebrate species. I show that on average 15.9 years of continuous monitoring are required in order to achieve a high level of statistical power. However, there is a wide distribution around this average, casting doubt on commonly used, simple rules of thumb. These results point to the importance of long-term monitoring. I argue that statistical power needs to be considered more often in monitoring programs. Short time series are likely under-powered and potentially misleading.
 \end{abstract}
 
-Keywords: ecological time series, experimental design, monitoring, power analysis, statistical power, sampling design
+Keywords: ecological time series, experimental design, population monitoring, statistical power, sampling design
 
 # Introduction
 
-Observational studies and population time series have become a cornerstone of modern ecological research and conservation biology [@Magurran2010; @Hughes2017]. Long-term data are necessary to both understand population dynamics and to assess species extinction risk. Some time series may now be considered "long-term" (e.g. continuous plankton recorder, @Giron-Nava2017), but most are still short. Time series are typically short due to short funding cycles and typical experimental time-frames [@Field2007;@Hughes2017]. 
+Observational studies and population time series have become a cornerstone of modern ecological research and conservation biology [@Peters2010; @Magurran2010; @Hughes2017]. Long-term data are necessary to both understand population dynamics and to assess species extinction risk. Some time series may now be considered "long-term" (e.g. continuous plankton recorder, @Giron-Nava2017), but most are still short. Time series are typically short due to short funding cycles and typical experimental time-frames [@Field2007;@Hughes2017]. 
 
 How long of a time series is actually necessary? This question has important implications for both research and management [@Nichols2006]. A short time series may lead to wrong conclusions given large natural year-to-year variability [@McCain2016]. Managers need to know when action is needed for a population. Therefore, managers must understand when a population trend over time is actually meaningful. For example, the International Union for Conservation of Nature (IUCN) Red List Categories and Criteria suggest, under Criterion A2, a species qualifies as vulnerable if it has experienced a 30% decline over 10 years, or three generations [@IUCN2012]. Sampling is typically expensive, therefore, we also do not want to sample for longer than is necessary. For example, @Gerber1999 investigated the minimum time series required to estimate population growth of the endangered, but recovering, eastern North Pacific gray whale (\emph{Eschrichtius robustus}). They used a long-term census to retroactively determine the minimum time series required to assess threat status. They found that only 11 years were needed, eight years before the delisting decision was made. This highlights the importance of estimating the minimum time series required as an earlier decision would have saved time and money [@Gerber1999]. Further, waiting too long to decide an action can imperil a species where management action could have been taken earlier [@Martin2012; @Martin2017].
 
-Past work has investigated questions related to the minimum time series required to estimate trends in population size over time [@Wagner2009; @Giron-Nava2017]. For example, @Rhodes2011 examined the optimal allocation of effort between spatial and temporal replicates. Using simple populations models, they found that the allocation of effort depends on environmental variation, spatial and temporal autocorrelation, and observer error. @Rueda-Cediel2015 also used a modeling approach, but parameterized a model specific for a threatened snail, \emph{Tasmaphena lamproides}. They found that for this short-lived organism, 15 years was adequate to assess long-term trends in abundance. However, these studies, and other past work, have typically focused either on theoretical aspects of monitoring design or focused on only a few species. 
+Past work has investigated questions related to the minimum time series required to estimate trends in population size over time [@Wagner2009; @Giron-Nava2017]. For example, @Rhodes2011 examined the optimal allocation of effort between spatial and temporal replicates. Using simple populations models, they found that the allocation of effort depends on environmental variation, spatial and temporal autocorrelation, and observer error. @Rueda-Cediel2015 also used a modeling approach, but parameterized a model specific for a threatened snail, \emph{Tasmaphena lamproides}. They found that for this short-lived organism, 15 years was adequate to assess long-term trends in abundance. However, these studies, and other past work, have typically been only on theoretical aspects of monitoring design or focused on a few species. 
 
-
-I estimate the minimum time series length required ($T_{min}$) to assess long-term changes in abundance via simple linear regression. Statistical power is not a new tool [@Cohen1992], but it is still under-appreciated in ecological research [@Legg2006]. Therefore, I only briefly describe the idea of statistical power for time series analyses using simulations. I then examine 822 population time series to estimate $T_{min}$. 
+Statistical power is not a new tool [@Gibbs1998; @Cohen1992], but it is still under-appreciated in ecological research [@Legg2006]. Therefore, I begin by reviewing key concepts of power analyses in relation to time series analysis. I then explain how simulation approaches have been used to estimate the minimum time required to estimate long-term population trends. Lastly, I take an empirical approach to estimate the minimum time required for 822 animal populations.
 
 
 <!--
@@ -101,24 +105,34 @@ In addition to using simulations, empirical time series can also be used. Multip
 
 -->
 
-# Methods
 
-## Statistical power in time series
 
-An important step in experimental design is to determine the number of samples required. For any particular experiment four quantities are intricately linked: significance level ($\alpha$), statistical power, effect size, and sample size [@Legg2006]. The exact relationship between these quantities depends on the specific statistical test. A type I error is a false positive, or incorrect rejection of a true null hypothesis. For example, if a time series was assessed as significantly increasing or decreasing---when there was no true significant trend---this would be a false positive. The false positive rate, or significance level ($\alpha$) is often set at 0.05 (although this is purely historical, @Mapstone1995). A type II error ($\beta$) is a failure to detect a true trend, or failure to reject a false null hypothesis. Formally, statistical power ($1-\beta$) is one minus the probability of a type II error ($\beta$). The effect size is a estimate of the strength of a particular phenomenon. Prior to an experiment, one could set appropriate levels of power, significance level, and the effect size to estimate the sample size required for the experiment. This approach, however, is not straight-forward for a time series, or more complicated scenarios [@Johnson2015], as data are clearly non-independent. 
+# Statistical power in time series analyses
 
-## Simulation approach
+An important step in experimental design is to determine the number of samples required. For any particular experiment four quantities are intricately linked: significance level ($\alpha$), statistical power, effect size, and sample size [@Legg2006]. The exact relationship between these quantities depends on the specific statistical test. A type I error is a false positive, or incorrect rejection of a true null hypothesis. For example, if a time series was assessed as significantly increasing or decreasing---when there was no true significant trend---this would be a false positive. The false positive rate, or significance level ($\alpha$) is often set at 0.05 (although this is purely historical, @Mapstone1995). A type II error ($\beta$) is a failure to detect a true trend, or failure to reject a false null hypothesis. Formally, statistical power ($1-\beta$) is one minus the probability of a type II error ($\beta$). The effect size is a estimate of the strength of a particular phenomenon. 
 
-One approach to determining the minimum time series length needed is through repetitive simulations of a population model [@Gerrodette1987]. This is the same approach one might use in sample size calculations for any experimental design too complicated for simple power analyses [@Bolker2008;@Johnson2015]. Essentially, a population model, with a selected set of parameter values, is simulated repetitively for a number of years. As an example, we can take the following population model for population size $N$ at time $t$:
+Prior to an experiment, one could set appropriate levels of power, significance level, and the effect size to estimate the sample size required for the experiment. This approach, however, is not straight-forward for a time series, or more complicated scenarios [@Johnson2015], as data are clearly non-independent. 
+
+In the context of time series data, sample size can be the number of study sites surveyed, frequency of surveys per year, and the number of years surveyed. For example, @Gibbs1998 examined how many times within a year a population needs to be sampled to ensure high statistical power. They found that the sampling intensity within a year differed greatly depending on species, because of differences in population variability. I explore similar methods, but I focus on the number of years required to estimate trends in abundance.
+
+<!--For time series data, simulations can be designed for a specific population and question [@Bolker2008; @Johnson2015]. Simple models can be simulated with parameter values corresponding to a population of interest [@Gerrodette1987]. Statistical power is the proportion of simulations that then meet some set of criteria. The specific criteria depend on the question at hand. For example, given a time series, when is the slope from linear regression significantly different from zero? In other words, when is the time series significantly increasing or decreasing? It is then possible to determine how power changes with a variable of interest. For example, time series can be simulated for different lengths of time. From these simulations, the minimum time series length required to meet certain levels of statistical significance and power is estimated [@Bolker2008]. -->
+
+# Simulation approach
+
+One approach to determining the minimum time series length needed is through repetitive simulations of a population model [@Gerrodette1987;@Gibbs1998]. This is the same approach one might use in sample size calculations for any experimental design too complicated for simple power analyses [@Bolker2008;@Johnson2015]. Essentially, a population model, with a selected set of parameter values, is simulated repetitively for a number of years. As an example, we can take the following population model for population size $N$ at time $t$:
 \begin{equation}
 N(t + 1) = N(t) + r(t) + \epsilon \mbox{ with } \epsilon \sim N(\mu, \sigma)
 \label{sim_model}
 \end{equation}
-where $\epsilon$ is a normally-distributed random noise term with mean $\mu$ and standard deviation $\sigma$. The rate of growth ($r$) is the trend strength of the increase or decrease (i.e. the estimated slope from linear regression). It is important to note that any population model could be used here. As an example, in the supplementary material (Fig. \ref{fig:shark_example}), an age-structured model of population dynamics is used in place of equation \ref{sim_model} [@White2014]. 
+where $\epsilon$ is a normally-distributed random noise term with mean $\mu$ and standard deviation $\sigma$. The rate of growth ($r$) is the trend strength of the increase or decrease (i.e. the estimated slope from linear regression). 
 
-Statistical power is the proportion of simulations where the slope parameter from linear regression is significant at the 0.05 threshold. Statistical power of 0.8 would indicate that, if there was a true trend in abundance, there would be a 0.8 probability of detecting the trend. Values of 0.05 for the significance level and 0.8 statistical power are historical [@Cohen1992] and it is important to examine the effect of changing these values (Fig. \ref{fig:min_time_vs_alpha_beta}).
+With regard to detecting time series trends, statistical power is the proportion of simulations where the slope parameter from linear regression is significant at the 0.05 threshold. Statistical power of 0.8 would indicate that, if there was a true trend in abundance, there would be a 0.8 probability of detecting the trend. Values of 0.05 for the significance level and 0.8 statistical power are historical [@Cohen1992] and it is important to examine the effect of changing these values (Fig. \ref{fig:min_time_vs_alpha_beta}).
 
-In Fig. \ref{fig:theoretical_approach}a, the model in equation \ref{sim_model} is simulated repetitively. Statistical power increases with increases in the length of time sampled (Fig. \ref{fig:theoretical_approach}b). Where power is greater than 0.8 (the dotted line), that is the minimum time required ($T_{min}$) to be confident in the detection of a long-term trend in abundance. As shown previously [@Rhodes2011; @Rueda-Cediel2015], statistical power increases with larger trend strength and lower population variability (Fig. \ref{fig:theoretical_approach}c,d). Simulation approaches can be useful before designing a monitoring program or when a realistic model exists for the population in question. However, it is also informative to examine how statistical power changes with sampling effort in empirical time series.
+In Fig. \ref{fig:theoretical_approach}a, the model in equation \ref{sim_model} was simulated repetitively. Statistical power increases with increases in the length of time sampled (Fig. \ref{fig:theoretical_approach}b). Where power is greater than 0.8 (the dotted line), that is the minimum time required ($T_{min}$) to be confident in the detection of a long-term trend in abundance. As shown previously [@Rhodes2011; @Rueda-Cediel2015], statistical power increases with larger trend strength and lower population variability (Fig. \ref{fig:theoretical_approach}c,d). Simulation approaches can be useful before designing a monitoring program or when a realistic model exists for the population in question. However, it is also informative to examine how statistical power changes with sampling effort in empirical time series.
+
+It is important to note that any population model could be used here (see example in Fig. \ref{fig:min_time_dist_log_pop}). Ideally, the specific model choice should be tailored to the population of interest. As an example, I determined the minimum time required to estimate long-term population trends using a stochastic, age-structured model of lemon shark population dynamics in the Bahamas [@White2014]. I found that over 27 years of continuous monitoring were needed in this particular scenario (Fig. \ref{fig:shark_example}). Not surprisingly, the minimum time required for the lemon shark population was strongly dependent on model parameters.  Similarly, @Rueda-Cediel2015 used a matrix model parameterized for a particular snail species. They used the model to argue that only 10-15 years were needed to accurately assess trends in abundance.
+
+
 
 
 
@@ -144,8 +158,9 @@ In Fig. \ref{fig:theoretical_approach}a, the model in equation \ref{sim_model} i
 
 
 
-## Data source
-I use a database of `r length(table(dat$ID))` population time series compiled by @Keith2015. The data are originally from the Global Population Dynamics Database [@GPDD2010] and several other sources [@Keith2015]. I filtered out short time series (less than `r pop_info$series_length[1]` years), and those with missing data, leaving `r nrow(pop_info)` time series. The data includes information on `r length(table(pop_info$Binomial))` vertebrate species with a focus on mammals, birds, and fish. <!-- The data also includes information on generation length and survey specifications. For each time series, I also calculate other variables of interest: coefficient of variance in population size, long-term trend in abundance (slope coefficient from simple linear regression), and temporal autocorrelation.-->
+# Empirical approach
+
+As an empirical test of these ideas, I used a database of `r length(table(dat$ID))` population time series compiled by @Keith2015. The data are originally from the Global Population Dynamics Database [@GPDD2010] and several other sources [@Keith2015]. I filtered out short time series (less than `r pop_info$series_length[1]` years), and those with missing data, leaving `r nrow(pop_info)` time series. The data includes information on `r length(table(pop_info$Binomial))` vertebrate species with a focus on mammals, birds, and fish. <!-- The data also includes information on generation length and survey specifications. For each time series, I also calculate other variables of interest: coefficient of variance in population size, long-term trend in abundance (slope coefficient from simple linear regression), and temporal autocorrelation.-->
 
 
 
@@ -155,11 +170,7 @@ load('../cleaned-data/combined_databases_with_min_time_linear_regression.Rdata')
 ```
 <!--For a subset of populations ($n =$ `r nrow(LPI_pop_info)`), there is information on life-history traits available from another paper [@Myhrvold2015], including body size and generation length. All `r nrow(LPI_pop_info)` populations were birds. I examine how the minimum time required is related to these life-history traits (Fig. \ref{fig:correlates}d-h).-->
 
-
-
-## Empirical approach
-
-I assume that each time series is long enough to include all necessary information (e.g. variability) about the population. In other words, each time series is a representative sample. I first take all possible contiguous subsamples of each time series. For example, a time series of 35 years would have 34 possible contiguous subsamples of length 2, 34 possible contiguous subsamples of length 3, and continuing until 1 possible contiguous subsample of length 35 [@Gerber1999; @Brashares2005; @Giron-Nava2017]. In line with the simulation approach, I determine the proportion of subsamples of a particular length that have estimated slope coefficients statistically different from zero. This proportion is a measure of statistical power. Lastly, I determine which subsample length is required to achieve a certain threshold of statistical power (0.8, @Cohen1992). The minimum subsampled length that met these criteria is the minimum time series length required ($T_{min}$). All analyses were conducted in R [@RCoreTeam2016].    
+I assumed that each time series was long enough to include all necessary information (e.g. variability) about the population. In other words, each time series was a representative sample. I first took all possible contiguous subsamples of each time series. For example, a time series of 35 years had 34 possible contiguous subsamples of length 2, 34 possible contiguous subsamples of length 3, and continuing until 1 possible contiguous subsample of length 35 [@Gerber1999; @Brashares2005; @Giron-Nava2017]. In line with the simulation approach, I determined the proportion of subsamples of a particular length that had estimated slope coefficients statistically different from zero. This proportion is a measure of statistical power. Lastly, I determined which subsample length is required to achieve a certain threshold of statistical power (0.8, @Cohen1992). The minimum subsampled length that met these criteria was the minimum time series length required ($T_{min}$). All analyses were conducted in R [@RCoreTeam2017].    
 
 
 <!--
@@ -174,11 +185,7 @@ I also examine how minimum time series calculations changed depending on the que
 
 
 
-
-
-
-
-# Results
+<!--RESULTS-->
 
 <!--
 I determined the minimum time series length ($T_{min}$) required to determine, via linear regression, long-term population trends. Here, the minimum time series length required had high enough statistical power (greater than 0.8) for a set significance level ($\alpha$) of 0.05. It is also possible to alter statistical power and $\alpha$. Predictably, with increased statistical power or decreased $\alpha$, $T_{min}$ increased (Fig. \ref{fig:min_time_vs_alpha_beta}). I then estimated $T_{min}$ for each population time series.
@@ -207,8 +214,11 @@ R2 <- 100*(time_series_correlates_poisson_model$null.deviance - time_series_corr
 
 ```
 
+## Estimates of the minimum time required
 
-I examined a database of `r nrow(pop_info)` separate population time series representing `r length(table(pop_info$Binomial))` species. This database consisted of vertebrate species with a variety of life-history characteristics. Across all the populations, I found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` (SD=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}b). Estimates of $T_{min}$ varied between biological class (Fig. \ref{fig:min_time_dist}a). Ray-finned fish (class Actinopterygii) typically had estimates of $T_{min}$ over 20 years. Birds (class Aves) had a much wider distribution of $T_{min}$, but usually required less years of sampling. Differences between these classes can be explained by differences in variability in population size and strength of trends in abundance (Fig. \ref{fig:class}). 
+<!--I examined a database of `r nrow(pop_info)` separate population time series representing `r length(table(pop_info$Binomial))` species. This database consisted of vertebrate species with a variety of life-history characteristics.--> Across all the populations, I found an average minimum time series length required ($T_{min}$) of `r round(mean(pop_info$min_time_for_power),1)` (SD=`r round((var(pop_info$min_time_for_power))^0.5,1)`), with a wide distribution (Fig. \ref{fig:min_time_dist}b). Estimates of $T_{min}$ varied between biological class (Fig. \ref{fig:min_time_dist}a). Ray-finned fish (class Actinopterygii) typically had estimates of $T_{min}$ over 20 years. Birds (class Aves) had a much wider distribution of $T_{min}$, but usually required less years of sampling. Differences between these classes can be explained by differences in variability in population size and strength of trends in abundance (Fig. \ref{fig:class}). 
+
+This time-frame is in line with past work on a short-lived snail species [@Rueda-Cediel2015] and a long-lived whale species [@Gerber1999]. @Hatch2003 used seabird monitoring data to estimate minimum sampling requirements. He found that the time required ranged from 11 to 69 years depending on species, trend strength, and study design. 
 
 ## Corrrelates for minimum time required
 
@@ -230,6 +240,7 @@ R2_all_correlates_poisson_model <- 100*(all_correlates_poisson_model$null.devian
 
 There was life-history information available [@Myhrvold2015] for `r nrow(LPI_pop_info)` populations representing `r length(table(LPI_pop_info$Binomial))` different species, all of which were birds (Aves class). Some life-history traits were significant predictors for the minimum time required (Figs. \ref{fig:correlates}d-h, Tables A2,A3). However, even combined, all five of the life-history traits accounted for only `r round(R2_biological_correlates_poisson_model,3)`% of the explained deviance in minimum time series length required. In addition, when accounting for trend strength, coefficient of variation, and autocorrelation, no life-history traits were significant predictors of the minimum time required (Table A3). 
 
+I initially hypothesized that species with longer lifespans or generation times may require a longer sampling period. This result could have been a result of at least two factors. First, the data I used may not include a diverse enough set of species with different life-history traits. Second, the question I posed, whether a population is increasing or decreasing, was specifically concerned with population trends over time. Therefore, life-history characteristics may be more important for other questions more closely tied to species biology. For example, @Blanchard2007 used detailed simulations of spatially-distributed fisheries to compare survey designs. They found that statistical power depended on survey design, temperature preferences, and the degree of population patchiness.
 
 
 
@@ -246,6 +257,9 @@ declining_populations = subset(pop_info,pop_info$percent_change_10years>30 & pop
 
 I examined a subset of populations with observed declines of 30% or greater over 10 years, qualifying all of them as vulnerable under IUCN Criterion A2 [@IUCN2012]. This resulted in n = `r nrow(declining_populations)` populations. I then compared the minimum time required to achieve 0.8 statistical power ($T_{min}$) to the minimum time required under the IUCN criteria (Fig. \ref{fig:IUCN_analysis}). For populations below the identity line in figure \ref{fig:IUCN_analysis}, IUCN criteria would require more sampling compared to estimates for $T_{min}$. Further, populations above the identity line are cases where the IUCN criteria would classify a population as vulnerable despite not having sampled enough years to achieve high statistical power (Fig. \ref{fig:IUCN_analysis}). The silhouettes on figure \ref{fig:IUCN_analysis} highlight that species with long generation times had larger discrepancies between $T_{min}$ and the minimum time required for IUCN assessments (Fig. \ref{fig:IUCN_correlates}).
 
+For the populations I examined, the IUCN criteria may be overly simplistic (Fig. \ref{fig:IUCN_analysis}). For many populations, the IUCN criteria suggest more years than necessary are required to assess a population as vulnerable. Conversely, for other populations the IUCN criteria suggest sampling times that are less than the minimum time required for statistical power. This suggests that the IUCN criteria are probably too simplistic as the minimum time required does not correlate with generation time or other biological covariates (Fig. \ref{fig:correlates}d-h). 
+
+
 <!--
 ### Sensitivity analysis
 Lastly, I tested model sensitivity by using generalized additive models (GAMs) instead of simple linear regression. Again, I examined the minimum time required to estimate long-term population trends (Fig. \ref{fig:gam_example}). I found that although I obtain a similar distribution of minimum times required for GAMs, the minimum time required for GAMs is on average shorter than for linear regression (Fig. \ref{fig:min_time_dist_gam}).
@@ -257,27 +271,32 @@ Lastly, I tested model sensitivity by using generalized additive models (GAMs) i
 
 
 
-# Discussion
+# Related questions
 
 <!--I examined the minimum time series length required to address a particular question of interest: what is the minimum time series length required to determine long-term population trends using linear regression? This is one of the simplest questions one could ask of a time series. The simulation-based approach has been suggested by others, especially in situations more complicated than that suited for classic power analysis [@Gerrodette1987;@Johnson2015;@Bolker2008]. My simulations support past work that longer time series are needed when the trend strength (i.e. rate of increase or decrease) is weak or when population variability is high [@Gerrodette1987]. I also showed how the simulation model can be altered for a particular population (Fig. \ref{fig:shark_example}) or question (Figs. \ref{fig:min_time_dist_log_pop},\ref{fig:gam_example}).-->
 
+<!--
 I examined `r nrow(pop_info)` population time series. I then subsampled each to determine the minimum time required to achieve a desired significance level and power for linear regression. Statistical power is important as it provides information on the necessary number of samples required to determine a significant trend [@Legg2006]. I found that on average `r round(mean(pop_info$min_time_for_power),2)` years of continuous monitoring were typically necessary (Fig. \ref{fig:min_time_dist}b). However, the distribution of minimum time required was wide. Therefore, simplistic rules of thumb are probably not appropriate. This time-frame is in line with past work on a short-lived snail species [@Rueda-Cediel2015] and a long-lived whale species [@Gerber1999]. @Hatch2003 used seabird monitoring data to estimate minimum sampling requirements. He found that the time required ranged from 11 to 69 years depending on species, trend strength, and study design. 
 
 
 In line with theoretical predictions [@Rhodes2011], I also found $T_{min}$ was strongly correlated with the trend strength, variability in population size, and temporal autocorrelation (Fig. \ref{fig:correlates}). Contrary to my prior expectations, I also found that $T_{min}$ did not correlate with any life-history traits (Fig. \ref{fig:correlates}d-h). I initially hypothesized that species with longer lifespans or generation times may require a longer sampling period. This result could have been a result of at least two factors. First, the data I used may not include a diverse enough set of species with different life-history traits. Second, the question I posed, whether a population is increasing or decreasing, was specifically concerned with population trends over time. Therefore, life-history characteristics may be more important for other questions more closely tied to species biology. For example, @Blanchard2007 used detailed simulations of spatially-distributed fisheries to compare survey designs. They found that statistical power depended on survey design, temperature preferences, and the degree of population patchiness.
 
+-->
+
 <!-- Similarly, @Bart2004 recommended a standard of 80% power to detect a 50% decline over 20 years in landbird populations. They found that only about 42% of populations in the Breeding Bird Survey met their criteria. @Seavy2007 asked whether statistical power was even a useful framework for assessing long-term population trends. They used 24 years of census data on Red-tailed Tropicbirds (\emph{Phaethon rubricauda}) in Hawaii and showed that to detect a 50% decline over 10 years almost always resulting in high statistical power (above 0.8). Therefore, they cautioned against only using power analyses to design monitoring schemes and instead argued for metrics that would increase precision. For example, @Seavy2007 suggest improving randomization, reducing bias, and increases detection probability when designing and evaluating monitoring programs.-->
 
 
-An important related idea is the optimal allocation of sampling effort in space versus time. In a theoretical investigation of this question, @Rhodes2011 found that the optimal allocation of sampling depended strongly on temporal and spatial autocorrelation. If spatial population dynamics were highly correlated, then it was better to sample more temporally, and vice versa. My work supports this idea as populations with strong temporal autocorrelation needed less years of sampling (Fig. \ref{fig:correlates}). @Morrison2008 also studied the optimal allocation of sampling effort in space versus time, but used emprical data from a long-term survey of the collared pika (\emph{Ochotona collaris}) in the Yukon. They found that surveys less than 5 years may be misleading and that extrapolating from one population to another, even when nearby geographically, may be untenable.
+
+An important related idea is the optimal allocation of sampling effort in space versus time. In a theoretical investigation of this question, @Rhodes2011 found that the optimal allocation of sampling depended strongly on temporal and spatial autocorrelation. If spatial population dynamics were highly correlated, then it was better to sample more temporally, and vice versa. The empirical data supports this idea as populations with strong temporal autocorrelation needed less years of sampling (Fig. \ref{fig:correlates}). @Morrison2008 also studied the optimal allocation of sampling effort in space versus time, but used emprical data from a long-term survey of the collared pika (\emph{Ochotona collaris}) in the Yukon. They found that surveys less than 5 years may be misleading and that extrapolating from one population to another, even when nearby geographically, may be untenable.
 
 
 @Seavy2007 asked whether statistical power was even a useful framework for assessing long-term population trends. They used 24 years of census data on Red-tailed Tropicbirds (\emph{Phaethon rubricauda}) in Hawaii and showed that to detect a 50% decline over 10 years almost always resulted in high statistical power (above 0.8). Therefore, they cautioned against only using power analyses to design monitoring schemes and instead argued for metrics that would increase precision: improving randomization, reducing bias, and increasing detection probability. Power analyses should not be the only consideration when designing monitoring schemes. However, unlike @Seavy2007, the results here indicate that longer than 10 years is often needed to achieve high statistical power. 
 
+<!--
 As a test of the consequences of not conducting power analyses, I compared the results here to the IUCN Redlist criteria. IUCN criteria A2 suggests that species that have experienced 30% declines over 10 years (or three generations) should be listed as vulnerable [@IUCN2012]. However, for the populations I examined, this criteria may be too simplistic (Fig. \ref{fig:IUCN_analysis}). For many populations, the IUCN criteria suggest more years than necessary are required to assess a population as vulnerable (points below diagonal line in Fig. \ref{fig:IUCN_analysis}). Conversely, for other populations the IUCN criteria suggest sampling times that are less than the minimum time required for statistical power. This suggests that the IUCN criteria are probably too simplistic as the minimum time required does not correlate with generation time or other biological covariates (Fig. \ref{fig:correlates}d-h). 
+-->
 
 
-The design of monitoring programs should include calculations of statistical power, the allocation of sampling in space versus time [@Rhodes2011], and metrics to increase precision [@Seavy2007]. Ideally, a formal decision analysis to evaluate these different factors would be conducted to design or assess any monitoring program [@Hauser2006; @McDonald-Madden2010]. This type of formal decision analysis would also include information on the costs of monitoring. These costs include the actual costs of sampling [@Brashares2005] and the ecological costs on inaction [@Thompson2000].
 
 <!--
 @Rueda-Cediel2015 found that 10-15 years was adequate to characterize population trends in a short lived animal. They used a matrix model of a particular species...
@@ -288,15 +307,17 @@ The design of monitoring programs should include calculations of statistical pow
 
 
 
-## Limitations
+# Limitations
 
-This paper has some limitations in determining the minimum time series length required. First, $T_{min}$ is particular to the specific question of interest. An additional complication is that for the empirical approach, the subsampling of the full time series allows for estimates of power, but the individual subsamples are clearly not independent of one another. In an ideal setting, a specific population model would be parameterized for each population of interest. Then, model simulations could be used to estimate the minimum time series required to address each specific question of interest. Clearly, this is not always practical, especially if conducting analyses for a wide array of species. <!--In addition, the statistical models suggest that $T_{min}$ does not correlate with any life-history traits, at least for the question of linear regression (Fig. \ref{fig:correlates}d-h). Therefore, it is not possible to use these results to predict $T_{min}$ for another population, even if the population is of a species with a similar life-history to one in the database used.-->
+This paper has some limitations in determining the minimum time series length required. First, the minimum time estimated is particular to the specific question of interest. An additional complication is that for the empirical approach, the subsampling of the full time series allows for estimates of power, but the individual subsamples are clearly not independent of one another. In an ideal setting, a specific population model would be parameterized for each population of interest. Then, model simulations could be used to estimate the minimum time series required to address each specific question of interest. Clearly, this is not always practical, especially if conducting analyses for a wide array of species. <!--In addition, the statistical models suggest that $T_{min}$ does not correlate with any life-history traits, at least for the question of linear regression (Fig. \ref{fig:correlates}d-h). Therefore, it is not possible to use these results to predict $T_{min}$ for another population, even if the population is of a species with a similar life-history to one in the database used.-->
 
-## Conclusions
+# Conclusions
 
-Power analyses are not a novel aspect of ecological research [@Legg2006]. However, power analyses are still underutilized, especially in the context of time series analyses. I used a database of `r nrow(pop_info)` populations to determine the minimum time series length required to detect population trends. This goes beyond previous work that either focused on theoretical investigations or a limited number of species. I show that to identify long-term changes in abundance, on average `r round(mean(pop_info$min_time_for_power),2)` years of continuous monitoring are often required (Fig. \ref{fig:min_time_dist}). However, there is wide distribution of estimated minimum times. Therefore, it is probably not wise to use a simple threshold number of years in monitoring design. Further, contrary to my initial hypotheses, minimum time required did not correlate with generation time or any other life-history traits (Fig. \ref{fig:correlates}d-h). This result argues against overly simplified measures of minimum sampling time based on generation length or other life-history traits (Fig. \ref{fig:IUCN_analysis}).
+Power analyses are not a novel aspect of ecological research [@Legg2006]. However, power analyses are still underutilized, especially in the context of time series analyses. I used a database of `r nrow(pop_info)` populations to determine the minimum time series length required to detect population trends. This goes beyond previous work that either focused on theoretical investigations or a limited number of species. I show that to identify long-term changes in abundance, on average `r round(mean(pop_info$min_time_for_power),2)` years of continuous monitoring are often required (Fig. \ref{fig:min_time_dist}). However, there is wide distribution of estimated minimum times. Therefore, it is probably not wise to use a simple threshold number of years in monitoring design. Further, contrary to my initial hypotheses, minimum time required did not correlate with generation time or any other life-history traits (Fig. \ref{fig:correlates}d-h). This result argues against overly simplified measures of minimum sampling time based on generation length or other life-history traits, like those of the IUCN criteria (Fig. \ref{fig:IUCN_analysis}). 
 
-My work implies that for many populations, short time series are probably not reliable for detecting population trends. This result highlights the importance of long-term monitoring programs. From both a scientific and management perspective, estimates of $T_{min}$ are important. If a time series is too short, we lack the statistical power to reliably detect long-term population trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Further, more data is not always best in situations where management actions need to be taken [@Martin2012; @Martin2017]. When a population trend is detected, it may be too late for management action. In these situations, the precautionary principle may be more appropriate [@Thompson2000]. Future work should examine other species, with a wider range of life-history characteristics. In addition, similar approaches can be used to determine the minimum time series length required to address additional questions of interest. 
+The design of monitoring programs should include calculations of statistical power, the allocation of sampling in space versus time [@Larsen2001; @Rhodes2011], and metrics to increase precision [@Seavy2007]. Ideally, a formal decision analysis to evaluate these different factors would be conducted to design or assess any monitoring program [@Hauser2006; @McDonald-Madden2010]. This type of formal decision analysis would also include information on the costs of monitoring. These costs include the actual costs of sampling [@Brashares2005] and the ecological costs of inaction [@Thompson2000].
+
+For many populations, short time series are probably not reliable for detecting population trends. This result highlights the importance of long-term monitoring programs. From both a scientific and management perspective, estimates of $T_{min}$ are important. If a time series is too short, we lack the statistical power to reliably detect long-term population trends. In addition, a time series that is too long may be a poor use of already limited funds [@Gerber1999]. Further, more data is not always best in situations where management actions need to be taken [@Martin2012; @Martin2017]. When a population trend is detected, it may be too late for management action. In these situations, the precautionary principle may be more appropriate [@Thompson2000]. Future work should examine other species, with a wider range of life-history characteristics. In addition, similar approaches can be used to determine the minimum time series length required to address additional questions of interest. 
 
 
 <!--
@@ -357,15 +378,15 @@ source("../scripts/theoretical-models/simulate_pop.R")
   # Plotting commands
   par(mfrow=c(2,2),oma=c(1.5,2,0.5,0.5),mar=c(3,5,2.5,0.5))
     matplot(simulations,type='l',col=rgb(0.5,0.5,0.5,0.5),lty=1,ylab='',xlab='',las=1,cex.axis=1.2)
-      mtext(text = 'time' ,side = 1,cex = 1.2,line=3)
-      mtext(text = 'population size' ,side = 2,cex = 1.2,line=3.5)
+      mtext(text = 'Time' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'Population size' ,side = 2,cex = 1.2,line=3.5)
       mtext(text = '(a)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
   
     plot(years_to_sample,power,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2)
       abline(v=min_time_needed,lty=2,lwd=2,col='black')
       abline(h=0.8,lty=2,lwd=2,col='black')
-      mtext(text = 'time sampled' ,side = 1,cex = 1.2,line=3)
-      mtext(text = 'statistical power' ,side = 2,cex = 1.2,line=3)
+      mtext(text = 'Time sampled' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'Statistical power' ,side = 2,cex = 1.2,line=3)
       mtext(text = '(b)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
       
     #   
@@ -390,7 +411,7 @@ source("../scripts/theoretical-models/simulate_pop.R")
       load('../analysis-outputs/min_time_vs_trend_strength.Rdata')
       
       plot(parameter_combinations$r,parameter_combinations$min_time_required,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2,ylim=c(0,50))
-      mtext(text = 'trend strength (slope coefficient)' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'Trend strength (slope coefficient)' ,side = 1,cex = 1.2,line=3)
       mtext(text = expression(T[min]) ,side = 2,cex = 1.2,line=3)
       mtext(text = '(c)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
       
@@ -414,7 +435,7 @@ source("../scripts/theoretical-models/simulate_pop.R")
       #save(parameter_combinations,file='../analysis-outputs/min_time_vs_pop_var.Rdata')
       load('../analysis-outputs/min_time_vs_pop_var.Rdata')
       plot(parameter_combinations$sigma,parameter_combinations$min_time_required,type='l',lwd=2,las=1,ylab='',xlab='',cex.axis=1.2,ylim=c(0,50))
-      mtext(text = 'population variability' ,side = 1,cex = 1.2,line=3)
+      mtext(text = 'Population variability' ,side = 1,cex = 1.2,line=3)
       mtext(text = expression(T[min]) ,side = 2,cex = 1.2,line=3)
       mtext(text = '(d)',side = 3,line = -1.2,adj=0.05,font = 2,cex=1.2)
 ```
@@ -433,23 +454,23 @@ pop_info$shape = as.numeric(as.factor(pop_info$color)) + 14
 require(ggplot2)
 plot1<- ggplot(aes(class,min_time_for_power),data=pop_info) + geom_violin() + geom_jitter(col=pop_info$color,height = 0, width = 0.1,pch=pop_info$shape) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text = element_text(size=12),axis.title.x =element_text(size=16) ,axis.title.y =element_text(size=16) ) +
- labs(x='biological class',y='minimum time required') +
+ labs(x='Biological class',y='Minimum time required') +
   geom_text(aes(x=4.4,y=33),label='(a)',size=6) +
   scale_y_continuous(limits = c(0, 40))
 
 library(png)
 library(grid)
 
-fish <- annotation_custom(rasterGrob(readPNG("phylo-fish.png"), interpolate=TRUE), xmin=-2.5,ymin=35,ymax=40) 
-bird <- annotation_custom(rasterGrob(readPNG("phylo-bird.png"), interpolate=TRUE), xmin=-0.5, ymin=35) 
-shark <- annotation_custom(rasterGrob(readPNG("phylo-shark.png"), interpolate=TRUE), xmin=2.6,xmax=3.3, ymin=35) 
-mammal <- annotation_custom(rasterGrob(readPNG("phylo-mammal.png"), interpolate=TRUE), xmin=3.3, ymin=35) 
+fish <- annotation_custom(rasterGrob(readPNG("phylo_pics/phylo-fish.png"), interpolate=TRUE), xmin=-2.5,ymin=35,ymax=40) 
+bird <- annotation_custom(rasterGrob(readPNG("phylo_pics/phylo-bird.png"), interpolate=TRUE), xmin=-0.5, ymin=35) 
+shark <- annotation_custom(rasterGrob(readPNG("phylo_pics/phylo-shark.png"), interpolate=TRUE), xmin=2.6,xmax=3.3, ymin=35) 
+mammal <- annotation_custom(rasterGrob(readPNG("phylo_pics/phylo-mammal.png"), interpolate=TRUE), xmin=3.3, ymin=35) 
 plot1 <- plot1+ fish + bird + shark + mammal
 
 #counts <- table(pop_info$class,pop_info$min_time_for_power)
 plot2<- ggplot(aes(min_time_for_power),data=pop_info) + geom_bar() +  
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text = element_text(size=12),axis.title.x =element_text(size=16) ,axis.title.y =element_text(size=16) ) +
- labs(y='count',x='minimum time required')+
+ labs(y='Count',x='Minimum time required')+
   geom_text(aes(x=35,y=47),label='(b)',size=6)
 
 
@@ -563,13 +584,13 @@ pop_info$shape = as.numeric(as.factor(pop_info$color)) + 14
 
   par(mfcol=c(4,2),mar=c(3.5,2,2.5,1),oma=c(1,4.5,0,0.5))
   plot(abs(pop_info$overall_trend),pop_info$min_time_for_power,pch=pop_info$shape,col=pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.3,ylim=c(0,35))
-  mtext('| trend strength |',1,line=3,cex=1.2)
+  mtext('| Trend strength |',1,line=3,cex=1.2)
   mtext('A',3,line=0,adj = 0.0,cex=1.2)
     plot(pop_info$coefficient_variation,pop_info$min_time_for_power,pch=pop_info$shape,col=pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2, xlim = c(0.2,2.2),cex=1.3,ylim=c(0,35))
-    mtext('coefficient of variation',1,line=3,cex=1.2)
+    mtext('Coefficient of variation',1,line=3,cex=1.2)
     mtext('B',3,line=0,adj = 0.0,cex=1.2)
       plot(pop_info$autocorrelation,pop_info$min_time_for_power,pch=pop_info$shape,col=pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2, xlim = c(-0.5,1),cex=1.3,ylim=c(0,35))
-      mtext('autocorrelation',1,line=3,cex=1.2)
+      mtext('Autocorrelation',1,line=3,cex=1.2)
       mtext('C',3,line=0,adj = 0.0,cex=1.2)
  #      mtext('minimum time required',2,line=2.5,cex=1.2,outer = T)
        
@@ -591,27 +612,27 @@ LPI_pop_info$shape = 16
 
   plot(pop_info$gen_len,pop_info$min_time_for_power,pch=pop_info$shape,col=pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.2)
   abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info$gen_len),lwd=3)
-  mtext(text = 'generation length (years)',side = 1,line = 3,cex = 1.2)
+  mtext(text = 'Generation length (years)',side = 1,line = 3,cex = 1.2)
   mtext('D',3,line=0,adj = 0.0,cex=1.2)
 
   plot(LPI_pop_info$litter_or_clutch_size_n,LPI_pop_info$min_time_for_power,pch=LPI_pop_info$shape,col=LPI_pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.2)
   abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info$litter_or_clutch_size_n),lwd=3)
-  mtext(text = 'litter size (n)',side = 1,line = 3,cex = 1.2)
+  mtext(text = 'Litter size (n)',side = 1,line = 3,cex = 1.2)
   mtext('E',3,line=0,adj = 0.0,cex=1.2)
   
     plot(log(LPI_pop_info$adult_body_mass_g),LPI_pop_info$min_time_for_power,pch=LPI_pop_info$shape,col=LPI_pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.2)
   abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info$adult_body_mass_g),lwd=3)
-  mtext(text = 'log(adult mass (grams))',side = 1,line = 3,cex = 1.2)
+  mtext(text = 'log(adult mass) (grams)',side = 1,line = 3,cex = 1.2)
   mtext('F',3,line=0,adj = 0.0,cex=1.2)
   
   plot(LPI_pop_info$maximum_longevity_y,LPI_pop_info$min_time_for_power,pch=LPI_pop_info$shape,col=LPI_pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.2)
   abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info$maximum_longevity_y),lwd=3)
-  mtext(text = 'maximum longevity (years)',side = 1,line = 3,cex = 1.2)
+  mtext(text = 'Maximum longevity (years)',side = 1,line = 3,cex = 1.2)
   mtext('G',3,line=0,adj = 0.0,cex=1.2)
   
   plot(LPI_pop_info$incubation_d,LPI_pop_info$min_time_for_power,pch=LPI_pop_info$shape,col=LPI_pop_info$color,las=1,ylab='',xlab='',cex.axis=1.2,cex=1.2)
   abline(lm(LPI_pop_info$min_time_for_power~LPI_pop_info$incubation_d),lwd=3)
-  mtext(text = 'incubation (days)',side = 1,line = 3,cex = 1.2)
+  mtext(text = 'Incubation (days)',side = 1,line = 3,cex = 1.2)
   mtext('H',3,line=0,adj = 0.0,cex=1.2)
   
   
@@ -626,7 +647,7 @@ LPI_pop_info$shape = 16
 #legend('center',legend=names(table(pop_info$class)),col = 'grey',pch = as.numeric(names(table(as.numeric(as.factor(pop_info$class))+14))),bty ="n",cex=1.4)   
 
 
-mtext(text = 'minimum time required',side = 2,line = 2,cex = 1.4,outer = TRUE)
+mtext(text = 'Minimum time required',side = 2,line = 2,cex = 1.4,outer = TRUE)
 
 #######
 
@@ -655,18 +676,18 @@ par(mfrow=c(1,1),oma=c(0,0,0,0),mar=c(5,5,0.5,0.5))
 plot(declining_populations$IUCN, declining_populations$min_time_for_power,
        ylim=c(0,35),xlim=c(0,85),col=declining_populations$color,
        pch=declining_populations$shape,cex.lab=1.3,las=1,cex=1.5,
-       xlab = 'minimum time required under IUCN criteria',ylab='')
-mtext(text = 'minimum time required',side = 2,line = 3.8,outer = F,padj = 0.5,cex=1.3)
+       xlab = 'Minimum time required under IUCN criteria',ylab='')
+mtext(text = 'Minimum time required',side = 2,line = 3.8,outer = F,padj = 0.5,cex=1.3)
 mtext(text = 'for 0.8 statistical power',side = 2,line = 2.8,outer = F,padj = 0.5,cex=1.3)
 segments(0,0,100,100,lwd=2)
 
 #mtext(text = paste('n = ',nrow(declining_populations),sep=''),side = 3,line = -2,outer = F,at=80,cex=1.2)
 legend('bottomright',legend=c('Aves','Actinopterygii','Mammalia'),pch=as.numeric(names(table(declining_populations$shape))),col=c(names(table(declining_populations$color))),bty ="n",cex=1.2,pt.cex = 1.4)    
 
-whale <- readPNG('phylo-sperm-whale.png')
+whale <- readPNG('phylo_pics/phylo-sperm-whale.png')
 rasterImage(whale,xleft=70,ybottom=12,xright=82,ytop=17)
 
-puffin <- readPNG('phylo-puffin.png')
+puffin <- readPNG('phylo_pics/phylo-puffin.png')
 rasterImage(puffin,xleft=61,ybottom=30,xright=70,ytop=36)
 ```
 
